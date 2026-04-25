@@ -1237,7 +1237,7 @@ const CommentTool = ({
         {/* Right Preview Canvas */}
         <section className="flex-1 bg-canvas-bg grid-dots relative flex flex-col overflow-hidden">
           {/* Preview header bar */}
-          <div className="flex items-center justify-between px-5 py-2.5 border-b border-border bg-white/60 backdrop-blur-sm">
+          <div className="flex items-center justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
             <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wider">
               Preview
             </span>
@@ -1251,7 +1251,7 @@ const CommentTool = ({
               className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
                 data.previewTheme === "dark"
                   ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
-                  : "bg-white border-border text-foreground/50 hover:text-foreground"
+                  : "border-border text-foreground/50 hover:text-foreground"
               }`}
               title={
                 data.previewTheme === "light"

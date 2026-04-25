@@ -4,122 +4,191 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================
+🌌 ROOT THEME (DARK PREMIUM)
+========================= */
 @layer base {
-  :root {
-    --background: 220 20% 97%;
-    --foreground: 220 20% 10%;
+:root {
+/* Base */
+--background: 230 25% 6%;
+--foreground: 210 20% 96%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
+--card: 230 22% 10%;
+--card-foreground: 210 20% 96%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 220 20% 10%;
+--popover: 230 22% 10%;
+--popover-foreground: 210 20% 96%;
 
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
+/* 🔥 Primary (Purple Focus) */
+--primary: 270 90% 65%;
+--primary-foreground: 0 0% 100%;
 
-    --secondary: 220 15% 94%;
-    --secondary-foreground: 220 20% 10%;
+/* Secondary */
+--secondary: 230 18% 14%;
+--secondary-foreground: 210 20% 90%;
 
-    --muted: 220 15% 94%;
-    --muted-foreground: 220 10% 46%;
+--muted: 230 18% 14%;
+--muted-foreground: 215 15% 65%;
 
-    --accent: 220 15% 94%;
-    --accent-foreground: 220 20% 10%;
+--accent: 230 18% 14%;
+--accent-foreground: 210 20% 96%;
 
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 0 0% 100%;
+--destructive: 0 70% 55%;
+--destructive-foreground: 0 0% 100%;
 
-    --border: 220 15% 90%;
-    --input: 220 15% 90%;
-    --ring: 199 89% 48%;
+--border: 230 18% 18%;
+--input: 230 18% 18%;
+--ring: 270 90% 65%;
 
-    --radius: 0.75rem;
+--radius: 0.9rem;
 
-    --sidebar-bg: 240 6% 10%;
-    --sidebar-surface: 240 5% 16%;
-    --sidebar-border: 240 4% 22%;
-    --sidebar-text: 0 0% 100%;
-    --sidebar-text-muted: 240 5% 55%;
-    --sidebar-accent: 270 60% 55%;
+/* Sidebar */
+--sidebar-bg: 230 25% 8%;
+--sidebar-surface: 230 20% 12%;
+--sidebar-border: 230 15% 18%;
+--sidebar-text: 0 0% 100%;
+--sidebar-text-muted: 230 10% 60%;
+--sidebar-accent: 270 90% 65%;
 
-    --canvas-bg: 220 20% 97%;
-    --canvas-dot: 220 10% 85%;
+/* Canvas */
+--canvas-bg: 230 25% 6%;
+--canvas-dot: 230 10% 18%;
 
-    --glass-bg: 240 5% 16%;
-    --glass-border: 240 4% 24%;
-    --glass-highlight: 0 0% 100%;
-    --nav-height: 3.5rem;
+/* Glass */
+--glass-bg: 240 10% 12%;
+--glass-border: 240 8% 20%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(199, 89%, 48%), hsl(270, 60%, 55%));
-    --gradient-surface: linear-gradient(180deg, hsl(240, 5%, 18%), hsl(240, 6%, 12%));
+/* 🔥 Gradients */
+--gradient-primary: linear-gradient(135deg, #7c3aed, #6366f1, #3b82f6);
+--gradient-glow: radial-gradient(circle at 50% 0%, rgba(124, 58, 237, 0.35), transparent 70%);
 
-    --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.08);
-    --shadow-elevated: 0 4px 16px rgba(0, 0, 0, 0.12), 0 24px 48px rgba(0, 0, 0, 0.12);
-    --shadow-glow: 0 0 24px rgba(14, 165, 233, 0.15);
-  }
+/* Shadows */
+--shadow-card: 0 4px 20px rgba(0, 0, 0, 0.4);
+--shadow-elevated: 0 10px 40px rgba(0, 0, 0, 0.6);
+--shadow-glow: 0 0 40px rgba(124, 58, 237, 0.35);
+
+--nav-height: 3.5rem;
+
+}
 }
 
+/* =========================
+🌍 GLOBAL BASE
+========================= */
 @layer base {
-  * {
-    @apply border-border;
+
+* {
+  @apply border-border;
   }
 
-  body {
-    font-family: 'Inter', sans-serif;
-    -webkit-font-smoothing: antialiased;
-    @apply bg-background text-foreground;
-  }
+body {
+font-family: 'Inter', sans-serif;
+-webkit-font-smoothing: antialiased;
+@apply bg-background text-foreground;
+position: relative;
 }
 
+/* 🔥 Background Glow Effect */
+body::before {
+content: "";
+position: fixed;
+inset: 0;
+background: var(--gradient-glow);
+z-index: -1;
+pointer-events: none;
+}
+}
+
+/* =========================
+✨ UTILITIES (PREMIUM UI)
+========================= */
 @layer utilities {
-  .grid-dots {
-    background-image: radial-gradient(circle at 1px 1px, hsl(var(--canvas-dot)) 1px, transparent 0);
-    background-size: 24px 24px;
-  }
 
-  .glass-panel {
-    background: hsl(var(--glass-bg) / 0.85);
-    backdrop-filter: blur(16px);
-    border: 1px solid hsl(var(--glass-border));
-  }
+/* 🔲 Grid background */
+.grid-dots {
+background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px, transparent 0);
+background-size: 26px 26px;
+}
 
-  .glass-input {
-    background: hsl(var(--sidebar-surface));
-    border: 1px solid hsl(var(--sidebar-border));
-    color: hsl(var(--sidebar-text));
-  }
+/* 🧊 Glass panel */
+.glass-panel {
+background: rgba(20, 20, 35, 0.6);
+backdrop-filter: blur(20px);
+border: 1px solid rgba(255, 255, 255, 0.06);
+box-shadow: var(--shadow-card);
+}
 
-  .glass-input:focus {
-    outline: none;
-    border-color: hsl(var(--primary));
-    box-shadow: 0 0 0 2px hsl(var(--primary) / 0.2);
-  }
+/* 🧊 Glass input */
+.glass-input {
+background: hsl(var(--sidebar-surface));
+border: 1px solid hsl(var(--sidebar-border));
+color: hsl(var(--sidebar-text));
+}
 
-  .gradient-primary {
-    background: var(--gradient-primary);
-  }
+.glass-input:focus {
+outline: none;
+border-color: hsl(var(--primary));
+box-shadow: 0 0 0 2px hsl(var(--primary) / 0.25);
+}
 
-  .shadow-card {
-    box-shadow: var(--shadow-card);
-  }
+/* 💜 Gradient Button */
+.gradient-primary {
+background: var(--gradient-primary);
+box-shadow: 0 0 20px rgba(124, 58, 237, 0.4);
+}
 
-  .shadow-elevated {
-    box-shadow: var(--shadow-elevated);
-  }
+.gradient-primary:hover {
+filter: brightness(1.1);
+transform: translateY(-1px);
+box-shadow: 0 0 30px rgba(124, 58, 237, 0.6);
+}
 
-  .tabular-nums {
-    font-variant-numeric: tabular-nums;
-  }
+/* 🧠 Premium card */
+.card-premium {
+background: linear-gradient(
+180deg,
+rgba(255, 255, 255, 0.03),
+rgba(255, 255, 255, 0.01)
+);
+border: 1px solid rgba(255, 255, 255, 0.06);
+box-shadow: var(--shadow-card);
+backdrop-filter: blur(12px);
+}
 
-  .scrollbar-thin::-webkit-scrollbar {
-    width: 4px;
-  }
-  .scrollbar-thin::-webkit-scrollbar-track {
-    background: transparent;
-  }
-  .scrollbar-thin::-webkit-scrollbar-thumb {
-    background: hsl(var(--sidebar-border));
-    border-radius: 999px;
-  }
+/* 🌑 Shadows */
+.shadow-card {
+box-shadow: var(--shadow-card);
+}
+
+.shadow-elevated {
+box-shadow: var(--shadow-elevated);
+}
+
+/* 🔢 Numbers */
+.tabular-nums {
+font-variant-numeric: tabular-nums;
+}
+
+/* 🎯 Scrollbar */
+.scrollbar-thin::-webkit-scrollbar {
+width: 4px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-track {
+background: transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+background: hsl(var(--sidebar-border));
+border-radius: 999px;
+}
+
+/* ⚡ Interactions */
+button {
+transition: all 0.2s ease;
+}
+
+button:active {
+transform: scale(0.96);
+}
 }
