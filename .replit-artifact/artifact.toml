@@ -1,0 +1,16 @@
+kind = "web"
+previewPath = "/"
+title = "Comment Creator Studio"
+version = "1.0.0"
+id = "r_mWnwDwoC3aNpeJDbN7Rw"
+
+[[services]]
+localPort = 5000
+name = "Next.js Server"
+paths = ["/"]
+
+[services.env]
+PORT = "5000"
+
+[services.development]
+run = "pnpm --filter @workspace/comment-creator-nextjs run dev"
