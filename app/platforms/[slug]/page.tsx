@@ -1,35 +1,38 @@
-import { notFound } from 'next/navigation';
-import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
-import CommentTool from '@/components/CommentTool';
-import AdSlot from '@/components/AdSlot';
+import { notFound } from "next/navigation";
+import Navbar from "@/components/Navbar";
+import Footer from "@/components/Footer";
+import CommentTool from "@/components/CommentTool";
+import AdSlot from "@/components/AdSlot";
 
-const VALID = new Set(['tiktok', 'instagram', 'youtube', 'twitter']);
+const VALID = new Set(["tiktok", "instagram", "youtube", "twitter"]);
 
-const COPY: Record<string, { title: string; tagline: string; description: string }> = {
+const COPY: Record<
+  string,
+  { title: string; tagline: string; description: string }
+> = {
   tiktok: {
-    title: 'TikTok Comment Generator',
-    tagline: 'Video & reply comments',
+    title: "TikTok Comment Generator",
+    tagline: "Video & reply comments",
     description:
-      'Build pixel-perfect TikTok video and reply comment screenshots with verified badges, like counts and timestamps.',
+      "Build pixel-perfect TikTok video and reply comment screenshots with verified badges, like counts and timestamps.",
   },
   instagram: {
-    title: 'Instagram Comment Generator',
-    tagline: 'Post & Reels comments',
+    title: "Instagram Comment Generator",
+    tagline: "Post & Reels comments",
     description:
-      'Generate authentic Instagram post and Reels comments — username, avatar, time and like count, all customizable.',
+      "Generate authentic Instagram post and Reels comments — username, avatar, time and like count, all customizable.",
   },
   youtube: {
-    title: 'YouTube Comment Generator',
-    tagline: 'Video & Shorts comments',
+    title: "YouTube Comment Generator",
+    tagline: "Video & Shorts comments",
     description:
-      'Create YouTube video and Shorts comments with threaded replies, like / dislike counts and channel verification.',
+      "Create YouTube video and Shorts comments with threaded replies, like / dislike counts and channel verification.",
   },
   twitter: {
-    title: 'X (Twitter) Comment Generator',
-    tagline: 'Post replies',
+    title: "X (Twitter) Comment Generator",
+    tagline: "Post replies",
     description:
-      'Build authentic X (formerly Twitter) post replies with retweets, quotes, bookmarks and view metrics.',
+      "Build authentic X (formerly Twitter) post replies with retweets, quotes, bookmarks and view metrics.",
   },
 };
 
@@ -37,14 +40,62 @@ export function generateStaticParams() {
   return Array.from(VALID).map((slug) => ({ slug }));
 }
 
-export async function generateMetadata({ params }: { params: Promise<{ slug: string }> }) {
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   const c = COPY[slug];
-  if (!c) return { title: 'Not found' };
-  return { title: `${c.title} — CommentCraft`, description: c.description };
+
+  if (!c) {
+    return {
+      title: "Not found",
+      description: "This page does not exist.",
+    };
+  }
+
+  const baseUrl = "http://localhost:5000";
+  const url = `${baseUrl}/${slug}-comment-generator`;
+
+  return {
+    title: `${c.title} | Comment Tools`,
+    description: c.description,
+
+    alternates: {
+      canonical: url,
+    },
+
+    openGraph: {
+      title: c.title,
+      description: c.description,
+      url,
+      siteName: "Comment Tools",
+      type: "website",
+      images: [
+        {
+          url: `${baseUrl}/og-${slug}.png`, // dynamic per platform
+          width: 1200,
+          height: 630,
+          alt: c.title,
+        },
+      ],
+    },
+
+    twitter: {
+      card: "summary_large_image",
+      title: c.title,
+      description: c.description,
+      images: [`${baseUrl}/og-${slug}.png`],
+    },
+  };
 }
 
-export default async function PlatformPage({ params }: { params: Promise<{ slug: string }> }) {
+export default async function PlatformPage({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}) {
   const { slug } = await params;
   if (!VALID.has(slug)) notFound();
   const c = COPY[slug];
@@ -54,11 +105,15 @@ export default async function PlatformPage({ params }: { params: Promise<{ slug:
       <Navbar />
       <section className="border-b border-border bg-gradient-to-b from-primary/5 to-transparent">
         <div className="max-w-[1100px] mx-auto px-6 py-8">
-          <span className="text-xs font-semibold uppercase tracking-widest text-primary">{c.tagline}</span>
+          <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+            {c.tagline}
+          </span>
           <h1 className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground mt-2 mb-2">
             {c.title}
           </h1>
-          <p className="text-sm text-muted-foreground max-w-[640px]">{c.description}</p>
+          <p className="text-sm text-muted-foreground max-w-[640px]">
+            {c.description}
+          </p>
         </div>
       </section>
       <CommentTool initialPlatform={slug as any} />
