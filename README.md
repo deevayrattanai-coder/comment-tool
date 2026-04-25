@@ -31,16 +31,16 @@ npm start
 
 ## Routes
 
-| URL | File |
-| --- | --- |
-| `/` | `app/page.tsx` |
-| `/about` | `app/about/page.tsx` |
-| `/blog` | `app/blog/page.tsx` |
+| URL            | File                       |
+| -------------- | -------------------------- |
+| `/`            | `app/page.tsx`             |
+| `/about`       | `app/about/page.tsx`       |
+| `/blog`        | `app/blog/page.tsx`        |
 | `/blog/[slug]` | `app/blog/[slug]/page.tsx` |
-| `/contact` | `app/contact/page.tsx` |
-| `/pricing` | `app/pricing/page.tsx` |
-| `/login` | `app/login/page.tsx` |
-| 404 | `app/not-found.tsx` |
+| `/contact`     | `app/contact/page.tsx`     |
+| `/pricing`     | `app/pricing/page.tsx`     |
+| `/login`       | `app/login/page.tsx`       |
+| 404            | `app/not-found.tsx`        |
 
 ## What changed during conversion
 
@@ -84,3 +84,56 @@ npm start
 ├── tsconfig.json
 └── package.json
 ```
+
+Project architect
+comment-creator-nextjs/
+├── app/ ← Next.js App Router (every route is a folder)
+│ ├── layout.tsx ← global layout (fonts, providers)
+│ ├── providers.tsx ← React Query + AuthProvider
+│ ├── page.tsx ← "/" Home page
+│ ├── login/page.tsx ← "/login"
+│ ├── profile/page.tsx ← "/profile"
+│ ├── bulk/page.tsx ← "/bulk"
+│ ├── pricing/page.tsx
+│ ├── about/page.tsx
+│ ├── contact/page.tsx
+│ ├── blog/page.tsx + [slug]/page.tsx
+│ ├── privacy/page.tsx
+│ ├── terms/page.tsx
+│ ├── platforms/[slug]/page.tsx ← /platforms/tiktok|instagram|youtube|twitter
+│ └── api/ ← Backend lives here (Next.js API routes)
+│ ├── auth/
+│ │ ├── register/route.ts
+│ │ ├── login/route.ts
+│ │ ├── logout/route.ts
+│ │ ├── me/route.ts
+│ │ └── change-password/route.ts
+│ ├── exports/route.ts ← POST = log export, GET = history
+│ └── billing/upgrade/route.ts
+│
+├── components/ ← All React components
+│ ├── Navbar.tsx, Footer.tsx, SiteLayout.tsx
+│ ├── HomepageContent.tsx ← cards + ad slots on home
+│ ├── AdSlot.tsx
+│ ├── CommentTool.tsx ← THE main editor (single + bulk modes UI)
+│ ├── AuthProvider.tsx ← React context for current user
+│ ├── LoginRequiredDialog.tsx
+│ ├── UpgradeDialog.tsx
+│ ├── previews/ ← The actual mock previews (TikTok/IG/YT/X)
+│ └── ui/ ← shadcn/ui primitives (button, dialog, etc.)
+│
+├── lib/
+│ ├── db/
+│ │ ├── client.ts ← Postgres pool + Drizzle (this is your "pool" file)
+│ │ └── schema.ts ← users + exports tables + PLAN_LIMITS
+│ ├── auth.ts ← password hashing, JWT cookie sessions
+│ └── utils.ts ← cn() helper for Tailwind
+│
+├── hooks/ ← small client hooks (use-toast, use-mobile)
+├── data/blogPosts.ts ← static blog content
+├── types/comment.ts ← shared TypeScript types
+├── public/ ← static assets
+├── drizzle.config.ts ← Drizzle schema push config
+├── tailwind.config.ts, postcss.config.mjs
+├── next.config.mjs
+└── package.json
