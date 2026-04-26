@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+// @ts-ignore: CSS imports require module declarations in TypeScript config
 import "./globals.css";
 import Providers from "./providers";
 
