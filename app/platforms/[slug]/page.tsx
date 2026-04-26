@@ -11,28 +11,28 @@ const COPY: Record<
   { title: string; tagline: string; description: string }
 > = {
   tiktok: {
-    title: "TikTok Comment Generator",
+    title: "Best TikTok Comment Generator Tool Online | Comment Tools",
     tagline: "Video & reply comments",
     description:
-      "Build pixel-perfect TikTok video and reply comment screenshots with verified badges, like counts and timestamps.",
+      "Create engaging TikTok comments instantly. Boost interaction, save time, and generate creative replies that match your content style.",
   },
   instagram: {
-    title: "Instagram Comment Generator",
+    title: "Best Instagram Comment Generator Tool Online | Comment Tools",
     tagline: "Post & Reels comments",
     description:
-      "Generate authentic Instagram post and Reels comments — username, avatar, time and like count, all customizable.",
+      "Generate high-quality Instagram comments in seconds. Increase engagement, reply faster, and keep your audience active with smart comments.",
   },
   youtube: {
-    title: "YouTube Comment Generator",
+    title: "Best YouTube Comment Generator Tool Online | Comment Tools",
     tagline: "Video & Shorts comments",
     description:
-      "Create YouTube video and Shorts comments with threaded replies, like / dislike counts and channel verification.",
+      "Write better YouTube comments instantly. Improve engagement, save time, and generate meaningful responses for videos at scale.",
   },
   twitter: {
-    title: "X (Twitter) Comment Generator",
+    title: "Best X (Twitter) Comment Generator Tool Online | Comment Tools",
     tagline: "Post replies",
     description:
-      "Build authentic X (formerly Twitter) post replies with retweets, quotes, bookmarks and view metrics.",
+      "Generate smart replies for X (Twitter) posts in seconds. Stay active, boost engagement, and respond faster with AI-powered comments.",
   },
 };
 

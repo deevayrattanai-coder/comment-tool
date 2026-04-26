@@ -9,6 +9,48 @@ export default function Contact() {
 
   return (
     <SiteLayout>
+      {/* CONTACT HERO */}
+      <section className="max-w-[1100px] mx-auto px-6 pt-16 pb-12">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-purple-600/10 via-background to-primary/10 p-10 md:p-16 text-center">
+          {/* subtle glow */}
+          <div className="absolute -top-24 -left-24 w-72 h-72 bg-purple-500/20 blur-3xl rounded-full" />
+          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-primary/20 blur-3xl rounded-full" />
+
+          <div className="relative z-10 max-w-[700px] mx-auto">
+            {/* small label */}
+            <span className="text-xs font-semibold uppercase tracking-widest text-primary mb-4 inline-block">
+              Contact
+            </span>
+
+            {/* headline */}
+            <h1 className="text-3xl md:text-5xl font-extrabold text-foreground leading-tight mb-4">
+              Get in Touch with Our Team
+            </h1>
+
+            {/* subheadline */}
+            <p className="text-sm md:text-lg text-muted-foreground leading-relaxed max-w-[600px] mx-auto">
+              Whether you have a question, need support, or want to explore
+              partnerships — we’re here to help.
+            </p>
+
+            {/* trust line */}
+            <p className="text-xs text-muted-foreground mt-5">
+              Typically respond within 24 hours
+            </p>
+
+            {/* optional CTA (recommended) */}
+            <div className="mt-6">
+              <a
+                href="#contact-form"
+                className="inline-block px-6 py-3 rounded-xl bg-primary text-white font-semibold shadow-md hover:opacity-90 transition"
+              >
+                Send a Message →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <section className="max-w-[960px] mx-auto px-6 pt-20 pb-20">
         <div className="text-center mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">

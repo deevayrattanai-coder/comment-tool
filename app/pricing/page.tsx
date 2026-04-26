@@ -59,16 +59,24 @@ const plans = [
 
 const faqs = [
   {
-    q: "Can I cancel anytime?",
-    a: "Yes, Pro is month-to-month. Cancel from your account settings — no questions asked.",
+    q: "Can I use the free plan forever?",
+    a: "Yes, the free plan is available with limited features.",
+  },
+  {
+    q: "What happens if I upgrade?",
+    a: "You instantly unlock unlimited generation, higher quality exports, and additional features.",
+  },
+  {
+    q: "Can I cancel my subscription anytime?",
+    a: "Yes, you can cancel at any time without any restrictions.",
   },
   {
     q: "Do you offer refunds?",
-    a: "We offer a 14-day refund window on Pro for any reason.",
+    a: "Refunds are handled on a case-by-case basis.",
   },
   {
-    q: "Is there a student discount?",
-    a: "Yes — 50% off Pro with a valid .edu email. Contact us to request the discount code.",
+    q: "Is there a difference between monthly and annual plans?",
+    a: "Yes, the annual plan includes bulk generation, 4K exports, and cost savings.",
   },
 ];
 
@@ -82,6 +90,129 @@ export const metadata = createMetadata({
 export default function PricingPage() {
   return (
     <SiteLayout>
+      {/* PRICING HERO */}
+      <section className="max-w-[1100px] mx-auto px-6 pt-16 pb-12 text-center">
+        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-purple-600/10 via-background to-primary/10 p-10 md:p-16">
+          {/* background glow */}
+          <div className="absolute -top-24 -left-24 w-72 h-72 bg-purple-500/20 blur-3xl rounded-full" />
+          <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-primary/20 blur-3xl rounded-full" />
+
+          <div className="relative z-10 max-w-[720px] mx-auto">
+            {/* label */}
+            <span className="inline-block text-xs font-semibold uppercase tracking-widest text-primary mb-4">
+              Pricing
+            </span>
+
+            {/* headline */}
+            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight mb-4">
+              Simple, Transparent Pricing
+            </h1>
+
+            {/* subheadline */}
+            <p className="text-sm md:text-lg text-muted-foreground leading-relaxed max-w-[620px] mx-auto">
+              Start for free. Upgrade when you need more power, higher quality,
+              and scale.
+            </p>
+
+            {/* CTA (optional but powerful) */}
+            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
+              <a
+                href="#pricing-table"
+                className="px-6 py-3 rounded-xl bg-primary text-white font-semibold shadow-md hover:opacity-90 transition"
+              >
+                View Plans →
+              </a>
+
+              <a
+                href="/"
+                className="px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-accent transition"
+              >
+                Start for Free
+              </a>
+            </div>
+
+            {/* trust line */}
+            <p className="text-xs text-muted-foreground mt-5">
+              No hidden fees • Cancel anytime
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* VALUE JUSTIFICATION */}
+      <section className="max-w-[1040px] mx-auto px-6 py-16">
+        <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
+          Why Upgrade?
+        </h2>
+
+        <div className="grid md:grid-cols-2 gap-6">
+          {[
+            {
+              title: "Save Time",
+              desc: "Generate comments instantly instead of designing manually.",
+            },
+            {
+              title: "Improve Quality",
+              desc: "Create realistic, high-resolution visuals that look professional.",
+            },
+            {
+              title: "Scale Your Workflow",
+              desc: "Perfect for agencies and marketers handling multiple campaigns.",
+            },
+            {
+              title: "Increase Conversions",
+              desc: "Use social proof visuals in ads and content to improve performance.",
+            },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-xl border border-border bg-card p-6 hover:border-primary transition"
+            >
+              <h3 className="font-semibold text-foreground mb-2">
+                {item.title}
+              </h3>
+              <p className="text-sm text-muted-foreground">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* WHO IS THIS FOR */}
+      <section className="border-t border-border bg-card/40">
+        <div className="max-w-[1040px] mx-auto px-6 py-16">
+          <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
+            Choose the Plan That Fits Your Needs
+          </h2>
+
+          <div className="grid md:grid-cols-3 gap-5">
+            {[
+              {
+                title: "Free Plan",
+                desc: "For users exploring the tool and basic usage.",
+              },
+              {
+                title: "Monthly Plan",
+                desc: "For creators and marketers who need consistent output.",
+              },
+              {
+                title: "Annual Plan",
+                desc: "For agencies and teams managing high-volume workflows.",
+              },
+            ].map((item) => (
+              <div
+                key={item.title}
+                className="rounded-xl border border-border bg-background p-6 text-center hover:border-primary transition"
+              >
+                <h3 className="font-semibold text-foreground mb-2">
+                  {item.title}
+                </h3>
+                <p className="text-sm text-muted-foreground">{item.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
       <section className="max-w-[920px] mx-auto px-6 pt-20 pb-10 text-center">
         <span className="text-xs font-semibold uppercase tracking-widest text-primary">
           Pricing
@@ -93,8 +224,11 @@ export default function PricingPage() {
           Simple, transparent pricing
         </h1>
         <p className="text-base text-muted-foreground max-w-[480px] mx-auto leading-relaxed">
-          Start free with full single-mode functionality. Upgrade when you need
-          bulk generation and advanced features.
+          Start for free. Upgrade when you need more power, higher quality, and
+          scale.
+        </p>
+        <p className="tex-sm text-muted-foreground my-2">
+          No hidden fees. Cancel anytime.
         </p>
       </section>
 

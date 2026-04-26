@@ -1,5 +1,4 @@
 "use client";
-
 import { MessageSquare, User as UserIcon } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
@@ -25,12 +24,7 @@ const Navbar = () => {
   return (
     <nav className="h-14 px-6 md:px-8 flex items-center justify-between bg-card/95 backdrop-blur-sm border-b border-border sticky top-0 z-50">
       <Link href="/" className="flex items-center gap-2.5">
-        <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center shadow-sm">
-          <MessageSquare className="text-primary-foreground" size={17} />
-        </div>
-        <span className="font-bold text-foreground tracking-tight text-lg">
-          CommentCraft
-        </span>
+        <img src="/logo.jpeg" alt="logo" className="w-10 h-10 object-contain" />
       </Link>
       <div className="flex items-center gap-1">
         <div className="hidden md:flex items-center gap-0.5">

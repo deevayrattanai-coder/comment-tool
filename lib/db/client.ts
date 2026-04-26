@@ -17,6 +17,9 @@ const pool =
   global.__pgPool ??
   new Pool({
     connectionString: process.env.DATABASE_URL,
+     ssl: {
+      rejectUnauthorized: false, 
+    },
   });
 
 if (process.env.NODE_ENV !== 'production') {
