@@ -5,54 +5,49 @@ import { createMetadata } from "@/lib/seo";
 
 const plans = [
   {
-    name: "Free",
+    name: "Free Forever",
     price: "$0",
-    period: "forever",
-    description: "Everything you need to get started",
+    period: "/mo",
+    description: "Perfect for getting started.",
     features: [
-      "All 4 platforms (TikTok, Instagram, YouTube, X)",
-      "7 comment templates",
-      "Single comment generation",
-      "Light & dark mode previews",
-      "PNG export & clipboard copy",
-      "Custom avatars & verified badges",
-      "Smart randomizer profiles",
+      "5 TikTok, 1 Instagram, 1 YouTube, 1 X exports per day",
+      "All platforms (TikTok, IG, YouTube, X)",
+      "Basic customization",
+      "Standard resolution export",
     ],
-    cta: "Start Free",
+    cta: "Signup",
     highlighted: false,
   },
   {
-    name: "Pro",
-    price: "$9",
-    period: "/month",
-    description: "For power users and agencies",
+    name: "Annual",
+    price: "$20",
+    period: "/year",
+    description: "The complete toolkit for viral social proof.",
     features: [
       "Everything in Free",
-      "Bulk comment generation",
-      "Priority export quality (4x)",
-      "Custom brand watermarks",
-      "API access for automation",
-      "Priority support",
-      "Early access to new templates",
+      "Unlimited Comment Exports (No daily limits)",
+      "Bulk Comment Generator (Upload CSV, 50+ comments)",
+      "4K High-Res Export",
+      "Saved Comment Library",
+      "Priority Support",
     ],
-    cta: "Coming Soon",
+    cta: "Get Annual Access",
     highlighted: true,
   },
   {
-    name: "Enterprise",
-    price: "Custom",
-    period: "",
-    description: "Tailored for large teams",
+    name: "Monthly",
+    price: "$4",
+    period: "/mo",
+    description: "Full access, pay as you go.",
     features: [
-      "Everything in Pro",
-      "Unlimited API calls",
-      "White-label solution",
-      "Dedicated account manager",
-      "Custom template development",
-      "SLA guarantee",
-      "Team collaboration tools",
+      "Everything in Free",
+      "Unlimited Comment Exports (No daily limits)",
+      "Bulk Comment Generator (Upload CSV, 50+ comments)",
+      "4K High-Res Export",
+      "Saved Comment Library",
+      "Priority Support",
     ],
-    cta: "Contact Sales",
+    cta: "Unlock Full Access",
     highlighted: false,
   },
 ];
@@ -213,7 +208,10 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="max-w-[920px] mx-auto px-6 pt-20 pb-10 text-center">
+      <section
+        className="max-w-[920px] mx-auto px-6 pt-20 pb-10 text-center"
+        id="pricing-table"
+      >
         <span className="text-xs font-semibold uppercase tracking-widest text-primary">
           Pricing
         </span>
@@ -237,7 +235,7 @@ export default function PricingPage() {
           {plans.map((plan) => (
             <div
               key={plan.name}
-              className={`rounded-2xl border p-6 relative ${
+              className={`rounded-2xl border p-6 relative min-h-[447px] ${
                 plan.highlighted
                   ? "border-primary bg-card shadow-xl md:scale-[1.02]"
                   : "border-border bg-card"
@@ -248,8 +246,13 @@ export default function PricingPage() {
                   Most popular
                 </div>
               )}
-              <h3 className="font-bold text-foreground text-lg">{plan.name}</h3>
-              <div className="mt-2 mb-1">
+              <h3 className="font-bold text-foreground text-lg text-center">
+                {plan.name}
+              </h3>
+              <p className="text-xs  text-muted-foreground mb-6 text-center ">
+                {plan.description}
+              </p>
+              <div className="mt-2 mb-1 text-center">
                 <span className="text-4xl font-extrabold text-foreground tabular-nums">
                   {plan.price}
                 </span>
@@ -259,9 +262,31 @@ export default function PricingPage() {
                   </span>
                 )}
               </div>
-              <p className="text-sm text-muted-foreground mb-6">
-                {plan.description}
-              </p>
+
+              <div className="my-4">
+                {plan.name === "Free" ? (
+                  <Link
+                    href="/"
+                    className="block w-full text-center py-2.5 rounded-lg font-semibold text-sm border border-border text-foreground hover:bg-accent transition-all active:scale-[0.97]"
+                  >
+                    {plan.cta}
+                  </Link>
+                ) : plan.name === "Enterprise" ? (
+                  <Link
+                    href="/contact"
+                    className="block w-full text-center py-2.5 rounded-lg font-semibold text-sm border border-border text-foreground hover:bg-accent transition-all active:scale-[0.97]"
+                  >
+                    {plan.cta}
+                  </Link>
+                ) : (
+                  <button
+                    disabled
+                    className="w-full py-2.5 rounded-lg font-semibold text-sm gradient-primary text-primary-foreground shadow-md opacity-90 cursor-not-allowed"
+                  >
+                    {plan.cta}
+                  </button>
+                )}
+              </div>
               <ul className="space-y-2.5 mb-6">
                 {plan.features.map((f) => (
                   <li
@@ -276,30 +301,60 @@ export default function PricingPage() {
                   </li>
                 ))}
               </ul>
-              {plan.name === "Free" ? (
-                <Link
-                  href="/"
-                  className="block w-full text-center py-2.5 rounded-lg font-semibold text-sm border border-border text-foreground hover:bg-accent transition-all active:scale-[0.97]"
-                >
-                  {plan.cta}
-                </Link>
-              ) : plan.name === "Enterprise" ? (
-                <Link
-                  href="/contact"
-                  className="block w-full text-center py-2.5 rounded-lg font-semibold text-sm border border-border text-foreground hover:bg-accent transition-all active:scale-[0.97]"
-                >
-                  {plan.cta}
-                </Link>
-              ) : (
-                <button
-                  disabled
-                  className="w-full py-2.5 rounded-lg font-semibold text-sm gradient-primary text-primary-foreground shadow-md opacity-90 cursor-not-allowed"
-                >
-                  {plan.cta}
-                </button>
-              )}
             </div>
           ))}
+        </div>
+        <div className="flex flex-wrap items-center justify-center gap-6 my-8 md:gap-10">
+          <div className="flex items-center gap-2 text-gray-500">
+            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+              <svg
+                className="w-4 h-4 text-green-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <span className="text-xs font-medium text-gray-400">
+              Secure Payment
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-500">
+            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+              <svg
+                className="w-4 h-4 text-blue-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                  clipRule="evenodd"
+                ></path>
+              </svg>
+            </div>
+            <span className="text-xs font-medium text-gray-400">
+              Cancel Anytime
+            </span>
+          </div>
+          <div className="flex items-center gap-2 text-gray-500">
+            <div className="w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
+              <svg
+                className="w-4 h-4 text-amber-500"
+                fill="currentColor"
+                viewBox="0 0 20 20"
+              >
+                <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path>
+              </svg>
+            </div>
+            <span className="text-xs font-medium text-gray-400">
+              4.9/5 Rating
+            </span>
+          </div>
         </div>
       </section>
 

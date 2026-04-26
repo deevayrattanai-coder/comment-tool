@@ -1,9 +1,10 @@
 import Link from "next/link";
-import AdSlot from "./AdSlot";
+import Testimonials from "./Testimonials";
+import StatsCounter from "./StatsCounter";
 
 const platforms = [
   {
-    slug: "tiktok",
+    slug: "tiktok-comment-generator",
     name: " TikTok Comment Generator",
     description:
       "Create realistic TikTok comment screenshots with custom usernames, likes, and replies.",
@@ -16,7 +17,7 @@ const platforms = [
     cta: "Generate TikTok Comment",
   },
   {
-    slug: "instagram",
+    slug: "instagram-comment-generator",
     name: "Instagram Comment Generator",
     description:
       "Design authentic Instagram-style comments for reels, posts, and ad creatives.",
@@ -29,7 +30,7 @@ const platforms = [
     cta: "Generate Instagram Comment",
   },
   {
-    slug: "youtube",
+    slug: "youtube-comment-generator",
     name: " YouTube Comment Generator",
     description:
       "Create YouTube comment mockups for videos, thumbnails, and social proof.",
@@ -42,7 +43,7 @@ const platforms = [
     cta: "Generate YouTube Comment",
   },
   {
-    slug: "twitter",
+    slug: "twitter-comment-generator",
     name: "X (Twitter) Comment Generator",
     description:
       "Generate clean, realistic X (Twitter) comment threads for marketing and content.",
@@ -59,7 +60,7 @@ const platforms = [
 const HomepageContent = () => {
   return (
     <div className="bg-background border-t border-border">
-      <section className="max-w-[1100px] mx-auto px-6 pt-10 pb-6">
+      <section className="max-w-[1100px] mx-auto px-6 pt-10 pb-10">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-background to-primary/5 p-8 md:p-12 mb-6">
           {/* Animated gradient background blur */}
           <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/30 rounded-full blur-3xl animate-pulse" />
@@ -105,13 +106,15 @@ const HomepageContent = () => {
         </div>
       </section>
 
-      <section className="max-w-[1100px] mx-auto px-6 py-12" id="platforms">
+      <StatsCounter />
+
+      <section className="max-w-[1100px] mx-auto px-6 pb-10" id="platforms">
         <div className="text-center mb-10">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
             Choose Your Platform
           </span>
           <h2
-            className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground mt-2 mb-3"
+            className="text-3xl md:text-4xl font-extrabold tracking-tight text-foreground my-5"
             style={{ textWrap: "balance" }}
           >
             Generate pixel-perfect comment screenshots tailored for every major
@@ -126,7 +129,7 @@ const HomepageContent = () => {
           {platforms.map((p) => (
             <Link
               key={p.slug}
-              href={`/platforms/${p.slug}`}
+              href={`/tools/${p.slug}`}
               className="group rounded-2xl border border-border bg-card p-5 flex flex-col hover:shadow-lg hover:-translate-y-1 transition-all"
             >
               <div
@@ -157,7 +160,7 @@ const HomepageContent = () => {
       </section>
 
       {/* VALUE PROPOSITION */}
-      <section className="max-w-[1100px] mx-auto px-6 pb-6">
+      <section className="max-w-[1100px] mx-auto px-6 pb-10">
         <span className="text-xs font-semibold uppercase tracking-widest text-primary text-center block mb-3">
           WHY THIS TOOL EXISTS
         </span>
@@ -187,12 +190,12 @@ const HomepageContent = () => {
       </section>
 
       {/* FEATURES SECTION */}
-      <section className="max-w-[1100px] mx-auto px-6 py-14">
+      <section className="max-w-[1100px] mx-auto px-6 pb-10">
         <span className="text-xs font-semibold uppercase tracking-widest text-primary text-center block mb-3">
           Features
         </span>
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground my-5">
             Everything You Need to Create High-Quality Comment Screenshots
           </h2>
           <p className="text-sm md:text-base text-muted-foreground max-w-[600px] mx-auto">
@@ -255,12 +258,12 @@ const HomepageContent = () => {
       </section>
 
       {/* HOW IT WORKS */}
-      <section className="max-w-[1100px] mx-auto px-6 py-16">
+      <section className="max-w-[1100px] mx-auto px-6 pb-10">
         <span className="text-xs font-semibold uppercase tracking-widest text-primary text-center block mb-3">
           How It Works?
         </span>
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
             Create Professional Comment Screenshots in 4 Simple Steps
           </h2>
           <p className="text-sm md:text-base text-muted-foreground max-w-[600px] mx-auto">
@@ -310,18 +313,15 @@ const HomepageContent = () => {
               </p>
 
               {/* connector line (desktop only) */}
-              {i !== 3 && (
-                <div className="hidden md:block absolute top-1/2 right-[-12px] w-6 h-[2px] bg-border" />
-              )}
             </div>
           ))}
         </div>
       </section>
 
       {/* USE CASES */}
-      <section className="max-w-[1100px] mx-auto px-6 py-16">
+      <section className="max-w-[1100px] mx-auto px-6 pb-10">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
             Designed for High-Impact Use Cases
           </h2>
           <p className="text-sm md:text-base text-muted-foreground max-w-[620px] mx-auto">
@@ -378,9 +378,9 @@ const HomepageContent = () => {
       </section>
 
       {/* PROBLEM VS SOLUTION */}
-      <section className="max-w-[1100px] mx-auto px-6 py-16">
+      <section className="max-w-[1100px] mx-auto px-6 pb-10">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
             Why Not Just Screenshot Real Comments?
           </h2>
           <p className="text-sm md:text-base text-muted-foreground max-w-[620px] mx-auto">
@@ -445,9 +445,9 @@ const HomepageContent = () => {
       </section>
 
       {/* PRICING PREVIEW */}
-      <section className="max-w-[1100px] mx-auto px-6 py-16">
+      <section className="max-w-[1100px] mx-auto px-6 pb-10">
         <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
+          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
             Start Free. Upgrade When You Need More Power.
           </h2>
           <p className="text-sm md:text-base text-muted-foreground max-w-[600px] mx-auto">
@@ -535,63 +535,13 @@ const HomepageContent = () => {
       </section>
 
       {/* TESTIMONIALS */}
-      <section className="max-w-[1100px] mx-auto px-6 py-16">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
-            Trusted by Professionals Worldwide
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-[600px] mx-auto">
-            Used daily by marketers, creators, and agencies to create
-            high-converting content.
-          </p>
-        </div>
-
-        <div className="grid md:grid-cols-3 gap-6">
-          {[
-            {
-              quote:
-                "We use this tool for almost every ad creative. It saves hours and improves conversion rates.",
-              role: "Performance Marketing Agency",
-            },
-            {
-              quote:
-                "Finally, a tool that creates realistic comment screenshots without looking fake.",
-              role: "Content Creator",
-            },
-            {
-              quote: "This replaced our entire manual design workflow.",
-              role: "Creative Agency",
-            },
-          ].map((t, i) => (
-            <div
-              key={i}
-              className="relative rounded-2xl border border-border bg-card p-6 hover:border-primary transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              {/* glow */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 hover:opacity-100 transition bg-gradient-to-br from-purple-500/10 to-primary/10" />
-
-              <div className="relative z-10">
-                {/* quote */}
-                <p className="text-sm md:text-base text-foreground leading-relaxed mb-4">
-                  “{t.quote}”
-                </p>
-
-                {/* divider */}
-                <div className="h-px bg-border mb-3" />
-
-                {/* role */}
-                <p className="text-xs text-muted-foreground">— {t.role}</p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+      <Testimonials />
 
       {/* FAQ SECTION */}
-      <section className="border-t border-border bg-card/40">
+      <section className="border-t border-border bg-card/40 pb-10">
         <div className="max-w-[800px] mx-auto px-6 py-16">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-3">
+            <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
               Frequently Asked Questions
             </h2>
             <p className="text-sm md:text-base text-muted-foreground">
@@ -654,7 +604,7 @@ const HomepageContent = () => {
           <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-primary/30 blur-3xl rounded-full" />
 
           <div className="relative z-10 max-w-[700px] mx-auto">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-4">
+            <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
               Start Creating High-Converting Social Proof Today
             </h2>
 
@@ -677,59 +627,6 @@ const HomepageContent = () => {
           </div>
         </div>
       </section>
-
-      {/* <section className="max-w-[1100px] mx-auto px-6 pt-6 pb-16">
-        <div className="grid md:grid-cols-3 gap-5">
-          <Link
-            href="/bulk"
-            className="rounded-2xl border border-border bg-gradient-to-br from-primary/10 via-card to-card p-6 hover:shadow-md transition-all"
-          >
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
-              Power feature
-            </span>
-            <h3 className="font-bold text-foreground text-lg mt-1.5 mb-2">
-              Bulk Generator
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Upload a CSV or Excel file with hundreds of comments and download
-              every screenshot as a single ZIP.
-            </p>
-          </Link>
-          <Link
-            href="/pricing"
-            className="rounded-2xl border border-border bg-card p-6 hover:shadow-md transition-all"
-          >
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
-              Plans
-            </span>
-            <h3 className="font-bold text-foreground text-lg mt-1.5 mb-2">
-              Pricing
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              Free for occasional creators. Upgrade for unlimited exports and
-              bulk generation.
-            </p>
-          </Link>
-          <Link
-            href="/profile"
-            className="rounded-2xl border border-border bg-card p-6 hover:shadow-md transition-all"
-          >
-            <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
-              Account
-            </span>
-            <h3 className="font-bold text-foreground text-lg mt-1.5 mb-2">
-              Your profile
-            </h3>
-            <p className="text-sm text-muted-foreground leading-relaxed">
-              View your export history, manage your password, and check usage
-              against your plan limits.
-            </p>
-          </Link>
-        </div>
-      </section> */}
-
-      {/* adds banner */}
-      <section className="max-w-[1100px] mx-auto px-6 pb-12"></section>
     </div>
   );
 };

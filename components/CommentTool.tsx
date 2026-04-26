@@ -186,6 +186,8 @@ const createBulkComment = (): BulkComment => ({
 const CommentTool = ({
   initialPlatform,
 }: { initialPlatform?: Platform } = {}) => {
+  console.log(initialPlatform, "initialPlatform");
+  console.log(platformSubModes[initialPlatform][0].value, "platformSubModes");
   const initialSub = initialPlatform
     ? platformSubModes[initialPlatform][0].value
     : defaultCommentData.subMode;
@@ -610,7 +612,9 @@ const CommentTool = ({
                   ).map((p) => (
                     <button
                       key={p}
-                      onClick={() => router.push(`/platforms/${p}`)}
+                      onClick={() =>
+                        router.push(`/tools/${p}-comment-generator`)
+                      }
                       className={`h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
                         data.platform === p
                           ? "gradient-primary text-primary-foreground shadow-sm"
@@ -913,7 +917,7 @@ const CommentTool = ({
 
   return (
     <div className="h-[calc(100vh-3.5rem)] px-32 py-6">
-      <div className="flex w-full h-full max-w-[1040px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
+      <div className="flex w-full h-full max-w-[850px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
         {/* Left Sidebar */}
         <aside className="w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
           <div className="flex-1 overflow-y-auto scrollbar-thin p-4 flex flex-col gap-4">
@@ -931,7 +935,9 @@ const CommentTool = ({
                   ).map((p) => (
                     <button
                       key={p}
-                      onClick={() => router.push(`/platforms/${p}`)}
+                      onClick={() =>
+                        router.push(`/tools/${p}-comment-generator`)
+                      }
                       className={`h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
                         data.platform === p
                           ? "gradient-primary text-primary-foreground shadow-sm"
