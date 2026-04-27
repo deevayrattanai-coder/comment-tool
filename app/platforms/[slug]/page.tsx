@@ -61,7 +61,6 @@ export async function generateMetadata({
   return {
     title: `${c.title} | Comment Tools`,
     description: c.description,
-
     alternates: {
       canonical: url,
     },
