@@ -4,8 +4,22 @@ export const users = pgTable('users', {
   id: serial('id').primaryKey(),
   email: varchar('email', { length: 255 }).notNull().unique(),
   name: varchar('name', { length: 255 }).notNull(),
-  passwordHash: text('password_hash').notNull(),
+  passwordHash: text('password_hash'),
+  googleId: varchar('google_id', { length: 64 }).unique(),
+  avatarUrl: text('avatar_url'),
+  emailVerified: boolean('email_verified').notNull().default(false),
+  emailVerifiedAt: timestamp('email_verified_at'),
   plan: varchar('plan', { length: 32 }).notNull().default('free'),
+  createdAt: timestamp('created_at').defaultNow().notNull(),
+});
+
+export const verificationTokens = pgTable('verification_tokens', {
+  id: serial('id').primaryKey(),
+  userId: integer('user_id').notNull().references(() => users.id, { onDelete: 'cascade' }),
+  token: varchar('token', { length: 128 }).notNull().unique(),
+  purpose: varchar('purpose', { length: 32 }).notNull().default('email_verify'),
+  expiresAt: timestamp('expires_at').notNull(),
+  consumedAt: timestamp('consumed_at'),
   createdAt: timestamp('created_at').defaultNow().notNull(),
 });
 

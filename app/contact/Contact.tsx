@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import SiteLayout from "@/components/SiteLayout";
-import { Mail, MapPin, Send, MessageCircle } from "lucide-react";
+import { Mail, MapPin, Send, MessageCircle, Loader } from "lucide-react";
 
 type FormState = {
   name: string;
@@ -15,7 +15,8 @@ type ErrorState = Partial<FormState>;
 
 export default function Contact() {
   const [sent, setSent] = useState<boolean>(false);
-
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [serverError, setServerError] = useState<string | null>(null);
   const [form, setForm] = useState<FormState>({
     name: "",
     email: "",
@@ -27,12 +28,12 @@ export default function Contact() {
 
   const validate = (): ErrorState => {
     const newErrors: ErrorState = {};
-
+    const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,3}$/;
     if (!/^[A-Za-z\s]{2,50}$/.test(form.name)) {
       newErrors.name = "Enter a valid name (only letters)";
     }
 
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+    if (!emailRegex.test(form.email)) {
       newErrors.email = "Enter a valid email address";
     }
 
@@ -47,12 +48,37 @@ export default function Contact() {
     return newErrors;
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const validationErrors = validate();
     setErrors(validationErrors);
     if (Object.keys(validationErrors).length === 0) {
       setSent(true);
+    }
+    try {
+      setIsLoading(true);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name.trim(),
+          email: form.email.trim(),
+          subject: form.subject.trim(),
+          message: form.message.trim(),
+        }),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        setServerError(
+          data?.error || "Could not send your message. Please try again.",
+        );
+        return;
+      }
+      setSent(true);
+    } catch (err) {
+      setServerError("Network error. Please try again in a moment.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -246,12 +272,25 @@ export default function Contact() {
                       {errors.message}
                     </p>
                   )}
+                  {serverError && (
+                    <p className="text-xs text-destructive bg-destructive/10 border border-destructive/20 rounded-md p-2">
+                      {serverError}
+                    </p>
+                  )}
                 </div>
                 <button
                   type="submit"
+                  disabled={isLoading}
                   className="w-full h-11 rounded-lg gradient-primary text-primary-foreground font-semibold text-sm shadow-md hover:opacity-90 transition-all active:scale-[0.97] flex items-center justify-center gap-2"
                 >
-                  Send message <Send size={14} />
+                  {isLoading ? (
+                    <span className="flex items-center">
+                      <Loader size={14} />
+                      <span className="ml-2">Sending...</span>
+                    </span>
+                  ) : (
+                    "Send message"
+                  )}
                 </button>
               </form>
             )}

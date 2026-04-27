@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 // @ts-ignore: CSS imports require module declarations in TypeScript config
 import "./globals.css";
+import { Toaster } from "sonner";
 import Providers from "./providers";
 
 export const metadata: Metadata = {
@@ -17,7 +18,10 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body>
-        <Providers>{children}</Providers>
+        <Providers>
+          {children}
+          <Toaster position="top-right" richColors />
+        </Providers>
       </body>
     </html>
   );

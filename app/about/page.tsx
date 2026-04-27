@@ -424,6 +424,90 @@ export default function AboutPage() {
         </div>
       </section>
 
+      <section className="max-w-[1100px] mx-auto px-6 py-16">
+        <div className="space-y-6">
+          <div className="glass-card-premium p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+            <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-primary to-secondary flex items-center justify-center shrink-0">
+              <span className="text-4xl font-display font-bold text-primary-foreground">
+                DR
+              </span>
+            </div>
+            <div>
+              <h3 className="text-2xl font-display font-bold mb-1">
+                Deevay Rattan Puri
+              </h3>
+              <p className="text-primary font-medium text-sm mb-4">
+                Founder & CEO
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Deevay Rattan Puri is the visionary behind DevAIHumanizer. With
+                a deep passion for artificial intelligence and content
+                technology, Deevay founded DevAIHumanizer to bridge the gap
+                between AI efficiency and authentic human expression. Under his
+                leadership, the platform has grown to serve over 50,000 users
+                across 120+ countries, processing millions of words every month.
+                Deevay believes that AI should augment human creativity — not
+                replace it — and is committed to building tools that empower
+                writers, students, and professionals worldwide.
+              </p>
+            </div>
+          </div>
+          <div className="glass-card-premium p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+            <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-secondary to-primary flex items-center justify-center shrink-0">
+              <span className="text-4xl font-display font-bold text-primary-foreground">
+                PP
+              </span>
+            </div>
+            <div>
+              <h3 className="text-2xl font-display font-bold mb-1">
+                Pankaj Pal
+              </h3>
+              <p className="text-secondary font-medium text-sm mb-4">
+                Co-Founder & CTO
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Pankaj Pal is the technical mastermind powering DevAIHumanizer.
+                As Co-Founder and CTO, Pankaj leads the engineering and research
+                teams, architecting the advanced NLP engine that drives our
+                industry-leading 99.8% AI detection bypass rate. With deep
+                expertise in computational linguistics and machine learning,
+                Pankaj ensures the platform remains at the cutting edge —
+                continuously refining humanization algorithms to stay ahead of
+                evolving AI detectors while maintaining the natural quality
+                users expect.
+              </p>
+            </div>
+          </div>
+          <div className="glass-card-premium p-8 md:p-10 flex flex-col md:flex-row items-center gap-8">
+            <div className="w-28 h-28 rounded-2xl bg-gradient-to-br from-accent to-primary flex items-center justify-center shrink-0">
+              <span className="text-4xl font-display font-bold text-primary-foreground">
+                VG
+              </span>
+            </div>
+            <div>
+              <h3 className="text-2xl font-display font-bold mb-1">
+                Vipul Goel
+              </h3>
+              <p
+                className="font-medium text-sm mb-4"
+                style={{ color: "#f97316" }}
+              >
+                Co-Founder & CMO
+              </p>
+              <p className="text-muted-foreground text-sm leading-relaxed">
+                Vipul Goel drives the marketing vision behind DevAIHumanizer. As
+                CMO, Vipul leads brand strategy, growth initiatives, and user
+                acquisition across 120+ countries. With a keen understanding of
+                digital marketing, content strategy, and data-driven campaigns,
+                Vipul ensures DevAIHumanizer reaches the writers, students, and
+                professionals who need it most — building a brand that stands
+                for authenticity in the age of AI.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* TRUST & RELIABILITY */}
       <section className="max-w-[1100px] mx-auto px-6 py-16">
         <div className="grid md:grid-cols-2 gap-10 items-center">

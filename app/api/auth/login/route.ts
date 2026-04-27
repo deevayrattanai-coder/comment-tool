@@ -15,9 +15,22 @@ export async function POST(req: Request) {
     const data = Body.parse(await req.json());
     const result = await db.select().from(users).where(eq(users.email, data.email)).limit(1);
     const u = result[0];
-    if (!u || !(await verifyPassword(data.password, u.passwordHash))) {
+
+    if (!u || !u.passwordHash || !(await verifyPassword(data.password, u.passwordHash))) {
       return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
     }
+
+    if (!u.emailVerified) {
+      return NextResponse.json(
+        {
+          error: 'Please verify your email before logging in.',
+          requiresVerification: true,
+          email: u.email,
+        },
+        { status: 403 }
+      );
+    }
+
     await createSession(u.id);
     return NextResponse.json({
       user: { id: u.id, email: u.email, name: u.name, plan: u.plan },

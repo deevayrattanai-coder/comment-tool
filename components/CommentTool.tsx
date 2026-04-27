@@ -42,6 +42,7 @@ import YouTubeVideoComment from "./previews/YouTubeVideoComment";
 import YouTubeShortsComment from "./previews/YouTubeShortsComment";
 import TwitterPostComment from "./previews/TwitterPostComment";
 import html2canvas from "html2canvas";
+import { toast } from "sonner";
 
 const platformIcons: Record<Platform, React.ReactNode> = {
   tiktok: (
@@ -186,8 +187,6 @@ const createBulkComment = (): BulkComment => ({
 const CommentTool = ({
   initialPlatform,
 }: { initialPlatform?: Platform } = {}) => {
-  console.log(initialPlatform, "initialPlatform");
-  console.log(platformSubModes[initialPlatform][0].value, "platformSubModes");
   const initialSub = initialPlatform
     ? platformSubModes[initialPlatform][0].value
     : defaultCommentData.subMode;
@@ -240,6 +239,7 @@ const CommentTool = ({
         }),
       });
       if (r.status === 401) {
+        toast.error("You must be logged in to export images.");
         setShowLoginGate(true);
         return false;
       }
@@ -253,9 +253,10 @@ const CommentTool = ({
         }
         return false;
       }
+      toast.success("Export logged successfully");
       return true;
-    } catch (e) {
-      console.error(e);
+    } catch {
+      toast.error("Could not log export. Please try again in a moment.");
       return false;
     }
   }, [user, data.platform, data.subMode]);
@@ -282,14 +283,6 @@ const CommentTool = ({
       return next;
     });
   }, []);
-
-  const setPlatform = useCallback(
-    (platform: Platform) => {
-      const firstSub = platformSubModes[platform][0].value;
-      update({ platform, subMode: firstSub });
-    },
-    [update],
-  );
 
   const randomize = useCallback(
     (type: "male" | "female" | "celebrity") => {
