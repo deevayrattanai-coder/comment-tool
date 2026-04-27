@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CommentTool from "@/components/CommentTool";
-import AdSlot from "@/components/AdSlot";
 
 const VALID = new Set([
   "tiktok-comment-generator",
@@ -60,11 +59,11 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
   const url = `${baseUrl}/${slug}-comment-generator`;
 
   return {
-    title: `${c.title} | Comment Tools`,
+    title: `${c.title}`,
     description: c.description,
 
     alternates: {

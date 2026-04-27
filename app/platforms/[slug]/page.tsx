@@ -55,7 +55,7 @@ export async function generateMetadata({
     };
   }
 
-  const baseUrl = "http://localhost:5000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
   const url = `${baseUrl}/${slug}-comment-generator`;
 
   return {

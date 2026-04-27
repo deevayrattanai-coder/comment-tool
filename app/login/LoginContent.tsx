@@ -165,6 +165,7 @@ export default function LoginContent({ next }: { next: string }) {
   };
 
   const onGoogle = () => {
+    console.log("Initiating Google OAuth flow");
     window.location.href = `/api/auth/google?next=${encodeURIComponent(next)}`;
   };
 
@@ -244,7 +245,7 @@ export default function LoginContent({ next }: { next: string }) {
             <p className="text-sm text-muted-foreground mt-1.5">
               {isSignup
                 ? "Sign up to export, save history, and unlock bulk mode"
-                : "Log in to your CommentCraft account"}
+                : "Log in to your Comment tools account"}
             </p>
           </div>
 

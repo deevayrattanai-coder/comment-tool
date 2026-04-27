@@ -161,7 +161,7 @@ export default function Contact() {
                 Email
               </h3>
               <p className="text-sm text-muted-foreground">
-                hello@commentcraft.com
+                hello@Commenttools.com
               </p>
             </div>
             <div className="rounded-xl border border-border bg-card p-5">

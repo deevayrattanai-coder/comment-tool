@@ -24,7 +24,7 @@ const values = [
 const milestones = [
   {
     year: "2025",
-    title: "CommentCraft launches",
+    title: "Comment tools launches",
     desc: "TikTok-only, born out of frustration with clunky design tools.",
   },
   {
@@ -462,7 +462,7 @@ export default function AboutPage() {
               <h3 className="text-2xl font-display font-bold mb-1">
                 Pankaj Pal
               </h3>
-              <p className="text-secondary font-medium text-sm mb-4">
+              <p className="text-yellow-500 font-medium text-sm mb-4">
                 Co-Founder & CTO
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed">

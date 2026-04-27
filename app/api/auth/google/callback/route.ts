@@ -27,7 +27,7 @@ export async function GET(req: Request) {
         code,
         client_id: process.env.GOOGLE_CLIENT_ID,
         client_secret: process.env.GOOGLE_CLIENT_SECRET,
-        redirect_uri: "http://localhost:5000/api/auth/google/callback",
+        redirect_uri: process.env.NEXT_PUBLIC_APP_URL + "/api/auth/google/callback",
         grant_type: "authorization_code",
       }),
     });
@@ -76,7 +76,7 @@ export async function GET(req: Request) {
       }
         await createSession(user.id);
     // 🔥 6. Redirect
-  const baseUrl = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5000";
+  const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
 return NextResponse.redirect(new URL(next, baseUrl));
   } catch (err) {
    return NextResponse.redirect(

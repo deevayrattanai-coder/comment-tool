@@ -69,7 +69,7 @@ export default function PrivacyPage() {
               5. Children's privacy
             </h2>
             <p>
-              CommentCraft is not directed to children under the age of 13 and
+              Comment tools is not directed to children under the age of 13 and
               we do not knowingly collect personal information from children
               under 13.
             </p>
@@ -91,9 +91,9 @@ export default function PrivacyPage() {
               Questions about this Privacy Policy? Email us at{" "}
               <a
                 className="text-primary hover:underline"
-                href="mailto:hello@commentcraft.com"
+                href="mailto:hello@Comment-tools.com"
               >
-                hello@commentcraft.com
+                hello@Comment-tools.com
               </a>
               .
             </p>

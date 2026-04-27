@@ -7,13 +7,11 @@ export const createMetadata = ({
   description: string;
   path?: string;
 }) => {
-  const baseUrl = "http://localhost:5000";
+  const baseUrl =  process.env.NEXT_PUBLIC_APP_URL;
   const url = `${baseUrl}${path}`;
-
   return {
     title,
     description,
-
     openGraph: {
       title,
       description,

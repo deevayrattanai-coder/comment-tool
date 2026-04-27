@@ -9,9 +9,7 @@ const TOKEN_TTL_HOURS = 24;
 
 function getAppUrl() {
   return (
-    process.env.APP_URL ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    'http://localhost:5000'
+    process.env.NEXT_PUBLIC_APP_URL
   ).replace(/\/$/, '');
 }
 
@@ -32,7 +30,7 @@ export async function sendVerificationEmail(userId: number, email: string, name:
   const link = `${getAppUrl()}/api/auth/verify?token=${token}`;
   await sendMail({
     to: email,
-    subject: 'Verify your email for CommentCraft',
+    subject: 'Verify your email for Comment tools',
     html: buildVerificationEmail(name, link),
   });
 }

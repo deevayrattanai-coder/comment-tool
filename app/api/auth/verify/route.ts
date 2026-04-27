@@ -4,9 +4,7 @@ import { createSession } from '@/lib/auth';
 
 function getAppUrl() {
   return (
-    process.env.APP_URL ||
-    process.env.NEXT_PUBLIC_APP_URL ||
-    'http://localhost:5000'
+    process.env.NEXT_PUBLIC_APP_URL
   ).replace(/\/$/, '');
 }
 

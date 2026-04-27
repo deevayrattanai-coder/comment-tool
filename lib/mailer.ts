@@ -37,7 +37,7 @@ export type SendMailArgs = {
 
 export async function sendMail({ to, subject, html, text, replyTo }: SendMailArgs) {
   const fromEmail = process.env.SMTP_FROM || process.env.SMTP_USER!;
-  const fromName = process.env.MAIL_FROM_NAME || 'CommentCraft';
+  const fromName = process.env.MAIL_FROM_NAME || 'Comment tools';
   const from = `"${fromName}" <${fromEmail}>`;
 
   const transporter = getTransporter();
@@ -57,7 +57,7 @@ export function buildVerificationEmail(name: string, link: string) {
     <div style="font-family: -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; max-width:520px; margin:0 auto; padding:32px 24px; color:#0f172a;">
       <h2 style="margin:0 0 12px; font-size:22px;">Verify your email</h2>
       <p style="margin:0 0 16px; font-size:14px; line-height:1.6; color:#334155;">
-        Hi ${safeName}, thanks for signing up for CommentCraft. Please confirm your
+        Hi ${safeName}, thanks for signing up for Comment tools. Please confirm your
         email address to activate your account.
       </p>
       <p style="margin:24px 0;">

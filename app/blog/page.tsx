@@ -1,17 +1,17 @@
-'use client';
+"use client";
 
-import { Suspense } from 'react';
-import Link from 'next/link';
-import { useRouter, useSearchParams, usePathname } from 'next/navigation';
-import SiteLayout from '@/components/SiteLayout';
-import { Clock, ChevronLeft, ChevronRight } from 'lucide-react';
-import { blogPosts, POSTS_PER_PAGE } from '@/data/blogPosts';
+import { Suspense } from "react";
+import Link from "next/link";
+import { useRouter, useSearchParams, usePathname } from "next/navigation";
+import SiteLayout from "@/components/SiteLayout";
+import { Clock, ChevronLeft, ChevronRight } from "lucide-react";
+import { blogPosts, POSTS_PER_PAGE } from "@/data/blogPosts";
 
 function BlogList() {
   const router = useRouter();
   const pathname = usePathname();
   const params = useSearchParams();
-  const page = Math.max(1, Number(params.get('page') ?? '1'));
+  const page = Math.max(1, Number(params.get("page") ?? "1"));
   const totalPages = Math.ceil(blogPosts.length / POSTS_PER_PAGE);
   const safePage = Math.min(page, totalPages);
   const start = (safePage - 1) * POSTS_PER_PAGE;
@@ -19,24 +19,33 @@ function BlogList() {
 
   const goTo = (p: number) => {
     const next = new URLSearchParams(params.toString());
-    if (p === 1) next.delete('page');
-    else next.set('page', String(p));
+    if (p === 1) next.delete("page");
+    else next.set("page", String(p));
     const qs = next.toString();
     router.push(qs ? `${pathname}?${qs}` : pathname);
-    if (typeof window !== 'undefined') {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (typeof window !== "undefined") {
+      window.scrollTo({ top: 0, behavior: "smooth" });
     }
   };
 
   return (
     <>
       <section className="max-w-[1000px] mx-auto px-6 pt-20 pb-10 text-center">
-        <span className="text-xs font-semibold uppercase tracking-widest text-primary">CommentCraft Journal</span>
-        <h1 className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.1] mt-3 mb-4" style={{ textWrap: 'balance' }}>
+        <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+          Comment tools Journal
+        </span>
+        <h1
+          className="text-4xl md:text-5xl font-extrabold tracking-tight text-foreground leading-[1.1] mt-3 mb-4"
+          style={{ textWrap: "balance" }}
+        >
           Insights for content creators
         </h1>
-        <p className="text-base text-muted-foreground max-w-[520px] mx-auto leading-relaxed" style={{ textWrap: 'pretty' }}>
-          Practical writing on social proof, comment culture, and creator workflows — straight from the team.
+        <p
+          className="text-base text-muted-foreground max-w-[520px] mx-auto leading-relaxed"
+          style={{ textWrap: "pretty" }}
+        >
+          Practical writing on social proof, comment culture, and creator
+          workflows — straight from the team.
         </p>
       </section>
 
@@ -48,15 +57,24 @@ function BlogList() {
               href={`/blog/${post.slug}`}
               className="group rounded-xl border border-border bg-card p-5 hover:shadow-md hover:-translate-y-0.5 transition-all flex flex-col"
             >
-              <span className="text-[10px] font-bold uppercase tracking-widest text-primary">{post.category}</span>
-              <h2 className="font-semibold text-foreground text-[15px] mt-2 mb-2 leading-snug group-hover:text-primary transition-colors" style={{ textWrap: 'balance' }}>
+              <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
+                {post.category}
+              </span>
+              <h2
+                className="font-semibold text-foreground text-[15px] mt-2 mb-2 leading-snug group-hover:text-primary transition-colors"
+                style={{ textWrap: "balance" }}
+              >
                 {post.title}
               </h2>
-              <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">{post.excerpt}</p>
+              <p className="text-sm text-muted-foreground leading-relaxed mb-4 flex-1">
+                {post.excerpt}
+              </p>
               <div className="flex items-center gap-3 text-xs text-muted-foreground pt-3 border-t border-border">
                 <span>{post.date}</span>
                 <span>·</span>
-                <span className="flex items-center gap-1"><Clock size={11} /> {post.readTime}</span>
+                <span className="flex items-center gap-1">
+                  <Clock size={11} /> {post.readTime}
+                </span>
               </div>
             </Link>
           ))}
@@ -77,8 +95,8 @@ function BlogList() {
               onClick={() => goTo(p)}
               className={`h-9 min-w-[36px] px-3 rounded-lg text-sm font-semibold transition-colors ${
                 p === safePage
-                  ? 'gradient-primary text-primary-foreground shadow-sm'
-                  : 'border border-border bg-card text-foreground/70 hover:bg-accent'
+                  ? "gradient-primary text-primary-foreground shadow-sm"
+                  : "border border-border bg-card text-foreground/70 hover:bg-accent"
               }`}
             >
               {p}

@@ -15,7 +15,7 @@ function VerifyContent() {
       ? "Link expired"
       : "Verification failed";
   const message = isSuccess
-    ? "Your account is now active. You are logged in and can start using CommentCraft."
+    ? "Your account is now active. You are logged in and can start using Comment tools."
     : status === "expired"
       ? "This verification link has expired or has already been used. You can request a new one from the login page."
       : "We could not verify your email with this link. Please request a new verification email.";

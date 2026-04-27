@@ -19,7 +19,7 @@ const Footer = () => (
               <MessageSquare size={16} className="text-primary-foreground" />
             </div>
             <span className="font-bold text-foreground tracking-tight">
-              CommentCraft
+              Comment tools
             </span>
           </Link>
           <p className="text-xs text-muted-foreground leading-relaxed max-w-[280px]">
