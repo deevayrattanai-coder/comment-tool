@@ -4,8 +4,65 @@ import { useState } from "react";
 import SiteLayout from "@/components/SiteLayout";
 import { Mail, MapPin, Send, MessageCircle } from "lucide-react";
 
+type FormState = {
+  name: string;
+  email: string;
+  subject: string;
+  message: string;
+};
+
+type ErrorState = Partial<FormState>;
+
 export default function Contact() {
-  const [sent, setSent] = useState(false);
+  const [sent, setSent] = useState<boolean>(false);
+
+  const [form, setForm] = useState<FormState>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  });
+
+  const [errors, setErrors] = useState<ErrorState>({});
+
+  const validate = (): ErrorState => {
+    const newErrors: ErrorState = {};
+
+    if (!/^[A-Za-z\s]{2,50}$/.test(form.name)) {
+      newErrors.name = "Enter a valid name (only letters)";
+    }
+
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    if (form.subject.trim().length < 3) {
+      newErrors.subject = "Subject must be at least 3 characters";
+    }
+
+    if (form.message.trim().length < 10) {
+      newErrors.message = "Message must be at least 10 characters";
+    }
+
+    return newErrors;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const validationErrors = validate();
+    setErrors(validationErrors);
+    if (Object.keys(validationErrors).length === 0) {
+      setSent(true);
+    }
+  };
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
   return (
     <SiteLayout>
@@ -117,13 +174,7 @@ export default function Contact() {
                 </p>
               </div>
             ) : (
-              <form
-                onSubmit={(e) => {
-                  e.preventDefault();
-                  setSent(true);
-                }}
-                className="space-y-4"
-              >
+              <form onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid md:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-foreground mb-1.5">
@@ -131,10 +182,15 @@ export default function Contact() {
                     </label>
                     <input
                       type="text"
-                      required
-                      className="w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      value={form.name}
+                      name={"name"}
+                      onChange={handleChange}
+                      className={`input ${errors.name ? "border-red-500 w-full h-10 px-3.5 rounded-lg border  bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none" : "w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"}`}
                       placeholder="Jane"
                     />
+                    {errors.name && (
+                      <p className="text-xs text-red-500 mt-1">{errors.name}</p>
+                    )}
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-foreground mb-1.5">
@@ -142,10 +198,17 @@ export default function Contact() {
                     </label>
                     <input
                       type="email"
-                      required
-                      className="w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                      value={form.email}
+                      name="email"
+                      onChange={handleChange}
+                      className={`input ${errors.email ? "border-red-500 w-full h-10 px-3.5 rounded-lg border  bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none" : "w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"}`}
                       placeholder="jane@company.com"
                     />
+                    {errors.email && (
+                      <p className="text-xs text-red-500 mt-1">
+                        {errors.email}
+                      </p>
+                    )}
                   </div>
                 </div>
                 <div>
@@ -154,10 +217,17 @@ export default function Contact() {
                   </label>
                   <input
                     type="text"
-                    required
-                    className="w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    value={form.subject}
+                    name="subject"
+                    onChange={handleChange}
+                    className={`input ${errors.subject ? "border-red-500 w-full h-10 px-3.5 rounded-lg border  bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none" : "w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"}`}
                     placeholder="What is this about?"
                   />
+                  {errors.subject && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {errors.subject}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-xs font-semibold text-foreground mb-1.5">
@@ -165,10 +235,17 @@ export default function Contact() {
                   </label>
                   <textarea
                     rows={5}
-                    required
-                    className="w-full p-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    value={form.message}
+                    onChange={handleChange}
+                    name="message"
+                    className={`w-full p-3.5 rounded-lg border ${errors.message ? "border-red-500" : "border-border"} bg-background text-foreground text-sm placeholder:text-muted-foreground resize-none focus:outline-none focus:ring-2 focus:ring-primary/30`}
                     placeholder="Tell us a bit more..."
                   />
+                  {errors.message && (
+                    <p className="text-xs text-red-500 mt-1">
+                      {errors.message}
+                    </p>
+                  )}
                 </div>
                 <button
                   type="submit"
