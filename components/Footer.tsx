@@ -165,7 +165,7 @@ const Footer = () => (
 
       <div className="pt-6 border-t border-border flex flex-col sm:flex-row items-center justify-between gap-3">
         <p className="text-xs text-muted-foreground">
-          © {new Date().getFullYear()} CommentCraft. All rights reserved.
+          © {new Date().getFullYear()} Comment tools. All rights reserved.
         </p>
         <div className="flex items-center gap-5">
           <Link

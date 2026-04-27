@@ -166,7 +166,7 @@ export default function LoginContent({ next }: { next: string }) {
 
   const onGoogle = () => {
     console.log("Initiating Google OAuth flow");
-    window.location.href = `/api/auth/google?next=${encodeURIComponent(next)}`;
+    window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google?next=${encodeURIComponent(next)}`;
   };
 
   // ---- Verification awaiting screen ----
