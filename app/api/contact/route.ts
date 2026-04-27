@@ -11,9 +11,13 @@ const Body = z.object({
 
 export async function POST(req: Request) {
   try {
-    const data = Body.parse(await req.json());
+    const data: any = Body.parse(await req.json());
 
-    const to = process.env.CONTACT_TO_EMAIL || process.env.SMTP_FROM || process.env.SMTP_USER;
+    const to =
+      process.env.CONTACT_TO_EMAIL ||
+      process.env.SMTP_FROM ||
+      process.env.SMTP_USER;
+
     if (!to) {
       return NextResponse.json(
         { error: 'CONTACT_TO_EMAIL is not configured' },
@@ -31,9 +35,15 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   } catch (e: any) {
     if (e?.issues) {
-      return NextResponse.json({ error: 'Invalid input', details: e.issues }, { status: 400 });
+      return NextResponse.json(
+        { error: 'Invalid input', details: e.issues },
+        { status: 400 }
+      );
     }
     console.error('contact form error', e);
-    return NextResponse.json({ error: e?.message ?? 'Server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: e?.message ?? 'Server error' },
+      { status: 500 }
+    );
   }
 }
