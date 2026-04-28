@@ -14,14 +14,17 @@ export default function GtmRouteTracker() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const url = pathname + (searchParams?.toString() ? `?${searchParams}` : "");
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({
-      event: "virtual_pageview",
-      page_path: url,
-      page_location: window.location.href,
-      page_title: document.title,
-    });
+    const pathname = usePathname();
+    setTimeout(() => {
+      window.dataLayer = window.dataLayer || [];
+
+      window.dataLayer.push({
+        event: "virtual_pageview",
+        page_location: window.location.href,
+        page_path: pathname,
+        page_title: document.title,
+      });
+    }, 0);
   }, [pathname, searchParams]);
 
   return null;
