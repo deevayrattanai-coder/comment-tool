@@ -1,4 +1,3 @@
-import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import { Target, Users, Lightbulb, ArrowRight } from "lucide-react";
 import { createMetadata } from "@/lib/seo";

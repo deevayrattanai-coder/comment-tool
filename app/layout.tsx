@@ -4,7 +4,8 @@ import "./globals.css";
 import { Toaster } from "sonner";
 import Providers from "./providers";
 import Script from "next/script";
-
+import GtmRouteTracker from "@/components/GtmRouteTracker";
+import { Suspense } from "react";
 export const metadata: Metadata = {
   title: "Comment tools — Social Media Comment Generator",
   description:
@@ -39,6 +40,9 @@ export default function RootLayout({
       </head>
       <body>
         <Providers>
+          <Suspense fallback={null}>
+            <GtmRouteTracker />
+          </Suspense>
           {children}
           <Toaster position="top-right" richColors />
         </Providers>
