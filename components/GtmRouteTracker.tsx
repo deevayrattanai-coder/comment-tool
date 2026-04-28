@@ -14,10 +14,8 @@ export default function GtmRouteTracker() {
   const searchParams = useSearchParams();
 
   useEffect(() => {
-    const pathname = usePathname();
     setTimeout(() => {
       window.dataLayer = window.dataLayer || [];
-
       window.dataLayer.push({
         event: "virtual_pageview",
         page_location: window.location.href,
