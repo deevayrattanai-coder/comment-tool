@@ -1,7 +1,7 @@
 "use client";
 
 import { usePathname, useSearchParams } from "next/navigation";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 
 declare global {
   interface Window {
@@ -12,19 +12,12 @@ declare global {
 export default function GtmRouteTracker() {
   const pathname = usePathname();
   const searchParams = useSearchParams();
-  const isFirst = useRef(true);
 
   useEffect(() => {
-    // Skip the very first run — GTM already fires its own pageview on initial load.
-    if (isFirst.current) {
-      isFirst.current = false;
-      return;
-    }
-    if (!window.dataLayer) return;
-
     const url = pathname + (searchParams?.toString() ? `?${searchParams}` : "");
+    window.dataLayer = window.dataLayer || [];
     window.dataLayer.push({
-      event: "page_view",
+      event: "virtual_pageview",
       page_path: url,
       page_location: window.location.href,
       page_title: document.title,
