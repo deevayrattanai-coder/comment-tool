@@ -72,8 +72,11 @@ export async function GET(req: Request) {
     await createSession(user.id);
     //Safe redirect
     return NextResponse.redirect(`${baseUrl}${next}`);
-  } catch (err) {
-    console.error("Google auth error:", err);
-    return NextResponse.redirect(`${baseUrl}/login?error=google_failed`);
+  } catch (err: any) {
+  console.error("Auth error:", err);
+  if (err?.message?.includes("connect") || err?.routine === "ClientAuthentication") {
+    return NextResponse.redirect(`${baseUrl}/login?error=db_error`);
   }
+  return NextResponse.redirect(`${baseUrl}/login?error=google_failed`);
+}
 }

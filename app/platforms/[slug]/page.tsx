@@ -11,25 +11,25 @@ const COPY: Record<
   { title: string; tagline: string; description: string }
 > = {
   tiktok: {
-    title: "Best TikTok Comment Generator Tool Online | Comment Tools",
+    title: "Best TikTok Comment Generator Tool Online",
     tagline: "Video & reply comments",
     description:
       "Create engaging TikTok comments instantly. Boost interaction, save time, and generate creative replies that match your content style.",
   },
   instagram: {
-    title: "Best Instagram Comment Generator Tool Online | Comment Tools",
+    title: "Best Instagram Comment Generator Tool Online",
     tagline: "Post & Reels comments",
     description:
       "Generate high-quality Instagram comments in seconds. Increase engagement, reply faster, and keep your audience active with smart comments.",
   },
   youtube: {
-    title: "Best YouTube Comment Generator Tool Online | Comment Tools",
+    title: "Best YouTube Comment Generator Tool Online",
     tagline: "Video & Shorts comments",
     description:
       "Write better YouTube comments instantly. Improve engagement, save time, and generate meaningful responses for videos at scale.",
   },
   twitter: {
-    title: "Best X (Twitter) Comment Generator Tool Online | Comment Tools",
+    title: "Best X (Twitter) Comment Generator Tool Online",
     tagline: "Post replies",
     description:
       "Generate smart replies for X (Twitter) posts in seconds. Stay active, boost engagement, and respond faster with AI-powered comments.",
@@ -56,7 +56,7 @@ export async function generateMetadata({
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-  const url = `${baseUrl}/${slug}-comment-generator`;
+  const url = `${baseUrl}/${slug}`;
 
   return {
     title: `${c.title} | Comment Tools`,

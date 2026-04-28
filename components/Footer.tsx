@@ -113,7 +113,7 @@ const Footer = () => (
           <ul className="space-y-2">
             <li>
               <Link
-                href="/tiktok-comment-generator"
+                href="/tools/tiktok-comment-generator"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 TikTok Comment Generator
@@ -121,7 +121,7 @@ const Footer = () => (
             </li>
             <li>
               <Link
-                href="/blog"
+                href="/tools/instagram-comment-generator"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 Instagram Comment Generator
@@ -129,7 +129,7 @@ const Footer = () => (
             </li>
             <li>
               <Link
-                href="/contact"
+                href="/tools/youtube-comment-generator"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 YouTube Comment Generator
@@ -137,7 +137,7 @@ const Footer = () => (
             </li>
             <li>
               <Link
-                href="/login"
+                href="/tools/twitter-comment-generator"
                 className="text-sm text-muted-foreground hover:text-foreground transition-colors"
               >
                 X (Twitter) Comment Generator
@@ -153,7 +153,7 @@ const Footer = () => (
           <ul className="space-y-2">
             <li className="flex items-center gap-2 text-sm text-muted-foreground">
               <Mail size={13} className="text-primary flex-shrink-0" />
-              hello@commentcraft.com
+              commenttools.business@gmail.com
             </li>
             <li className="flex items-center gap-2 text-sm text-muted-foreground">
               <MapPin size={13} className="text-primary flex-shrink-0" />
