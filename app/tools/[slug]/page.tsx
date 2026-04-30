@@ -715,6 +715,7 @@ export default async function PlatformPage({
           </div>
         </section>
       )}
+
       <section className="border-b border-border bg-gradient-to-b from-background to-primary/5">
         <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
           {/* Header */}
@@ -724,11 +725,12 @@ export default async function PlatformPage({
             </span>
 
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-foreground mt-2">
-              Key Features of Our {slug}
+              Key Features of Our {slug.split("-")[0]} comment generator tool
             </h2>
 
             <p className="mt-4 text-sm md:text-base text-muted-foreground">
-              Everything you need to create realistic, high-performing TikTok
+              Everything you need to create realistic, high-performing{" "}
+              {slug.split("-")[0]}
               comment sections—built for creators, marketers, and agencies.
             </p>
           </div>
@@ -888,14 +890,15 @@ export default async function PlatformPage({
             {/* Optional filler card for symmetry */}
             <div className="p-5 rounded-2xl border border-dashed border-border flex items-center justify-center text-center">
               <p className="text-sm text-muted-foreground">
-                + Anyone looking to improve TikTok engagement
+                + Anyone looking to improve {slug.split("-")[0]} engagement
               </p>
             </div>
           </div>
 
           {/* Bottom Line */}
           <p className="mt-10 max-w-[720px] text-sm md:text-base text-muted-foreground">
-            In short, if your goal is to create engaging, high-performing TikTok
+            In short, if your goal is to create engaging, high-performing{" "}
+            {slug.split("-")[0]}
             content without spending hours writing comments, this tool is built
             for you.
           </p>
@@ -995,7 +998,7 @@ export default async function PlatformPage({
             </span>
 
             <h2 className="text-2xl md:text-4xl font-extrabold tracking-tight text-foreground mt-2">
-              How to Use the TikTok Comment Generator
+              How to Use the {slug.split("-")[0]} Comment Generator
             </h2>
 
             <p className="mt-4 text-sm md:text-base text-muted-foreground">
@@ -1094,8 +1097,9 @@ export default async function PlatformPage({
           {/* Bottom Line */}
           <div className="mt-12 max-w-[720px]">
             <p className="text-sm md:text-base text-muted-foreground">
-              Within seconds, you’ll have a professional-looking TikTok comment
-              section ready for ads, presentations, or content planning.
+              Within seconds, you’ll have a professional-looking{" "}
+              {slug.split("-")[0]} comment section ready for ads, presentations,
+              or content planning.
             </p>
           </div>
         </div>
@@ -1110,16 +1114,23 @@ export default async function PlatformPage({
 
           {/* Main Text */}
           <p className="mt-4 max-w-[720px] mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
-            A TikTok comment generator helps you create realistic, engaging
-            comment sections quickly and efficiently. Whether you're building
-            mockups, planning campaigns, or presenting ideas, it simplifies your
-            workflow while maintaining high-quality output.
+            A {slug.split("-")[0]} comment generator helps you create realistic,
+            engaging comment sections quickly and efficiently. Whether you're
+            building mockups, planning campaigns, or presenting ideas, it
+            simplifies your workflow while maintaining high-quality output.
           </p>
 
           <p className="mt-4 max-w-[720px] mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
             Instead of spending hours writing comments manually, you can focus
             on strategy, creativity, and scaling your content. The result is
             faster execution and more impactful campaigns.
+          </p>
+
+          <p className="mt-4 max-w-[720px] mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
+            Best Comment Generator Tools Online help you creatively express and
+            assist you in competitive ways, and are also tools you should look
+            into if you have similar needs for your creativity in the digital
+            space.
           </p>
 
           {/* CTA */}
@@ -1136,7 +1147,7 @@ export default async function PlatformPage({
           </p>
         </div>
       </section>
-      <FAQSection />
+      <FAQSection toolName={slug.split("-")[0]} />
       <Footer />
     </div>
   );

@@ -439,15 +439,17 @@ export default function AboutPage() {
                 Founder & CEO
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Deevay Rattan Puri is the visionary behind DevAIHumanizer. With
-                a deep passion for artificial intelligence and content
-                technology, Deevay founded DevAIHumanizer to bridge the gap
-                between AI efficiency and authentic human expression. Under his
-                leadership, the platform has grown to serve over 50,000 users
-                across 120+ countries, processing millions of words every month.
-                Deevay believes that AI should augment human creativity — not
-                replace it — and is committed to building tools that empower
-                writers, students, and professionals worldwide.
+                Deevay Rattan Puri is the visionary behind Comment Tools. With
+                over a decade of experience in digital marketing and content
+                strategy, Deevay built the platform to simplify how creators,
+                brands, and agencies design social media engagement. Recognizing
+                the growing demand for high-quality visual content on platforms
+                like TikTok and Instagram, he launched Comment Tools to help
+                users generate realistic comment screenshots effortlessly. Under
+                his leadership, Comment Tools is evolving into a go-to platform
+                for marketers and creators worldwide. Deevay strongly believes
+                that tools should enhance creativity and speed — enabling users
+                to focus on strategy rather than manual work.
               </p>
             </div>
           </div>
@@ -465,15 +467,16 @@ export default function AboutPage() {
                 Co-Founder & CTO
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Pankaj Pal is the technical mastermind powering DevAIHumanizer.
-                As Co-Founder and CTO, Pankaj leads the engineering and research
-                teams, architecting the advanced NLP engine that drives our
-                industry-leading 99.8% AI detection bypass rate. With deep
-                expertise in computational linguistics and machine learning,
-                Pankaj ensures the platform remains at the cutting edge —
-                continuously refining humanization algorithms to stay ahead of
-                evolving AI detectors while maintaining the natural quality
-                users expect.
+                Pankaj Pal is the technical force behind Comment Tools. As
+                Co-Founder & CTO, he leads the platform’s engineering, ensuring
+                seamless performance, scalability, and precision across all
+                generators. From building pixel-perfect comment rendering
+                systems to optimizing bulk generation features, Pankaj ensures
+                the tool replicates real-world interfaces from platforms like
+                YouTube and X with high accuracy. With strong expertise in
+                system architecture and frontend performance, he continuously
+                improves the platform to deliver fast, reliable, and realistic
+                outputs for users globally.
               </p>
             </div>
           </div>
@@ -494,13 +497,15 @@ export default function AboutPage() {
                 Co-Founder & CMO
               </p>
               <p className="text-muted-foreground text-sm leading-relaxed">
-                Vipul Goel drives the marketing vision behind DevAIHumanizer. As
-                CMO, Vipul leads brand strategy, growth initiatives, and user
-                acquisition across 120+ countries. With a keen understanding of
-                digital marketing, content strategy, and data-driven campaigns,
-                Vipul ensures DevAIHumanizer reaches the writers, students, and
-                professionals who need it most — building a brand that stands
-                for authenticity in the age of AI.
+                Vipul Goel leads the growth and marketing strategy at Comment
+                Tools. As CMO, he focuses on building a strong global presence
+                and connecting the product with creators, agencies, and
+                businesses. With a deep understanding of digital marketing
+                trends and social media behavior, Vipul ensures that Comment
+                Tools reaches professionals in key markets like Mumbai and
+                London. His vision is to position Comment Tools as an essential
+                resource for content creators looking to enhance engagement,
+                improve creatives, and streamline their workflow.
               </p>
             </div>
           </div>
