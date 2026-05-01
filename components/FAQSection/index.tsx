@@ -11,7 +11,7 @@ const faqsMap: Record<string, { q: string; a: string }[]> = {
     },
     {
       q: "Is this tool free to use?",
-      a: "Yes, a basic version is available for free. Premium features unlock advanced capabilities.",
+      a: "Yes, a basic version is available for free. However, premium features unlock advanced capabilities.",
     },
     {
       q: "What does the premium version offer?",
@@ -28,6 +28,10 @@ const faqsMap: Record<string, { q: string; a: string }[]> = {
     {
       q: "Can I customize usernames and profile pictures?",
       a: "Absolutely. You can fully customize all elements to make comments look realistic.",
+    },
+    {
+      q: "Is my data secure and private?",
+      a: "Yes, since the tool requires login, your data is securely stored and protected.",
     },
   ],
 

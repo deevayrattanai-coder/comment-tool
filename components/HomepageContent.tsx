@@ -151,7 +151,7 @@ const HomepageContent = () => {
         </div>
         <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
           <a
-            href="#platforms"
+            href="/tools"
             className="px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:opacity-90 transition"
           >
             Explore More Tools

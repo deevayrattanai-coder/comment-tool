@@ -149,7 +149,8 @@ export default function AboutPage() {
             The Problem
           </span>
           <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mt-3">
-            Creating Realistic Comment Screenshots Shouldn’t Be This Hard
+            Creating realistic social media comment screenshots has always been
+            inefficient.
           </h2>
         </div>
 
@@ -277,23 +278,23 @@ export default function AboutPage() {
           {[
             {
               title: "Built for Professionals",
-              desc: "Designed specifically for marketers, agencies, and serious creators — not casual or entertainment use.",
+              desc: "Unlike casual tools, our platform is designed specifically for marketers, agencies, and serious creators.",
             },
             {
               title: "Accuracy First",
-              desc: "Interfaces are carefully crafted to closely match real platform UI for maximum authenticity.",
+              desc: "Every interface is crafted to closely match real platform UI for maximum authenticity.",
             },
             {
               title: "Scalable Workflow",
-              desc: "From single comments to bulk generation, the platform adapts seamlessly to your needs.",
+              desc: "From single comments to bulk generation, the platform adapts to your workflow",
             },
             {
               title: "High-Quality Output",
-              desc: "Export high-resolution visuals optimized for ads, presentations, and content.",
+              desc: "Export in high resolution, ready for ads, content, and presentations.",
             },
             {
               title: "Clean & Professional",
-              desc: "No clutter, no gimmicks — just a focused tool built for performance and usability.",
+              desc: "No unnecessary clutter, no gimmicks — just a focused, powerful tool.",
             },
           ].map((item) => (
             <div
@@ -330,7 +331,7 @@ export default function AboutPage() {
         </div>
 
         {/* Grid */}
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid sm:grid-cols-2 lg:grid-cols-2 gap-6">
           {[
             {
               title: "Performance Marketing Teams",
@@ -344,10 +345,14 @@ export default function AboutPage() {
               title: "Agencies",
               desc: "Deliver polished, client-ready visuals at scale.",
             },
+            {
+              title: "Designers & Freelancers",
+              desc: "Skip manual mockups and generate assets instantly.",
+            },
           ].map((item) => (
             <div
               key={item.title}
-              className="group rounded-xl border border-border bg-card p-6 transition-all hover:border-primary hover:shadow-md"
+              className="group rounded-xl border border-border bg-card p-4 transition-all hover:border-primary hover:shadow-md"
             >
               <h3 className="font-semibold text-foreground mb-2">
                 {item.title}
@@ -444,12 +449,21 @@ export default function AboutPage() {
                 strategy, Deevay built the platform to simplify how creators,
                 brands, and agencies design social media engagement. Recognizing
                 the growing demand for high-quality visual content on platforms
-                like TikTok and Instagram, he launched Comment Tools to help
-                users generate realistic comment screenshots effortlessly. Under
-                his leadership, Comment Tools is evolving into a go-to platform
-                for marketers and creators worldwide. Deevay strongly believes
-                that tools should enhance creativity and speed — enabling users
-                to focus on strategy rather than manual work.
+                like TikTok and Instagram, he launched{" "}
+                <b>
+                  <a
+                    href="/"
+                    className="text-primary underline hover:cursor-pointer"
+                  >
+                    <i> Comment Tools</i>
+                  </a>
+                </b>{" "}
+                to help users generate realistic comment screenshots
+                effortlessly. Under his leadership, Comment Tools is evolving
+                into a go-to platform for marketers and creators worldwide.
+                Deevay strongly believes that tools should enhance creativity
+                and speed — enabling users to focus on strategy rather than
+                manual work.
               </p>
             </div>
           </div>
@@ -596,7 +610,7 @@ export default function AboutPage() {
               </a>
 
               <a
-                href="/"
+                href="/tools/tiktok-comment-generator"
                 className="px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-accent transition"
               >
                 Get Started →

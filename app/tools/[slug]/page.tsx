@@ -3,6 +3,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CommentTool from "@/components/CommentTool";
 import FAQSection from "@/components/FAQSection";
+import ScrollButton from "@/components/ScrollButton";
 
 const VALID = new Set([
   "tiktok-comment-generator",
@@ -128,10 +129,18 @@ export default async function PlatformPage({
             </h1>
 
             {/* Subtext */}
-            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-[720px] leading-relaxed">
-              Writing TikTok comments shouldn’t feel like a chore. Generate
-              engaging, scroll-stopping replies instantly and turn every post
-              into a conversation magnet.
+            <p className="mt-4 text-base md:text-lg text-muted-foreground  leading-relaxed">
+              Taking time to write and come up with comments for TikTok can be
+              very boring, and most people don’t enjoy it. Luckily, with our
+              <a
+                href="/tools/tiktok-comment-generator"
+                className="text-primary hover:underline ml-0.5 font-bold font-italic underline"
+              >
+                <i>Best TikTok Comment Generator tool online</i>
+              </a>
+              , boring time has come to an end! Now, comments are at the touch
+              of a button. Turn your content up to a 10 and watch your TikTok
+              come to life!
             </p>
 
             {/* Highlight Cards */}
@@ -168,10 +177,12 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Paragraph */}
-            <p className="mt-10 text-sm md:text-base text-muted-foreground max-w-[720px]">
-              TikTok thrives on interaction. This tool helps you create
-              meaningful comment threads, spark conversations, and build
-              stronger connections with your audience— all without wasting time.
+            <p className="mt-10 text-sm md:text-base text-muted-foreground">
+              This tool allows you to do what TikTok is most known for: creating
+              a space for social interactions. With this tool, you are able to
+              create social dynamics between your comments and as a creator,
+              this is a game changer. Design your content with infinite
+              possibilities!
             </p>
           </div>
         </section>
@@ -193,10 +204,31 @@ export default async function PlatformPage({
             </h1>
 
             {/* Description */}
-            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-[720px] leading-relaxed">
-              Writing Instagram comments manually can be slow and repetitive.
-              Generate realistic, engaging comments instantly and make your
-              posts look active, interactive, and ready to perform.
+            <p className="mt-4 text-base md:text-lg text-muted-foreground w-full leading-relaxed">
+              Making comments for Instagram posts one at a time is super slow
+              and boring. Luckily for you,{" "}
+              <b>
+                <i>
+                  {" "}
+                  <a
+                    href="/tools/instagram-comment-generator"
+                    className="text-primary underline hover:cursor-pointer mr-1"
+                  >
+                    Best Instagram Comment Generator Tool
+                  </a>
+                </i>
+              </b>
+              Online is here to generate comments for you, quickly and easily.
+              Comments are generated to be realistic and to help you increase
+              visual engagement with your posts.
+            </p>
+
+            <p className="mt-4 text-base md:text-lg text-muted-foreground w-full leading-relaxed">
+              It's useful to just about anyone, from creators to marketers to
+              agencies. Because this comment generator can imitate what you
+              might call 'real conversations' on Instagram, you can encourage
+              your audience and visually enhance your posts, and promote your
+              campaigns better.
             </p>
 
             {/* Feature Highlights */}
@@ -233,7 +265,7 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Text */}
-            <p className="mt-10 text-sm md:text-base text-muted-foreground max-w-[720px]">
+            <p className="mt-10 text-sm md:text-base text-muted-foreground w-full">
               Whether you're managing content, running campaigns, or building
               your brand, this tool helps you create better-looking posts
               faster—without spending hours writing comments.
@@ -246,7 +278,7 @@ export default async function PlatformPage({
         <section className="border-b border-border bg-background">
           <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
             {/* Header */}
-            <div className="max-w-[720px]">
+            <div className="w-full">
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                 Why It Matters
               </span>
@@ -256,10 +288,9 @@ export default async function PlatformPage({
               </h2>
 
               <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed">
-                In today’s content-driven world, engagement is a key signal of
-                success. Top creators like Cristiano Ronaldo and Kylie Jenner
-                don’t just post— they create conversations that drive visibility
-                and trust.
+                In today’s content-driven world, engagement is everything. For
+                instance, global influencers like Cristiano Ronaldo and Kylie
+                Jenner consistently receive massive interaction on their posts.
               </p>
             </div>
 
@@ -269,7 +300,7 @@ export default async function PlatformPage({
                 <span className="text-lg">⚡</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Instant Comment Creation
+                    Create authentic-looking Instagram comments instantly
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Generate realistic Instagram comments in seconds without
@@ -282,7 +313,7 @@ export default async function PlatformPage({
                 <span className="text-lg">⏱️</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Save Time Efficiently
+                    Save time on manual writing
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Skip repetitive writing and focus on strategy, creativity,
@@ -295,7 +326,7 @@ export default async function PlatformPage({
                 <span className="text-lg">🎯</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Improve Content Presentation
+                    Improve content presentation for campaigns
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Enhance your posts and campaigns with visually engaging
@@ -308,7 +339,7 @@ export default async function PlatformPage({
                 <span className="text-lg">📈</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Showcase Engagement Potential
+                    Demonstrate engagement potential to clients
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Present realistic engagement visuals to clients, brands, and
@@ -319,10 +350,9 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Line */}
-            <p className="mt-10 max-w-[720px] text-sm md:text-base text-muted-foreground">
-              Whether you're a creator, marketer, or agency, this tool helps you
-              simulate engagement, improve content perception, and scale your
-              Instagram strategy faster.
+            <p className="mt-10 w-full text-sm md:text-base text-muted-foreground">
+              Therefore, using an Instagram Comment Generator allows you
+              to.{" "}
             </p>
           </div>
         </section>
@@ -332,7 +362,7 @@ export default async function PlatformPage({
         <section className="border-b border-border bg-background">
           <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
             {/* Header */}
-            <div className="max-w-[720px]">
+            <div className="w-full">
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                 Why It Matters
               </span>
@@ -342,10 +372,10 @@ export default async function PlatformPage({
               </h2>
 
               <p className="mt-4 text-muted-foreground text-sm md:text-base leading-relaxed">
-                In today’s competitive social media landscape, engagement is
-                everything. Top creators like Charli D’Amelio and Khaby Lame
-                don’t just post content— they spark conversations. The more
-                interaction your content gets, the more visibility it earns.
+                In today’s competitive social media landscape, engagement plays
+                a crucial role. For example, top creators like Charli D'Amelio
+                and Khaby Lame consistently attract attention through high
+                interaction on their posts.
               </p>
             </div>
 
@@ -355,7 +385,7 @@ export default async function PlatformPage({
                 <span className="text-primary text-lg">⚡</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Generate Comments Instantly
+                    Instantly create authentic-looking comments
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Create authentic, platform-style comments in seconds without
@@ -368,7 +398,7 @@ export default async function PlatformPage({
                 <span className="text-primary text-lg">⏱️</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Save Time at Scale
+                    Save time on manual content creation
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Skip repetitive writing and generate bulk comments
@@ -381,7 +411,7 @@ export default async function PlatformPage({
                 <span className="text-primary text-lg">🎯</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Boost Engagement Strategy
+                    Showcase engagement potential to clients
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Make your posts look active and increase perceived
@@ -394,7 +424,7 @@ export default async function PlatformPage({
                 <span className="text-primary text-lg">📈</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Impress Clients & Brands
+                    Design high-converting ad creatives
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Showcase engagement potential in campaigns, pitches, and ad
@@ -405,7 +435,7 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Line */}
-            <p className="mt-10 max-w-[720px] text-sm md:text-base text-muted-foreground">
+            <p className="mt-10  text-sm md:text-base text-muted-foreground">
               Whether you're a creator, marketer, or agency, this tool helps you
               simulate real engagement, improve content perception, and scale
               faster without extra effort.
@@ -430,10 +460,25 @@ export default async function PlatformPage({
             </h1>
 
             {/* Description */}
-            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-[720px] leading-relaxed">
-              Writing meaningful YouTube comments can be time-consuming.
-              Generate realistic, engaging comments instantly and make your
-              videos look more active, interactive, and ready to perform.
+            <p className="mt-4 text-base md:text-lg text-muted-foreground w-full leading-relaxed">
+              Writing good comments on YouTube tends to take up a lot of time.
+              Because of this, we have made the{" "}
+              <b>
+                <a
+                  href="/tools/youtube-comment-generator"
+                  className="text-primary underline hover:cursor-pointer mx-1"
+                >
+                  <i> Best YouTube Comment Generator Tool Online</i>
+                </a>
+              </b>
+              . Now, you can create awesome comments to help grow your interest
+              on your content and clicks on your videos.
+            </p>
+            <p className="mt-4 text-base md:text-lg text-muted-foreground w-full leading-relaxed">
+              If you're a creator, a marketer, or an agency, this tool will help
+              you easily replicate the types of comments you would see on normal
+              videos on YouTube. From this tool, you can improve your design and
+              can present your ideas more effectively.
             </p>
 
             {/* Feature Highlights */}
@@ -470,7 +515,7 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Text */}
-            <p className="mt-10 text-sm md:text-base text-muted-foreground max-w-[720px]">
+            <p className="mt-10 text-sm md:text-base text-muted-foreground w-full">
               Whether you're planning content, building mockups, or presenting
               ideas, this tool helps you create better-looking YouTube comment
               sections faster— without spending hours writing manually.
@@ -483,7 +528,7 @@ export default async function PlatformPage({
         <section className="border-b border-border bg-background">
           <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
             {/* Header */}
-            <div className="max-w-[720px]">
+            <div className="w-full">
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                 Why It Matters
               </span>
@@ -493,10 +538,9 @@ export default async function PlatformPage({
               </h2>
 
               <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed">
-                In today’s video-first world, engagement plays a major role in
-                visibility. Leading creators like MrBeast and PewDiePie don’t
-                just get views—they drive conversations that boost reach and
-                audience trust.
+                In today’s video-first world, engagement is key to success. For
+                example, top creators like MrBeast and PewDiePie consistently
+                attract millions of comments on their videos.
               </p>
             </div>
 
@@ -506,7 +550,7 @@ export default async function PlatformPage({
                 <span className="text-lg">⚡</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Instant Comment Creation
+                    Instantly create authentic-looking YouTube comments
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Generate realistic YouTube comments in seconds without
@@ -519,7 +563,7 @@ export default async function PlatformPage({
                 <span className="text-lg">⏱️</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Save Time Efficiently
+                    Save time on manual writing
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Avoid repetitive writing and focus more on content strategy
@@ -532,7 +576,7 @@ export default async function PlatformPage({
                 <span className="text-lg">🎯</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Improve Content Presentation
+                    Improve content presentation for campaigns
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Enhance your video mockups and campaigns with realistic
@@ -545,7 +589,7 @@ export default async function PlatformPage({
                 <span className="text-lg">📈</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Showcase Engagement Potential
+                    Showcase engagement potential to clients
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Present convincing engagement visuals to clients, brands,
@@ -556,10 +600,8 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Line */}
-            <p className="mt-10 max-w-[720px] text-sm md:text-base text-muted-foreground">
-              Whether you're a creator, marketer, or agency, this tool helps you
-              simulate engagement, improve video presentation, and scale your
-              YouTube strategy faster.
+            <p className="mt-10 w-full text-sm md:text-base text-muted-foreground">
+              Therefore, using a YouTube Comment Generator allows you to.
             </p>
           </div>
         </section>
@@ -581,10 +623,27 @@ export default async function PlatformPage({
             </h1>
 
             {/* Description */}
-            <p className="mt-4 text-base md:text-lg text-muted-foreground max-w-[720px] leading-relaxed">
-              Writing thoughtful replies on X can take time. Generate realistic,
-              engaging responses instantly and make your posts feel active,
-              conversational, and ready to stand out.
+            <p className="mt-4 text-base md:text-lg text-muted-foreground w-full leading-relaxed">
+              Typing out thoughtful comments and responses on X takes a lot of
+              time. Luckily the{" "}
+              <b>
+                {" "}
+                <a
+                  href="tools/best-twitter-comment-generator"
+                  className="text-primary underline hover:cursor-pointer mx-1"
+                >
+                  Best X (Twitter) Comment Generator Tool Online
+                </a>
+              </b>
+              lets you create real-life comments instantly. Now you can step up
+              your content with higher quality comments and better visual
+              engagement.
+            </p>
+            <p className="mt-4 text-base md:text-lg text-muted-foreground w-full leading-relaxed">
+              This tool, no matter if you are a creator, marketer, or agency,
+              lets you recreate real-life X comment threads. Not only can you
+              engage more with your followers, but you also can create visual
+              social proof.
             </p>
 
             {/* Feature Highlights */}
@@ -621,7 +680,7 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Text */}
-            <p className="mt-10 text-sm md:text-base text-muted-foreground max-w-[720px]">
+            <p className="mt-10 text-sm md:text-base text-muted-foreground w-full">
               Whether you're building content, showcasing ideas, or creating
               social proof, this tool helps you design better-looking X threads
               faster— without spending hours writing replies.
@@ -634,7 +693,7 @@ export default async function PlatformPage({
         <section className="border-b border-border bg-background">
           <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
             {/* Header */}
-            <div className="max-w-[720px]">
+            <div className="w-full">
               <span className="text-xs font-semibold uppercase tracking-widest text-primary">
                 Why It Matters
               </span>
@@ -644,10 +703,12 @@ export default async function PlatformPage({
               </h2>
 
               <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed">
-                In today’s fast-moving social media landscape, conversations
-                drive visibility. High-profile figures like Elon Musk and
-                Narendra Modi don’t just post—they actively engage, creating
-                threads that boost reach and audience interaction.
+                Conversations create visibility in today’s speedy social media
+                world. Responding, and thus driving conversation, is a way to
+                gain engagement from users. An example of this is a person like
+                Elon Musk, or even a political figure like Narendra Modi. Both
+                gain huge amounts of engagement and visibility on social media
+                because of this.
               </p>
             </div>
 
@@ -657,7 +718,7 @@ export default async function PlatformPage({
                 <span className="text-lg">⚡</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Instant Reply & Thread Creation
+                    Instantly create authentic-looking replies and threads
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Generate realistic X replies and thread-style conversations
@@ -670,7 +731,7 @@ export default async function PlatformPage({
                 <span className="text-lg">⏱️</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Save Time Efficiently
+                    Save time on manual writing
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Avoid manual writing and focus on strategy, engagement, and
@@ -683,7 +744,7 @@ export default async function PlatformPage({
                 <span className="text-lg">🎯</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Improve Content Presentation
+                    Improve content presentation for campaigns
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Enhance campaigns and mockups with realistic conversation
@@ -696,7 +757,7 @@ export default async function PlatformPage({
                 <span className="text-lg">📈</span>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Showcase Engagement Potential
+                    Showcase engagement potential to clients
                   </h3>
                   <p className="text-sm text-muted-foreground">
                     Present convincing social proof to clients, brands, and
@@ -707,7 +768,7 @@ export default async function PlatformPage({
             </div>
 
             {/* Bottom Line */}
-            <p className="mt-10 max-w-[720px] text-sm md:text-base text-muted-foreground">
+            <p className="mt-10 w-full text-sm md:text-base text-muted-foreground">
               Whether you're a creator, marketer, or agency, this tool helps you
               simulate real engagement, improve content perception, and scale
               your X strategy faster.
@@ -717,9 +778,9 @@ export default async function PlatformPage({
       )}
 
       <section className="border-b border-border bg-gradient-to-b from-background to-primary/5">
-        <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
+        <div className="w-full mx-auto px-6 py-12 md:py-16">
           {/* Header */}
-          <div className="max-w-[720px]">
+          <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
               Features
             </span>
@@ -744,8 +805,8 @@ export default async function PlatformPage({
                 Realistic Comment Generation
               </h3>
               <p className="text-sm text-muted-foreground">
-                Generate comments that feel authentic with emojis, natural tone,
-                and platform-style formatting.
+                Generate comments that mimic real {slug.split("-")[0]}{" "}
+                interactions, including emojis, tone, and formatting.
               </p>
             </div>
 
@@ -756,8 +817,8 @@ export default async function PlatformPage({
                 Advanced Customization
               </h3>
               <p className="text-sm text-muted-foreground">
-                Customize usernames, profile images, timestamps, likes, and
-                replies to match your exact needs.
+                Easily edit usernames, profile images, timestamps, likes, and
+                replies to match your needs.
               </p>
             </div>
 
@@ -765,11 +826,12 @@ export default async function PlatformPage({
             <div className="p-5 rounded-2xl border border-border bg-background/70 backdrop-blur hover:shadow-md transition">
               <div className="text-xl mb-2">📦</div>
               <h3 className="font-semibold text-foreground mb-1">
-                Bulk Generation (Premium)
+                Bulk Comment Generation (Premium)
               </h3>
               <p className="text-sm text-muted-foreground">
-                Create multiple comment sets at once—perfect for agencies
-                running large campaigns.
+                With premium access, you can generate comments in bulk. This is
+                especially useful for agencies managing multiple campaigns at
+                once.
               </p>
             </div>
 
@@ -780,8 +842,8 @@ export default async function PlatformPage({
                 High-Quality Export
               </h3>
               <p className="text-sm text-muted-foreground">
-                Download comment sections as high-resolution images for ads,
-                presentations, or portfolios.
+                Download your generated comment sections as high-resolution
+                images for use in ads, presentations, or portfolios.
               </p>
             </div>
 
@@ -789,11 +851,11 @@ export default async function PlatformPage({
             <div className="p-5 rounded-2xl border border-border bg-background/70 backdrop-blur hover:shadow-md transition">
               <div className="text-xl mb-2">🔐</div>
               <h3 className="font-semibold text-foreground mb-1">
-                Secure Account Access
+                Secure & Account-Based Access
               </h3>
               <p className="text-sm text-muted-foreground">
-                Login-based access ensures your projects are saved, secure, and
-                available anytime.
+                This tool requires login, ensuring your projects are saved
+                securely and accessible anytime.
               </p>
             </div>
 
@@ -804,8 +866,8 @@ export default async function PlatformPage({
                 Built for Global Creators
               </h3>
               <p className="text-sm text-muted-foreground">
-                Designed for creators and agencies worldwide—ideal for both
-                local and international campaigns.
+                Used by marketers in cities like Mumbai and London, making it
+                ideal for both local and international campaigns.
               </p>
             </div>
           </div>
@@ -813,9 +875,9 @@ export default async function PlatformPage({
       </section>
 
       <section className="border-b border-border bg-background">
-        <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
+        <div className="w-full mx-auto px-6 py-12 md:py-16">
           {/* Header */}
-          <div className="max-w-[720px]">
+          <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
               Target Audience
             </span>
@@ -827,7 +889,7 @@ export default async function PlatformPage({
             <p className="mt-4 text-sm md:text-base text-muted-foreground">
               Whether you're building a brand, managing campaigns, or scaling
               content, this tool is designed for anyone who wants to create
-              engaging TikTok comment sections faster.
+              engaging {slug.split("-")[0]} comment sections faster.
             </p>
           </div>
 
@@ -896,7 +958,7 @@ export default async function PlatformPage({
           </div>
 
           {/* Bottom Line */}
-          <p className="mt-10 max-w-[720px] text-sm md:text-base text-muted-foreground">
+          <p className="mt-10 w-full text-sm md:text-base text-muted-foreground">
             In short, if your goal is to create engaging, high-performing{" "}
             {slug.split("-")[0]}
             content without spending hours writing comments, this tool is built
@@ -906,9 +968,9 @@ export default async function PlatformPage({
       </section>
 
       <section className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
-        <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
+        <div className="w-full mx-auto px-6 py-12 md:py-16">
           {/* Header */}
-          <div className="max-w-[720px]">
+          <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
               Strategy Benefits
             </span>
@@ -918,9 +980,8 @@ export default async function PlatformPage({
             </h2>
 
             <p className="mt-4 text-sm md:text-base text-muted-foreground leading-relaxed">
-              While these comments are designed for mockups and visual use, they
-              play a powerful role in planning, testing, and presenting your
-              content more effectively.
+              Although the generated comments are designed for mockups and
+              visuals, they still provide significant value. For instance:
             </p>
           </div>
 
@@ -930,7 +991,7 @@ export default async function PlatformPage({
               <span className="text-lg">💡</span>
               <div>
                 <h3 className="font-semibold text-foreground">
-                  Pitch Ideas More Effectively
+                  Help pitch ideas to clients more effectively
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   Present realistic comment sections to clients and make your
@@ -943,7 +1004,7 @@ export default async function PlatformPage({
               <span className="text-lg">📈</span>
               <div>
                 <h3 className="font-semibold text-foreground">
-                  Improve Ad Performance
+                  Increase ad performance with better creatives
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   Use high-quality comment visuals to create more engaging and
@@ -956,7 +1017,7 @@ export default async function PlatformPage({
               <span className="text-lg">🤝</span>
               <div>
                 <h3 className="font-semibold text-foreground">
-                  Build Trust with Social Proof
+                  Build trust using realistic engagement visuals
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   Simulate real engagement to make your content look active and
@@ -969,7 +1030,7 @@ export default async function PlatformPage({
               <span className="text-lg">🧪</span>
               <div>
                 <h3 className="font-semibold text-foreground">
-                  Test Content Before Publishing
+                  Test different content angles before publishing
                 </h3>
                 <p className="text-sm text-muted-foreground">
                   Experiment with different comment styles and angles before
@@ -980,10 +1041,10 @@ export default async function PlatformPage({
           </div>
 
           {/* Bottom Statement */}
-          <div className="mt-10 max-w-[720px]">
+          <div className="mt-10 w-full">
             <p className="text-sm md:text-base text-muted-foreground">
-              The result? A faster, smarter workflow that helps you plan better
-              content, create stronger campaigns, and execute with confidence.
+              Consequently, your workflow becomes faster, smarter, and more
+              efficient.
             </p>
           </div>
         </div>
@@ -992,7 +1053,7 @@ export default async function PlatformPage({
       <section className="border-b border-border bg-background">
         <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
           {/* Header */}
-          <div className="max-w-[720px]">
+          <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
               Getting Started
             </span>
@@ -1002,15 +1063,15 @@ export default async function PlatformPage({
             </h2>
 
             <p className="mt-4 text-sm md:text-base text-muted-foreground">
-              Create realistic TikTok comment sections in just a few simple
-              steps—no technical skills required.
+              Create realistic {slug.split("-")[0]} comment sections in just a
+              few simple steps—no technical skills required.
             </p>
           </div>
 
           {/* Steps */}
           <div className="relative mt-12">
             {/* Vertical line (desktop) */}
-            <div className="hidden md:block absolute left-4 top-0 bottom-0 w-px bg-border" />
+            <div className="hidden md:block absolute left-4 top-0 bottom-0 w-px" />
 
             <div className="space-y-8">
               {/* Step 1 */}
@@ -1020,7 +1081,7 @@ export default async function PlatformPage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Sign Up or Log In
+                    Sign up or log in to your account
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
                     Create your account or log in to securely access your
@@ -1036,7 +1097,7 @@ export default async function PlatformPage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Enter Your Content
+                    Enter your comment content
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
                     Add the comments or prompts you want to generate.
@@ -1051,7 +1112,7 @@ export default async function PlatformPage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Customize Details
+                    Customize usernames, profile images, and engagement metrics
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
                     Adjust usernames, profile images, timestamps, likes, and
@@ -1067,7 +1128,7 @@ export default async function PlatformPage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Generate Comments
+                    Generate individual or bulk comments (premium)
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
                     Create individual or bulk comment sets depending on your
@@ -1083,7 +1144,7 @@ export default async function PlatformPage({
                 </div>
                 <div>
                   <h3 className="font-semibold text-foreground">
-                    Download or Share
+                    Download or share your output
                   </h3>
                   <p className="text-sm text-muted-foreground mt-1">
                     Export your comment section as a high-quality image or share
@@ -1095,11 +1156,10 @@ export default async function PlatformPage({
           </div>
 
           {/* Bottom Line */}
-          <div className="mt-12 max-w-[720px]">
+          <div className="mt-12 w-full">
             <p className="text-sm md:text-base text-muted-foreground">
               Within seconds, you’ll have a professional-looking{" "}
-              {slug.split("-")[0]} comment section ready for ads, presentations,
-              or content planning.
+              {slug.split("-")[0]} comment section ready to use.
             </p>
           </div>
         </div>
@@ -1113,31 +1173,82 @@ export default async function PlatformPage({
           </h2>
 
           {/* Main Text */}
-          <p className="mt-4 max-w-[720px] mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
-            A {slug.split("-")[0]} comment generator helps you create realistic,
-            engaging comment sections quickly and efficiently. Whether you're
-            building mockups, planning campaigns, or presenting ideas, it
-            simplifies your workflow while maintaining high-quality output.
+          <p className="mt-4 w-full mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
+            In short, {slug.split("-")[0]} comment generator can help you build
+            all comment sections that are magical, real, and entertaining and we
+            are absolutely confident that this is the Best {slug.split("-")[0]}{" "}
+            Comment Generator Tool Online. It not only assists in content
+            generation but also enables you to better articulate your opinions.
           </p>
 
-          <p className="mt-4 max-w-[720px] mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
-            Instead of spending hours writing comments manually, you can focus
-            on strategy, creativity, and scaling your content. The result is
-            faster execution and more impactful campaigns.
+          <p className="mt-4 w-full mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
+            In addition, if you are looking for other solutions to improve your
+            efficiency, you can also try other{" "}
+            <b>
+              <i className="underline">Best Comment Generator Tools Online</i>
+            </b>
+            .
           </p>
 
-          <p className="mt-4 max-w-[720px] mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
-            Best Comment Generator Tools Online help you creatively express and
-            assist you in competitive ways, and are also tools you should look
-            into if you have similar needs for your creativity in the digital
-            space.
+          <p className="mt-4 w-full mx-auto text-sm md:text-base text-muted-foreground leading-relaxed">
+            Also Check:{" "}
+            {slug === "instagram-comment-generator" && (
+              <b>
+                {" "}
+                <i className="underline">
+                  <a
+                    href="/tools/youtube-comment-generator"
+                    className="text-primary hover:underline hover:cursor-pointer"
+                  >
+                    Best Youtube Comment Generator Tool Online
+                  </a>
+                </i>{" "}
+              </b>
+            )}
+            {slug === "youtube-comment-generator" && (
+              <b>
+                {" "}
+                <i className="underline">
+                  <a
+                    href="/tools/twitter-comment-generator"
+                    className="text-primary hover:underline hover:cursor-pointer"
+                  >
+                    Best X (Twitter) Comment Generator Tool Online
+                  </a>
+                </i>{" "}
+              </b>
+            )}
+            {slug === "twitter-comment-generator" && (
+              <b>
+                {" "}
+                <i className="underline">
+                  <a
+                    href="/tools/tiktok-comment-generator"
+                    className="text-primary hover:underline hover:cursor-pointer"
+                  >
+                    Best TikTok Comment Generator Tool Online
+                  </a>
+                </i>{" "}
+              </b>
+            )}
+            {slug === "tiktok-comment-generator" && (
+              <b>
+                {" "}
+                <i className="underline">
+                  <a
+                    href="/tools/instagram-comment-generator"
+                    className="text-primary hover:underline hover:cursor-pointer"
+                  >
+                    Best Instagram Comment Generator Tool Online
+                  </a>
+                </i>{" "}
+              </b>
+            )}
           </p>
 
           {/* CTA */}
           <div className="mt-8">
-            <button className="px-6 py-3 rounded-xl bg-primary text-primary-foreground font-semibold hover:opacity-90 transition">
-              Start Generating Comments
-            </button>
+            <ScrollButton label="Start Generating Comments" />
           </div>
 
           {/* Secondary Note */}

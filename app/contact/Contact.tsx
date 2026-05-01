@@ -134,7 +134,10 @@ export default function Contact() {
         </div>
       </section>
 
-      <section className="max-w-[960px] mx-auto px-6 pt-20 pb-20">
+      <section
+        className="max-w-[960px] mx-auto px-6 pt-20 pb-20"
+        id="contact-form"
+      >
         <div className="text-center mb-12">
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
             Get in touch
