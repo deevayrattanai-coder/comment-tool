@@ -594,6 +594,12 @@ const CommentTool = ({
             <div className="p-4 flex flex-col gap-4 flex-1 overflow-y-auto scrollbar-thin">
               {ModeToggle}
 
+              <div>
+                <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
+                  Preview
+                </label>
+                {/* todo make sameview as renderview */}
+              </div>
               {/* Platform */}
               <div className="flex flex-col gap-2">
                 <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
@@ -638,24 +644,184 @@ const CommentTool = ({
               </div>
 
               {/* Active row hint */}
-              <div className="rounded-xl border border-dashed border-sidebar-border p-3">
-                <p className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider mb-1.5">
-                  Active row
-                </p>
-                <p className="text-xs text-sidebar-text leading-relaxed">
-                  {activeBulkId ? (
-                    <>
-                      Editing{" "}
-                      <span className="text-sidebar-accent font-semibold">
-                        @{data.username || "unnamed"}
+              <div className="flex flex-col gap-2">
+                <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
+                  Comment Controls
+                </label>
+                <div className="flex gap-1.5 items-center">
+                  <div className="flex-1 relative">
+                    <User
+                      size={12}
+                      className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted"
+                    />
+                    <input
+                      type="text"
+                      value={data.username}
+                      onChange={(e) => update({ username: e.target.value })}
+                      placeholder="username"
+                      className="w-full h-8 pl-7 pr-7 rounded-lg glass-input text-xs"
+                    />
+                    <Upload
+                      size={11}
+                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
+                      onClick={() => fileInputRef.current?.click()}
+                    />
+                    <input
+                      ref={fileInputRef}
+                      type="file"
+                      accept="image/*"
+                      onChange={handleAvatarUpload}
+                      className="hidden"
+                    />
+                  </div>
+                  {isTwitter && (
+                    <div className="relative flex-1">
+                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted text-xs">
+                        @
                       </span>
-                    </>
-                  ) : (
-                    <span className="text-sidebar-text-muted">
-                      Click any row on the right to preview and edit it here.
-                    </span>
+                      <input
+                        type="text"
+                        value={data.displayName}
+                        onChange={(e) =>
+                          update({ displayName: e.target.value })
+                        }
+                        placeholder="Display Name"
+                        className="w-full h-8 pl-7 pr-2 rounded-lg glass-input text-xs"
+                      />
+                    </div>
                   )}
-                </p>
+                  {showBadge && (
+                    <button
+                      onClick={() => update({ isVerified: !data.isVerified })}
+                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
+                        data.isVerified
+                          ? "gradient-primary text-primary-foreground shadow-sm"
+                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                      }`}
+                      title="Toggle verified badge"
+                    >
+                      <BadgeCheck size={13} />
+                    </button>
+                  )}
+                  <div className="relative" ref={randomMenuRef}>
+                    <button
+                      onClick={() => setShowRandomMenu(!showRandomMenu)}
+                      className="w-8 h-8 rounded-lg glass-panel flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors flex-shrink-0"
+                      title="Generate Random Identity"
+                    >
+                      <svg
+                        className="w-3.5 h-3.5"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M12 4V1L8 5l4 4V6c3.31 0 6 2.69 6 6 0 1.01-.25 1.97-.7 2.8l1.46 1.46A7.93 7.93 0 0020 12c0-4.42-3.58-8-8-8zm0 14c-3.31 0-6-2.69-6-6 0-1.01.25-1.97.7-2.8L5.24 7.74A7.93 7.93 0 004 12c0 4.42 3.58 8 8 8v3l4-4-4-4v3z" />
+                      </svg>
+                    </button>
+                    {showRandomMenu && (
+                      <div className="absolute top-full right-0 mt-1 w-36 rounded-lg glass-panel shadow-elevated z-50 py-1 border border-sidebar-border">
+                        <button
+                          onClick={() => randomize("male")}
+                          className="w-full px-3 py-2 text-left text-xs text-sidebar-text hover:bg-sidebar-surface flex items-center gap-2"
+                        >
+                          <span>👨</span> Male
+                        </button>
+                        <button
+                          onClick={() => randomize("female")}
+                          className="w-full px-3 py-2 text-left text-xs text-sidebar-text hover:bg-sidebar-surface flex items-center gap-2"
+                        >
+                          <span>👩</span> Female
+                        </button>
+                        <button
+                          onClick={() => randomize("celebrity")}
+                          className="w-full px-3 py-2 text-left text-xs text-sidebar-accent hover:bg-sidebar-surface flex items-center gap-2"
+                        >
+                          <span>✨</span> Celebrity
+                        </button>
+                      </div>
+                    )}
+                  </div>
+                </div>
+                {showMetrics && (
+                  <div className="flex gap-1.5 flex-wrap items-center">
+                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                      <Clock size={11} className="text-sidebar-text-muted" />
+                      <input
+                        type="text"
+                        value={data.time}
+                        onChange={(e) => update({ time: e.target.value })}
+                        className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                      />
+                      <select
+                        value={data.timeUnit}
+                        onChange={(e) => update({ timeUnit: e.target.value })}
+                        className="bg-transparent text-sidebar-text-muted text-[10px] cursor-pointer"
+                      >
+                        <option value="hrs">hrs</option>
+                        <option value="days">days</option>
+                        <option value="wks">wks</option>
+                        <option value="months">months</option>
+                      </select>
+                    </div>
+                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                      <Heart size={11} className="text-pink-400" />
+                      <input
+                        type="text"
+                        value={data.likes}
+                        onChange={(e) => update({ likes: e.target.value })}
+                        className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                      />
+                    </div>
+                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                      <MessageCircle
+                        size={11}
+                        className="text-sidebar-text-muted"
+                      />
+                      <input
+                        type="text"
+                        value={data.replies}
+                        onChange={(e) => update({ replies: e.target.value })}
+                        className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                      />
+                    </div>
+                    {isTwitter && (
+                      <>
+                        <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                          <Repeat2
+                            size={11}
+                            className="text-sidebar-text-muted"
+                          />
+                          <input
+                            type="text"
+                            value={data.retweets}
+                            onChange={(e) =>
+                              update({ retweets: e.target.value })
+                            }
+                            className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                          />
+                        </div>
+                        <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                          <BarChart3
+                            size={11}
+                            className="text-sidebar-text-muted"
+                          />
+                          <input
+                            type="text"
+                            value={data.views}
+                            onChange={(e) => update({ views: e.target.value })}
+                            className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                          />
+                        </div>
+                      </>
+                    )}
+                    <button
+                      onClick={randomizeStats}
+                      className="w-7 h-7 rounded-lg glass-panel flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors flex-shrink-0"
+                      title="Randomize stats"
+                    >
+                      <Shuffle size={11} />
+                    </button>
+                  </div>
+                )}{" "}
               </div>
 
               {/* Theme toggle */}
@@ -704,25 +870,6 @@ const CommentTool = ({
           {/* RIGHT: live preview strip + table */}
           <section className="flex-1 bg-canvas-bg grid-dots flex flex-col overflow-hidden min-w-0">
             {/* Live preview strip */}
-            <div className="border-b border-border bg-white/70 backdrop-blur-sm px-4 py-3">
-              <div className="flex items-center gap-3">
-                <span className="text-[10px] font-bold text-foreground/60 uppercase tracking-wider flex-shrink-0">
-                  Live preview
-                </span>
-                <div
-                  className={`flex-1 rounded-lg border border-border flex items-center justify-center overflow-hidden h-[150px] ${
-                    data.previewTheme === "dark"
-                      ? "bg-[hsl(240,5%,10%)]"
-                      : "bg-white"
-                  }`}
-                  onMouseUp={handlePreviewMouseUp}
-                >
-                  <div ref={previewRef} className="origin-center scale-[0.55]">
-                    {renderPreview()}
-                  </div>
-                </div>
-              </div>
-            </div>
 
             {/* Toolbar */}
             <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-card">
@@ -739,6 +886,76 @@ const CommentTool = ({
                   {bulkComments.length}{" "}
                   {bulkComments.length === 1 ? "comment" : "comments"}
                 </span>
+
+                <div className="h-6 w-px bg-sidebar-border"></div>
+
+                <button
+                  className="h-9 px-3 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                  title="Coming soon"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="13"
+                    height="13"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-file-up"
+                  >
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                    <path d="M12 12v6"></path>
+                    <path d="m15 15-3-3-3 3"></path>
+                  </svg>{" "}
+                  Import
+                </button>
+
+                <button
+                  className="text-sidebar-text-muted hover:text-sidebar-text"
+                  title="Import CSV/Excel files"
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="14"
+                    height="14"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-circle-help"
+                  >
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
+                    <path d="M12 17h.01"></path>
+                  </svg>
+                </button>
+
+                <button className="text-primary text-xs font-semibold flex items-center gap-1 hover:underline">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="lucide lucide-file-text"
+                  >
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
+                    <path d="M10 9H8"></path>
+                    <path d="M16 13H8"></path>
+                    <path d="M16 17H8"></path>
+                  </svg>{" "}
+                  Template
+                </button>
               </div>
               <button
                 onClick={exportImage}
@@ -1268,7 +1485,7 @@ const CommentTool = ({
 
           {/* Preview Area */}
           <div
-            className="flex-1 flex items-center justify-center p-12"
+            className={`flex-1 flex items-center justify-center p-12 ${data.previewTheme === "dark" ? "bg-gray-300 dark-grid-dots" : "bg-gray-300 dark-grid-dots"} overflow-auto  `}
             onMouseUp={handlePreviewMouseUp}
           >
             <div ref={previewRef}>{renderPreview()}</div>

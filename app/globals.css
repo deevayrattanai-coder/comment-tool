@@ -110,6 +110,11 @@ background-image: radial-gradient(circle at 1px 1px, rgba(255,255,255,0.06) 1px,
 background-size: 26px 26px;
 }
 
+.dark-grid-dots {
+  background-image: radial-gradient(circle at 1px 1px, rgba(0,0,0,0.15) 1px, transparent 0);
+background-size: 26px 26px;
+}
+
 /* 🧊 Glass panel */
 .glass-panel {
 background: rgba(20, 20, 35, 0.6);
