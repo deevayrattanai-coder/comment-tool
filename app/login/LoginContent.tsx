@@ -235,8 +235,12 @@ export default function LoginContent({ next }: { next: string }) {
       <section className="flex items-center justify-center px-6 py-20">
         <div className="w-full max-w-[400px]">
           <div className="text-center mb-8">
-            <div className="w-12 h-12 rounded-xl gradient-primary flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <MessageSquare size={22} className="text-primary-foreground" />
+            <div className="flex items-center justify-center mx-auto mb-4 shadow-lg">
+              <img
+                src="/logo.jpeg"
+                alt="logo"
+                className="w-20 h-20 max-md:w-10 max-md:h-10 object-contain"
+              />
             </div>
             <h1 className="text-2xl font-extrabold text-foreground tracking-tight">
               {isSignup ? "Create your account" : "Welcome back"}

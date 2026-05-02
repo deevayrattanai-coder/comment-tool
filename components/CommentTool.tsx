@@ -22,6 +22,8 @@ import {
   Plus,
   Trash2,
   ArrowUp,
+  FileText,
+  Crown,
 } from "lucide-react";
 import {
   CommentData,
@@ -43,6 +45,8 @@ import YouTubeShortsComment from "./previews/YouTubeShortsComment";
 import TwitterPostComment from "./previews/TwitterPostComment";
 import html2canvas from "html2canvas";
 import { toast } from "sonner";
+import Papa from "papaparse";
+import JSZip from "jszip";
 
 const platformIcons: Record<Platform, React.ReactNode> = {
   tiktok: (
@@ -67,7 +71,6 @@ const platformIcons: Record<Platform, React.ReactNode> = {
   ),
 };
 
-// Name pools — avatars are DiceBear (CORS-safe SVGs) seeded by name
 const maleProfiles = [
   "James",
   "Robert",
@@ -103,12 +106,12 @@ const femaleProfiles = [
   "Emma",
 ].map((name) => ({ name }));
 
-// DiceBear avatar URL builder. Style "avataaars" for people, "initials" fallback.
 const dicebearAvatar = (
   seed: string,
   style: "avataaars" | "initials" | "micah" = "avataaars",
 ) =>
   `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(seed)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
+
 const celebrityProfiles = [
   { name: "Elon Musk", handle: "elonmusk" },
   { name: "Taylor Swift", handle: "taylorswift13" },
@@ -184,6 +187,8 @@ const createBulkComment = (): BulkComment => ({
   avatarUrl: null,
 });
 
+const PAID_PLANS = ["monthly", "annual", "pro", "business"];
+
 const CommentTool = ({
   initialPlatform,
 }: { initialPlatform?: Platform } = {}) => {
@@ -201,6 +206,8 @@ const CommentTool = ({
   const previewRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
+  const csvImportRef = useRef<HTMLInputElement>(null);
+  const bulkRenderRef = useRef<HTMLDivElement>(null);
   const [savedSelection, setSavedSelection] = useState<{
     start: number;
     end: number;
@@ -215,6 +222,11 @@ const CommentTool = ({
     createBulkComment(),
   ]);
   const [activeBulkId, setActiveBulkId] = useState<string | null>(null);
+  const [bulkRenderRow, setBulkRenderRow] = useState<BulkComment | null>(null);
+  const [bulkExportProgress, setBulkExportProgress] = useState<{
+    done: number;
+    total: number;
+  } | null>(null);
 
   const { user } = useAuth();
   const router = useRouter();
@@ -284,6 +296,16 @@ const CommentTool = ({
     });
   }, []);
 
+  const syncActiveBulkRow = useCallback(
+    (partial: Partial<BulkComment>) => {
+      if (!activeBulkId) return;
+      setBulkComments((prev) =>
+        prev.map((c) => (c.id === activeBulkId ? { ...c, ...partial } : c)),
+      );
+    },
+    [activeBulkId],
+  );
+
   const randomize = useCallback(
     (type: "male" | "female" | "celebrity") => {
       if (type === "celebrity") {
@@ -298,7 +320,6 @@ const CommentTool = ({
           displayName: name,
           avatarSeed: seed,
         });
-        // Use unavatar.io with fallback - try loading the image first
         setAvatarUrl(dicebearAvatar(profile.handle, "avataaars"));
       } else {
         const pool = type === "male" ? maleProfiles : femaleProfiles;
@@ -408,6 +429,143 @@ const CommentTool = ({
     },
     [activeBulkId],
   );
+
+  useEffect(() => {
+    if (mode === "bulk" && !activeBulkId && bulkComments.length > 0) {
+      loadBulkRow(bulkComments[0]);
+    }
+  }, [mode]);
+
+  const handleCsvImport = useCallback((file: File) => {
+    const ext = file.name.split(".").pop()?.toLowerCase();
+    if (!["csv", "txt"].includes(ext ?? "")) {
+      toast.error("Please upload a .csv or .txt file");
+      return;
+    }
+    file.text().then((text) => {
+      const out = Papa.parse(text, { header: true, skipEmptyLines: true });
+      const rows = (out.data as any[])
+        .map((r: any) => {
+          const lower = (k: string) =>
+            Object.keys(r).find((kk) => kk.trim().toLowerCase() === k);
+          const get = (k: string) => {
+            const key = lower(k);
+            return key ? String(r[key] ?? "").trim() : "";
+          };
+          const verifiedRaw = get("isverified") || get("verified");
+          return {
+            username: get("username") || get("user") || get("name"),
+            message: get("message") || get("comment") || get("text"),
+            likes:
+              get("likes") || String(Math.floor(Math.random() * 5000) + 10),
+            time: (get("time") || "2").replace(/[^0-9]/g, "") || "2",
+            isVerified: ["true", "1", "yes", "y"].includes(
+              verifiedRaw.toLowerCase(),
+            ),
+          };
+        })
+        .filter((r: any) => r.username && r.message)
+        .slice(0, 200);
+
+      if (rows.length === 0) {
+        toast.error(
+          "No valid rows found. File must have username and message columns.",
+        );
+        return;
+      }
+      const newComments: BulkComment[] = rows.map((r: any) => ({
+        ...createBulkComment(),
+        username: r.username,
+        message: r.message,
+        likes: r.likes,
+        time: r.time,
+        isVerified: r.isVerified,
+      }));
+      setBulkComments(newComments);
+      toast.success(`Imported ${newComments.length} rows from CSV`);
+    });
+  }, []);
+
+  const downloadAllBulk = useCallback(async () => {
+    if (!user) {
+      setShowLoginGate(true);
+      return;
+    }
+    const plan = (user as any).plan as string;
+    if (!PAID_PLANS.includes(plan)) {
+      setUpgradeMsg(
+        "Download ALL requires a Monthly or Annual plan. Upgrade to export bulk ZIP.",
+      );
+      setShowUpgrade(true);
+      return;
+    }
+    if (bulkComments.length === 0) return;
+
+    try {
+      const pre = await fetch("/api/exports", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          platform: data.platform,
+          subMode: data.subMode,
+          mode: "bulk",
+          count: bulkComments.length,
+        }),
+      });
+      if (pre.status === 401) {
+        setShowLoginGate(true);
+        return;
+      }
+      const preData = await pre.json();
+      if (!pre.ok) {
+        if (preData.upgrade) {
+          setUpgradeMsg(preData.error);
+          setShowUpgrade(true);
+        } else {
+          toast.error(preData.error ?? "Export failed");
+        }
+        return;
+      }
+    } catch {
+      toast.error("Could not start export. Please try again.");
+      return;
+    }
+
+    const zip = new JSZip();
+    for (let i = 0; i < bulkComments.length; i++) {
+      const bc = bulkComments[i];
+      setBulkRenderRow(bc);
+      setBulkExportProgress({ done: i, total: bulkComments.length });
+      await new Promise((res) =>
+        requestAnimationFrame(() => requestAnimationFrame(res)),
+      );
+      if (bulkRenderRef.current) {
+        const canvas = await html2canvas(bulkRenderRef.current, {
+          backgroundColor: null,
+          scale: 2,
+        });
+        const blob: Blob = await new Promise((resolve) =>
+          canvas.toBlob((b) => resolve(b!), "image/png"),
+        );
+        const safeName = (bc.username || `row-${i + 1}`).replace(
+          /[^a-z0-9_-]/gi,
+          "_",
+        );
+        zip.file(`${String(i + 1).padStart(3, "0")}_${safeName}.png`, blob);
+      }
+    }
+    setBulkRenderRow(null);
+    setBulkExportProgress(null);
+
+    const zipBlob = await zip.generateAsync({ type: "blob" });
+    const url = URL.createObjectURL(zipBlob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `comments-${data.platform}-bulk.zip`;
+    a.click();
+    URL.revokeObjectURL(url);
+    toast.success(`Downloaded ${bulkComments.length} comment images as ZIP`);
+  }, [user, bulkComments, data.platform, data.subMode]);
 
   const exportImage = useCallback(async () => {
     if (!previewRef.current) return;
@@ -546,6 +704,44 @@ const CommentTool = ({
     return <TwitterPostComment {...props} />;
   };
 
+  const renderPreviewForRow = (bc: BulkComment) => {
+    const rowData: CommentData = {
+      ...data,
+      username: bc.username || "username",
+      displayName: bc.username || "Username",
+      message: bc.message || "Write any comment and see what happens 😊",
+      likes: bc.likes,
+      time: bc.time,
+      timeUnit: bc.timeUnit,
+      isVerified: bc.isVerified,
+      annotations: [],
+    };
+    const rowAvatarUrl = bc.avatarUrl;
+    const props = { data: rowData, avatarUrl: rowAvatarUrl };
+    if (data.platform === "tiktok") {
+      return data.subMode === "comment-reply" ? (
+        <TikTokCommentReply {...props} />
+      ) : (
+        <TikTokVideoComment {...props} />
+      );
+    }
+    if (data.platform === "instagram") {
+      return data.subMode === "post-comment" ? (
+        <InstagramPostComment {...props} />
+      ) : (
+        <InstagramReelsComment {...props} />
+      );
+    }
+    if (data.platform === "youtube") {
+      return data.subMode === "video-comment" ? (
+        <YouTubeVideoComment {...props} />
+      ) : (
+        <YouTubeShortsComment {...props} />
+      );
+    }
+    return <TwitterPostComment {...props} />;
+  };
+
   const ModeToggle = (
     <div className="glass-panel rounded-lg p-0.5 flex gap-0.5 w-full">
       <button
@@ -586,22 +782,21 @@ const CommentTool = ({
   );
 
   if (mode === "bulk") {
+    const isPaid = user && PAID_PLANS.includes((user as any).plan as string);
+    const isBulkExporting = bulkExportProgress !== null;
+
     return (
-      <div className="min-h-[calc(100vh-3.5rem)] px-32 py-6">
-        <div className="flex w-full h-[calc(100vh-3.5rem-3rem)] max-w-[1040px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
-          {/* LEFT: same sidebar footprint as single mode (300px) */}
-          <aside className="w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
+      <div className="min-h-[calc(100vh-3.5rem)] px-2 sm:px-6 lg:px-16 xl:px-32 py-4 sm:py-6">
+        <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-3.5rem-2rem)] lg:h-[calc(100vh-3.5rem-3rem)] max-w-[1200px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
+          {/* LEFT PANEL — preview + platform + comment controls */}
+          <aside className="w-full lg:w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden border-b lg:border-b-0 lg:border-r border-border">
             <div className="p-4 flex flex-col gap-4 flex-1 overflow-y-auto scrollbar-thin">
               {ModeToggle}
 
-              <div>
-                <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
-                  Preview
-                </label>
-                {/* todo make sameview as renderview */}
-              </div>
+              {/* Live Preview */}
+
               {/* Platform */}
-              <div className="flex flex-col gap-2">
+              <div className="flex flex-col gap-2 mt-5">
                 <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
                   Platform
                 </label>
@@ -611,9 +806,10 @@ const CommentTool = ({
                   ).map((p) => (
                     <button
                       key={p}
-                      onClick={() =>
-                        router.push(`/tools/${p}-comment-generator`)
-                      }
+                      onClick={() => {
+                        const newSub = platformSubModes[p][0].value;
+                        update({ platform: p, subMode: newSub });
+                      }}
                       className={`h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
                         data.platform === p
                           ? "gradient-primary text-primary-foreground shadow-sm"
@@ -643,10 +839,15 @@ const CommentTool = ({
                 </div>
               </div>
 
-              {/* Active row hint */}
-              <div className="flex flex-col gap-2">
+              {/* Comment Controls for active row */}
+              <div className="flex flex-col gap-2 mt-5">
                 <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
                   Comment Controls
+                  {activeBulkId && (
+                    <span className="ml-1.5 text-primary normal-case font-normal">
+                      (active row)
+                    </span>
+                  )}
                 </label>
                 <div className="flex gap-1.5 items-center">
                   <div className="flex-1 relative">
@@ -657,7 +858,10 @@ const CommentTool = ({
                     <input
                       type="text"
                       value={data.username}
-                      onChange={(e) => update({ username: e.target.value })}
+                      onChange={(e) => {
+                        update({ username: e.target.value });
+                        syncActiveBulkRow({ username: e.target.value });
+                      }}
                       placeholder="username"
                       className="w-full h-8 pl-7 pr-7 rounded-lg glass-input text-xs"
                     />
@@ -692,7 +896,10 @@ const CommentTool = ({
                   )}
                   {showBadge && (
                     <button
-                      onClick={() => update({ isVerified: !data.isVerified })}
+                      onClick={() => {
+                        update({ isVerified: !data.isVerified });
+                        syncActiveBulkRow({ isVerified: !data.isVerified });
+                      }}
                       className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
                         data.isVerified
                           ? "gradient-primary text-primary-foreground shadow-sm"
@@ -741,6 +948,7 @@ const CommentTool = ({
                     )}
                   </div>
                 </div>
+
                 {showMetrics && (
                   <div className="flex gap-1.5 flex-wrap items-center">
                     <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
@@ -748,12 +956,18 @@ const CommentTool = ({
                       <input
                         type="text"
                         value={data.time}
-                        onChange={(e) => update({ time: e.target.value })}
+                        onChange={(e) => {
+                          update({ time: e.target.value });
+                          syncActiveBulkRow({ time: e.target.value });
+                        }}
                         className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                       />
                       <select
                         value={data.timeUnit}
-                        onChange={(e) => update({ timeUnit: e.target.value })}
+                        onChange={(e) => {
+                          update({ timeUnit: e.target.value });
+                          syncActiveBulkRow({ timeUnit: e.target.value });
+                        }}
                         className="bg-transparent text-sidebar-text-muted text-[10px] cursor-pointer"
                       >
                         <option value="hrs">hrs</option>
@@ -767,7 +981,10 @@ const CommentTool = ({
                       <input
                         type="text"
                         value={data.likes}
-                        onChange={(e) => update({ likes: e.target.value })}
+                        onChange={(e) => {
+                          update({ likes: e.target.value });
+                          syncActiveBulkRow({ likes: e.target.value });
+                        }}
                         className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                       />
                     </div>
@@ -821,59 +1038,105 @@ const CommentTool = ({
                       <Shuffle size={11} />
                     </button>
                   </div>
-                )}{" "}
+                )}
               </div>
 
               {/* Theme toggle */}
-              <div className="flex items-center justify-between glass-panel rounded-lg px-3 py-2">
-                <span className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
-                  Theme
-                </span>
-                <button
-                  onClick={() =>
-                    update({
-                      previewTheme:
-                        data.previewTheme === "light" ? "dark" : "light",
-                    })
-                  }
-                  className="w-7 h-7 rounded-full flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors"
-                >
-                  {data.previewTheme === "light" ? (
-                    <Moon size={13} />
-                  ) : (
-                    <Sun size={13} />
-                  )}
-                </button>
-              </div>
-            </div>
 
-            <div className="p-4 pt-0">
-              <div className="flex gap-2 pt-3 border-t border-sidebar-border">
-                <button
-                  onClick={exportImage}
-                  className="flex-1 h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
-                >
-                  <Download size={13} />
-                  Export
-                </button>
-                <button
-                  onClick={copyImage}
-                  className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
-                >
-                  <Copy size={13} />
-                  Copy
-                </button>
+              {/* Download ALL — paid only */}
+              <div className="flex mt-auto flex-col gap-1.5">
+                <div className="flex flex-col gap-1.5">
+                  {activeBulkId && (
+                    <div className="flex gap-1.5">
+                      <button
+                        onClick={exportImage}
+                        className="flex-1 h-7 gradient-primary text-primary-foreground rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-all active:scale-[0.98]"
+                      >
+                        <Download size={10} /> Export
+                      </button>
+                      <button
+                        onClick={copyImage}
+                        className="flex-1 h-7 glass-panel text-sidebar-text rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:bg-sidebar-surface transition-all"
+                      >
+                        <Copy size={10} /> Copy
+                      </button>
+                    </div>
+                  )}
+                </div>
+
+                {!isPaid && (
+                  <p className="text-[9px] text-sidebar-text-muted text-center">
+                    Monthly &amp; Annual plans can export ZIP
+                  </p>
+                )}
               </div>
             </div>
           </aside>
 
-          {/* RIGHT: live preview strip + table */}
+          {/* RIGHT PANEL — table of rows */}
           <section className="flex-1 bg-canvas-bg grid-dots flex flex-col overflow-hidden min-w-0">
-            {/* Live preview strip */}
-
             {/* Toolbar */}
-            <div className="flex items-center justify-between px-4 py-2.5 border-b border-border bg-card">
-              <div className="flex items-center gap-2">
+            <div className="flex items-center justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
+              <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wider">
+                Preview
+              </span>
+              <button
+                onClick={() =>
+                  update({
+                    previewTheme:
+                      data.previewTheme === "light" ? "dark" : "light",
+                  })
+                }
+                className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
+                  data.previewTheme === "dark"
+                    ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
+                    : "border-border text-foreground/50 hover:text-foreground"
+                }`}
+                title={
+                  data.previewTheme === "light"
+                    ? "Switch to dark mode"
+                    : "Switch to light mode"
+                }
+              >
+                {data.previewTheme === "light" ? (
+                  <Moon size={14} />
+                ) : (
+                  <Sun size={14} />
+                )}
+              </button>
+            </div>
+            <div
+              className={`flex items-center justify-center  overflow-hidden min-h-[140px] ${
+                data.previewTheme === "dark"
+                  ? "bg-gray-200  dark-grid-dots"
+                  : "bg-gray-200  dark-grid-dots"
+              }`}
+            >
+              {activeBulkId ? (
+                <div
+                  ref={previewRef}
+                  className="transform scale-[0.72] origin-center"
+                  style={{ transformOrigin: "center center" }}
+                >
+                  {renderPreview()}
+                </div>
+              ) : (
+                <div className="flex flex-col items-center gap-2 py-4 px-4 text-center">
+                  <div className="w-8 h-8 rounded-full bg-sidebar-surface flex items-center justify-center">
+                    <MessageCircle
+                      size={14}
+                      className="text-sidebar-text-muted"
+                    />
+                  </div>
+                  <p className="text-[11px] text-sidebar-text-muted leading-tight">
+                    Click any row on the right to preview it here
+                  </p>
+                </div>
+              )}
+            </div>
+
+            <div className="flex items-center justify-between px-3 sm:px-4 py-2.5 border-b border-border bg-card flex-wrap gap-2">
+              <div className="flex items-center gap-1.5 flex-wrap">
                 <button
                   onClick={() =>
                     setBulkComments((prev) => [...prev, createBulkComment()])
@@ -882,16 +1145,18 @@ const CommentTool = ({
                 >
                   <Plus size={13} /> New Row
                 </button>
-                <span className="text-xs text-muted-foreground">
+                <span className="text-xs text-muted-foreground hidden sm:inline">
                   {bulkComments.length}{" "}
                   {bulkComments.length === 1 ? "comment" : "comments"}
                 </span>
 
-                <div className="h-6 w-px bg-sidebar-border"></div>
+                <div className="h-6 w-px bg-sidebar-border hidden sm:block" />
 
+                {/* CSV Import */}
                 <button
-                  className="h-9 px-3 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
-                  title="Coming soon"
+                  onClick={() => csvImportRef.current?.click()}
+                  className="h-8 px-3 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                  title="Import rows from CSV"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -903,72 +1168,102 @@ const CommentTool = ({
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="lucide lucide-file-up"
                   >
-                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                    <path d="M12 12v6"></path>
-                    <path d="m15 15-3-3-3 3"></path>
-                  </svg>{" "}
+                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z" />
+                    <path d="M14 2v4a2 2 0 0 0 2 2h4" />
+                    <path d="M12 12v6" />
+                    <path d="m15 15-3-3-3 3" />
+                  </svg>
                   Import
                 </button>
 
-                <button
-                  className="text-sidebar-text-muted hover:text-sidebar-text"
-                  title="Import CSV/Excel files"
-                >
+                <div className="relative group">
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="14"
-                    height="14"
+                    width="24"
+                    height="24"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
                     strokeWidth="2"
                     strokeLinecap="round"
                     strokeLinejoin="round"
-                    className="lucide lucide-circle-help"
+                    className="lucide lucide-circle-question-mark w-4 h-4 cursor-help text-gray-500"
+                    aria-hidden="true"
                   >
                     <circle cx="12" cy="12" r="10"></circle>
                     <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"></path>
                     <path d="M12 17h.01"></path>
                   </svg>
-                </button>
+                  <div className="absolute left-1/2 -translate-x-1/2 bottom-full mb-2 px-3 py-2 text-xs rounded-lg shadow-lg whitespace-nowrap opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all z-50 bg-gray-800 text-gray-200 border border-white/10">
+                    Import CSV/Excel files
+                    <div className="absolute top-full left-1/2 -translate-x-1/2 -mt-px border-4 border-transparent border-t-gray-800"></div>
+                  </div>
+                </div>
 
-                <button className="text-primary text-xs font-semibold flex items-center gap-1 hover:underline">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    className="lucide lucide-file-text"
-                  >
-                    <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-                    <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-                    <path d="M10 9H8"></path>
-                    <path d="M16 13H8"></path>
-                    <path d="M16 17H8"></path>
-                  </svg>{" "}
-                  Template
-                </button>
+                <input
+                  ref={csvImportRef}
+                  type="file"
+                  accept=".csv,.txt"
+                  className="hidden"
+                  onChange={(e) => {
+                    const file = e.target.files?.[0];
+                    if (file) handleCsvImport(file);
+                    e.target.value = "";
+                  }}
+                />
+
+                {/* CSV Template download */}
+                <a
+                  href={`data:text/csv;charset=utf-8,${encodeURIComponent(
+                    "username,message,likes,time,isVerified\nsarah_codes,Loved this video!,1.2k,2h,true\nmark_design,Pure gold,850,5h,false\n",
+                  )}`}
+                  download="comment-tools-bulk-template.csv"
+                  className="h-8 px-2.5 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                  title="Download CSV template"
+                >
+                  <FileText size={12} />
+                  <span className="hidden sm:inline">Template</span>
+                </a>
               </div>
+
+              {/* Download ALL — right-aligned shortcut */}
               <button
-                onClick={exportImage}
-                className="h-8 px-3 rounded-lg border border-border bg-background text-foreground text-xs font-semibold flex items-center gap-1.5 hover:bg-accent active:scale-[0.98] transition-all"
-                title="Export the active comment"
+                onClick={downloadAllBulk}
+                disabled={isBulkExporting || bulkComments.length === 0}
+                className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-60 ${
+                  isPaid
+                    ? "gradient-primary text-primary-foreground hover:opacity-90 shadow-sm"
+                    : "border border-border bg-background text-foreground hover:bg-accent"
+                }`}
               >
-                <Download size={12} /> Export
+                {isPaid ? (
+                  <Download size={12} />
+                ) : (
+                  <Crown size={12} className="text-yellow-500" />
+                )}
+                {isBulkExporting
+                  ? `${bulkExportProgress?.done ?? 0}/${bulkExportProgress?.total ?? 0}…`
+                  : "Download ALL"}
               </button>
+            </div>
+
+            {/* CSV hint */}
+            <div className="px-4 py-1.5 border-b border-border bg-card/60 text-[10px] text-muted-foreground flex items-center gap-1.5">
+              <span>CSV columns:</span>
+              <code className="font-mono bg-muted px-1 rounded">username</code>
+              <code className="font-mono bg-muted px-1 rounded">message</code>
+              <span className="text-muted-foreground/60">optional:</span>
+              <code className="font-mono bg-muted px-1 rounded">likes</code>
+              <code className="font-mono bg-muted px-1 rounded">time</code>
+              <code className="font-mono bg-muted px-1 rounded">
+                isVerified
+              </code>
             </div>
 
             {/* Table */}
             <div className="flex-1 overflow-auto scrollbar-thin bg-card">
-              <table className="w-full text-xs">
+              <table className="w-full text-xs min-w-[480px]">
                 <thead className="sticky top-0 bg-card z-10">
                   <tr className="text-[10px] font-bold text-muted-foreground uppercase tracking-wider border-b border-border">
                     <th className="text-left px-3 py-2.5 w-[120px]">User</th>
@@ -977,7 +1272,7 @@ const CommentTool = ({
                     <th className="text-center px-2 py-2.5 w-[110px]">
                       Avatar
                     </th>
-                    <th className="text-center px-2 py-2.5 w-[44px]"></th>
+                    <th className="text-center px-2 py-2.5 w-[44px]" />
                   </tr>
                 </thead>
                 <tbody>
@@ -987,7 +1282,11 @@ const CommentTool = ({
                       <tr
                         key={bc.id}
                         onClick={() => loadBulkRow(bc)}
-                        className={`border-b border-border cursor-pointer transition-colors ${isActive ? "bg-primary/5" : "hover:bg-accent/40"}`}
+                        className={`border-b border-border cursor-pointer transition-colors ${
+                          isActive
+                            ? "bg-primary/5 ring-1 ring-inset ring-primary/20"
+                            : "hover:bg-accent/40"
+                        }`}
                       >
                         <td className="px-3 py-2">
                           <input
@@ -1002,7 +1301,10 @@ const CommentTool = ({
                               );
                               if (isActive) update({ username: val });
                             }}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (!isActive) loadBulkRow(bc);
+                            }}
                             placeholder="username"
                             className="w-full h-8 px-2.5 rounded-md border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
@@ -1020,7 +1322,10 @@ const CommentTool = ({
                               );
                               if (isActive) update({ message: val });
                             }}
-                            onClick={(e) => e.stopPropagation()}
+                            onClick={(e) => {
+                              e.stopPropagation();
+                              if (!isActive) loadBulkRow(bc);
+                            }}
                             placeholder="Type a comment..."
                             className="w-full h-8 px-2.5 rounded-md border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
@@ -1029,15 +1334,15 @@ const CommentTool = ({
                           <button
                             onClick={(e) => {
                               e.stopPropagation();
+                              const next = !bc.isVerified;
                               setBulkComments((prev) =>
                                 prev.map((c) =>
                                   c.id === bc.id
-                                    ? { ...c, isVerified: !c.isVerified }
+                                    ? { ...c, isVerified: next }
                                     : c,
                                 ),
                               );
-                              if (isActive)
-                                update({ isVerified: !bc.isVerified });
+                              if (isActive) update({ isVerified: next });
                             }}
                             className={`w-8 h-8 rounded-md flex items-center justify-center transition-all mx-auto ${
                               bc.isVerified
@@ -1051,7 +1356,7 @@ const CommentTool = ({
                         </td>
                         <td className="px-2 py-2">
                           <div className="flex items-center justify-center gap-1">
-                            <div className="w-8 h-8 rounded-full overflow-hidden border border-border bg-background flex items-center justify-center">
+                            <div className="w-8 h-8 rounded-full overflow-hidden border border-border bg-background flex items-center justify-center flex-shrink-0">
                               {bc.avatarUrl ? (
                                 <img
                                   src={bc.avatarUrl}
@@ -1069,7 +1374,7 @@ const CommentTool = ({
                             <label
                               onClick={(e) => e.stopPropagation()}
                               className="w-7 h-7 rounded-md border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
-                              title="Upload"
+                              title="Upload avatar"
                             >
                               <ArrowUp size={11} />
                               <input
@@ -1107,7 +1412,7 @@ const CommentTool = ({
                               if (isActive) setActiveBulkId(null);
                             }}
                             className="w-8 h-8 rounded-md border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors mx-auto"
-                            title="Delete"
+                            title="Delete row"
                           >
                             <Trash2 size={13} />
                           </button>
@@ -1120,13 +1425,30 @@ const CommentTool = ({
             </div>
           </section>
         </div>
+
+        {/* Off-screen render div for Download ALL */}
+        <div
+          aria-hidden
+          style={{
+            position: "fixed",
+            left: "-99999px",
+            top: 0,
+            pointerEvents: "none",
+            opacity: 0,
+          }}
+        >
+          <div ref={bulkRenderRef}>
+            {bulkRenderRow && renderPreviewForRow(bulkRenderRow)}
+          </div>
+        </div>
+
         {Dialogs}
       </div>
     );
   }
 
   return (
-    <div className="h-[calc(100vh-3.5rem)] px-32 py-6">
+    <div className="h-[calc(100vh-3.5rem)] px-2 sm:px-8 lg:px-32 py-4 sm:py-6">
       <div className="flex w-full h-full max-w-[850px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
         {/* Left Sidebar */}
         <aside className="w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
@@ -1485,7 +1807,7 @@ const CommentTool = ({
 
           {/* Preview Area */}
           <div
-            className={`flex-1 flex items-center justify-center p-12 ${data.previewTheme === "dark" ? "bg-gray-300 dark-grid-dots" : "bg-gray-300 dark-grid-dots"} overflow-auto  `}
+            className={`flex-1 flex items-center justify-center p-12 ${data.previewTheme === "dark" ? "bg-gray-200 dark-grid-dots" : "bg-gray-200 dark-grid-dots"} overflow-auto`}
             onMouseUp={handlePreviewMouseUp}
           >
             <div ref={previewRef}>{renderPreview()}</div>
