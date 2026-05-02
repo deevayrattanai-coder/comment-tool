@@ -2,23 +2,38 @@ import Link from "next/link";
 import SiteLayout from "@/components/SiteLayout";
 import { Check } from "lucide-react";
 import { createMetadata } from "@/lib/seo";
+import PricingCheckoutButton from "@/components/PricingCheckoutButton";
 
-const plans = [
+type PlanCard = {
+  id: "free" | "annual" | "monthly";
+  name: string;
+  price: string;
+  period: string;
+  description: string;
+  features: string[];
+  cta: string;
+  highlighted: boolean;
+};
+
+const plans: PlanCard[] = [
   {
+    id: "free",
     name: "Free Forever",
     price: "$0",
     period: "/mo",
     description: "Perfect for getting started.",
     features: [
       "5 TikTok, 1 Instagram, 1 YouTube, 1 X exports per day",
+      "Credits reset every 24 hours",
       "All platforms (TikTok, IG, YouTube, X)",
       "Basic customization",
       "Standard resolution export",
     ],
-    cta: "Signup",
+    cta: "Sign up",
     highlighted: false,
   },
   {
+    id: "annual",
     name: "Annual",
     price: "$20",
     period: "/year",
@@ -26,7 +41,7 @@ const plans = [
     features: [
       "Everything in Free",
       "Unlimited Comment Exports (No daily limits)",
-      "Bulk Comment Generator (Upload CSV, 50+ comments)",
+      "Bulk Comment Generator (Upload CSV/XLSX)",
       "4K High-Res Export",
       "Saved Comment Library",
       "Priority Support",
@@ -35,6 +50,7 @@ const plans = [
     highlighted: true,
   },
   {
+    id: "monthly",
     name: "Monthly",
     price: "$4",
     period: "/mo",
@@ -42,7 +58,7 @@ const plans = [
     features: [
       "Everything in Free",
       "Unlimited Comment Exports (No daily limits)",
-      "Bulk Comment Generator (Upload CSV, 50+ comments)",
+      "Bulk Comment Generator (Upload CSV/XLSX)",
       "4K High-Res Export",
       "Saved Comment Library",
       "Priority Support",
@@ -54,24 +70,24 @@ const plans = [
 
 const faqs = [
   {
-    q: "Can I use the free plan forever?",
-    a: "Yes, the free plan is available with limited features.",
+    q: "How does the free plan work?",
+    a: "The free plan gives you 5 TikTok, 1 Instagram, 1 YouTube and 1 X (Twitter) export per 24 hours. Each credit regenerates 24 hours after it was used — so it's a rolling daily limit, not a calendar reset.",
   },
   {
     q: "What happens if I upgrade?",
-    a: "You instantly unlock unlimited generation, higher quality exports, and additional features.",
+    a: "You instantly unlock unlimited generation, bulk export from CSV/XLSX, higher quality exports, and additional features. Your plan is active for 30 days (Monthly) or 365 days (Annual) from the date of purchase.",
+  },
+  {
+    q: "Which payment methods do you accept?",
+    a: "Payments are processed securely by Razorpay — UPI, credit/debit cards, net banking and popular wallets are all supported.",
   },
   {
     q: "Can I cancel my subscription anytime?",
-    a: "Yes, you can cancel at any time without any restrictions.",
+    a: "Yes. Plans are non-recurring one-time purchases — they simply expire at the end of the period. You can also switch back to Free from your profile at any time.",
   },
   {
     q: "Do you offer refunds?",
-    a: "Refunds are handled on a case-by-case basis.",
-  },
-  {
-    q: "Is there a difference between monthly and annual plans?",
-    a: "Yes, the annual plan includes bulk generation, 4K exports, and cost savings.",
+    a: "Refunds are handled on a case-by-case basis. Please contact support within 7 days of purchase.",
   },
 ];
 
@@ -85,31 +101,25 @@ export const metadata = createMetadata({
 export default function PricingPage() {
   return (
     <SiteLayout>
-      {/* PRICING HERO */}
       <section className="max-w-[1100px] mx-auto px-6 pt-16 pb-12 text-center">
         <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-purple-600/10 via-background to-primary/10 p-10 md:p-16">
-          {/* background glow */}
           <div className="absolute -top-24 -left-24 w-72 h-72 bg-purple-500/20 blur-3xl rounded-full" />
           <div className="absolute -bottom-24 -right-24 w-72 h-72 bg-primary/20 blur-3xl rounded-full" />
 
           <div className="relative z-10 max-w-[720px] mx-auto">
-            {/* label */}
             <span className="inline-block text-xs font-semibold uppercase tracking-widest text-primary mb-4">
               Pricing
             </span>
 
-            {/* headline */}
             <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight mb-4">
               Simple, Transparent Pricing
             </h1>
 
-            {/* subheadline */}
             <p className="text-sm md:text-lg text-muted-foreground leading-relaxed max-w-[620px] mx-auto">
               Start for free. Upgrade when you need more power, higher quality,
               and scale.
             </p>
 
-            {/* CTA (optional but powerful) */}
             <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
               <a
                 href="#pricing-table"
@@ -126,15 +136,13 @@ export default function PricingPage() {
               </a>
             </div>
 
-            {/* trust line */}
             <p className="text-xs text-muted-foreground mt-5">
-              No hidden fees • Cancel anytime
+              Secure checkout powered by Razorpay • Cancel anytime
             </p>
           </div>
         </div>
       </section>
 
-      {/* VALUE JUSTIFICATION */}
       <section className="max-w-[1040px] mx-auto px-6 py-16">
         <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
           Why Upgrade?
@@ -172,7 +180,6 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* WHO IS THIS FOR */}
       <section className="border-t border-border bg-card/40">
         <div className="max-w-[1040px] mx-auto px-6 py-16">
           <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
@@ -226,7 +233,7 @@ export default function PricingPage() {
           scale.
         </p>
         <p className="tex-sm text-muted-foreground my-2">
-          No hidden fees. Cancel anytime.
+          Secure checkout · No hidden fees
         </p>
       </section>
 
@@ -234,7 +241,7 @@ export default function PricingPage() {
         <div className="grid md:grid-cols-3 gap-5 items-start">
           {plans.map((plan) => (
             <div
-              key={plan.name}
+              key={plan.id}
               className={`rounded-2xl border p-6 relative min-h-[447px] ${
                 plan.highlighted
                   ? "border-primary bg-card shadow-xl md:scale-[1.02]"
@@ -249,7 +256,7 @@ export default function PricingPage() {
               <h3 className="font-bold text-foreground text-lg text-center">
                 {plan.name}
               </h3>
-              <p className="text-xs  text-muted-foreground mb-6 text-center ">
+              <p className="text-xs text-muted-foreground mb-6 text-center">
                 {plan.description}
               </p>
               <div className="mt-2 mb-1 text-center">
@@ -264,27 +271,15 @@ export default function PricingPage() {
               </div>
 
               <div className="my-4">
-                {plan.name === "Free" ? (
+                {plan.id === "free" ? (
                   <Link
-                    href="/"
-                    className="block w-full text-center py-2.5 rounded-lg font-semibold text-sm border border-border text-foreground hover:bg-accent transition-all active:scale-[0.97]"
-                  >
-                    {plan.cta}
-                  </Link>
-                ) : plan.name === "Enterprise" ? (
-                  <Link
-                    href="/contact"
+                    href="/login?next=/"
                     className="block w-full text-center py-2.5 rounded-lg font-semibold text-sm border border-border text-foreground hover:bg-accent transition-all active:scale-[0.97]"
                   >
                     {plan.cta}
                   </Link>
                 ) : (
-                  <button
-                    disabled
-                    className="w-full py-2.5 rounded-lg font-semibold text-sm gradient-primary text-primary-foreground shadow-md opacity-90 cursor-not-allowed"
-                  >
-                    {plan.cta}
-                  </button>
+                  <PricingCheckoutButton plan={plan.id} label={plan.cta} />
                 )}
               </div>
               <ul className="space-y-2.5 mb-6">

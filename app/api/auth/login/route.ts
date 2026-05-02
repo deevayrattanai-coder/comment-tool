@@ -3,6 +3,7 @@ import { db } from '@/lib/db/client';
 import { users } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 import { verifyPassword, createSession } from '@/lib/auth';
+import { effectivePlan } from '@/lib/plan';
 import { z } from 'zod';
 
 const Body = z.object({
@@ -33,7 +34,15 @@ export async function POST(req: Request) {
 
     await createSession(u.id);
     return NextResponse.json({
-      user: { id: u.id, email: u.email, name: u.name, plan: u.plan },
+      user: {
+        id: u.id,
+        email: u.email,
+        name: u.name,
+        plan: effectivePlan(u),
+        planExpiresAt: u.planExpiresAt
+          ? new Date(u.planExpiresAt).toISOString()
+          : null,
+      },
     });
   } catch (e: any) {
     if (e?.issues) return NextResponse.json({ error: 'Invalid input' }, { status: 400 });

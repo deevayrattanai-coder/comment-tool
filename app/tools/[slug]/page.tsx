@@ -107,7 +107,6 @@ export default async function PlatformPage({
   const c = COPY[slug];
   const result = slug.split("-")[0];
 
-  console.log(slug, c, result);
   return (
     <div className="min-h-screen bg-background flex flex-col">
       <Navbar />

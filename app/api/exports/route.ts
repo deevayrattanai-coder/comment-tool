@@ -1,9 +1,15 @@
 import { NextResponse } from 'next/server';
 import { z } from 'zod';
 import { db } from '@/lib/db/client';
-import { exports_, PLAN_LIMITS, type PlanKey } from '@/lib/db/schema';
-import { and, eq, gte, sql, desc } from 'drizzle-orm';
+import { exports_ } from '@/lib/db/schema';
+import { eq, desc } from 'drizzle-orm';
 import { getCurrentUser } from '@/lib/auth';
+import {
+  effectivePlan,
+  planConfig,
+  getFreeUsage,
+  checkFreeQuota,
+} from '@/lib/plan';
 
 const Body = z.object({
   platform: z.string().min(1).max(32),
@@ -12,73 +18,94 @@ const Body = z.object({
   count: z.number().int().min(1).max(1000).default(1),
 });
 
-function startOfMonthUtc() {
-  const d = new Date();
-  return new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), 1));
-}
-
 export async function GET() {
   const me = await getCurrentUser();
   if (!me) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  const plan = effectivePlan(me);
+  const limits = planConfig(plan);
+
   const rows = await db
     .select()
     .from(exports_)
     .where(eq(exports_.userId, me.id))
     .orderBy(desc(exports_.createdAt))
     .limit(100);
-  const since = startOfMonthUtc();
-  const monthRow = await db
-    .select({ total: sql<number>`COALESCE(SUM(${exports_.count}), 0)` })
-    .from(exports_)
-    .where(and(eq(exports_.userId, me.id), gte(exports_.createdAt, since)));
-  const monthTotal = Number(monthRow[0]?.total ?? 0);
-  const plan = (me.plan as PlanKey) ?? 'free';
-  const limits = PLAN_LIMITS[plan] ?? PLAN_LIMITS.free;
-  return NextResponse.json({
-    exports: rows,
-    usage: {
-      monthTotal,
-      limit: Number.isFinite(limits.exportsPerMonth) ? limits.exportsPerMonth : null,
-      plan,
-      bulkAllowed: limits.bulkAllowed,
-    },
-  });
+
+  const usage =
+    plan === 'free'
+      ? {
+          plan,
+          unlimited: false,
+          bulkAllowed: limits.bulkAllowed,
+          windowHours: 24,
+          perPlatform: await getFreeUsage(me.id),
+          planExpiresAt: null as string | null,
+        }
+      : {
+          plan,
+          unlimited: true,
+          bulkAllowed: limits.bulkAllowed,
+          windowHours: 24,
+          perPlatform: {},
+          planExpiresAt: me.planExpiresAt
+            ? new Date(me.planExpiresAt).toISOString()
+            : null,
+        };
+
+  return NextResponse.json({ exports: rows, usage });
 }
 
 export async function POST(req: Request) {
   const me = await getCurrentUser();
   if (!me) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+
+  let data: z.infer<typeof Body>;
   try {
-    const data = Body.parse(await req.json());
-    const plan = (me.plan as PlanKey) ?? 'free';
-    const limits = PLAN_LIMITS[plan] ?? PLAN_LIMITS.free;
-
-    if (data.mode === 'bulk' && !limits.bulkAllowed) {
-      return NextResponse.json(
-        { error: 'Bulk export is not available on the Free plan. Please upgrade to Pro.', upgrade: true },
-        { status: 403 },
-      );
+    data = Body.parse(await req.json());
+  } catch (e: any) {
+    if (e?.issues) {
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
     }
+    return NextResponse.json({ error: 'Bad request' }, { status: 400 });
+  }
 
-    const since = startOfMonthUtc();
-    const monthRow = await db
-      .select({ total: sql<number>`COALESCE(SUM(${exports_.count}), 0)` })
-      .from(exports_)
-      .where(and(eq(exports_.userId, me.id), gte(exports_.createdAt, since)));
-    const monthTotal = Number(monthRow[0]?.total ?? 0);
+  const plan = effectivePlan(me);
+  const limits = planConfig(plan);
 
-    if (Number.isFinite(limits.exportsPerMonth) && monthTotal + data.count > limits.exportsPerMonth) {
+  // Bulk gate — only paid plans.
+  if (data.mode === 'bulk' && !limits.bulkAllowed) {
+    return NextResponse.json(
+      {
+        error: 'Bulk export is a paid feature. Please upgrade to Monthly or Annual.',
+        upgrade: true,
+      },
+      { status: 403 },
+    );
+  }
+
+  // Quota check — free plan only (paid plans are unlimited).
+  if (!limits.unlimited) {
+    const check = await checkFreeQuota(me.id, data.platform, data.count);
+    if (check.ok === false) {
       return NextResponse.json(
         {
-          error: `You've reached your ${limits.label} plan monthly limit (${limits.exportsPerMonth} exports). Please purchase a higher plan to continue.`,
+          error: check.message,
           upgrade: true,
-          monthTotal,
-          limit: limits.exportsPerMonth,
+          retryAfterMs: check.retryAfterMs,
+          nextResetAt: check.nextResetAt,
         },
-        { status: 403 },
+        {
+          status: 403,
+          headers: {
+            'Retry-After': String(Math.ceil(check.retryAfterMs / 1000)),
+          },
+        },
       );
     }
+  }
 
+  try {
     await db.insert(exports_).values({
       userId: me.id,
       platform: data.platform,
@@ -86,10 +113,11 @@ export async function POST(req: Request) {
       mode: data.mode,
       count: data.count,
     });
-
     return NextResponse.json({ ok: true });
   } catch (e: any) {
-    if (e?.issues) return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
-    return NextResponse.json({ error: e?.message ?? 'Server error' }, { status: 500 });
+    return NextResponse.json(
+      { error: e?.message ?? 'Server error' },
+      { status: 500 },
+    );
   }
 }

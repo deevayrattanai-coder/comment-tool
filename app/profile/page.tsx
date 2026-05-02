@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import SiteLayout from "@/components/SiteLayout";
 import { useAuth } from "@/components/AuthProvider";
+import RazorpayCheckout from "@/components/RazorpayCheckout";
 import {
   User as UserIcon,
   LogOut,
@@ -12,6 +13,7 @@ import {
   History,
   Crown,
   AlertCircle,
+  Clock,
 } from "lucide-react";
 
 type ExportRow = {
@@ -23,18 +25,44 @@ type ExportRow = {
   createdAt: string;
 };
 
+type PerPlatform = Record<
+  string,
+  { used: number; limit: number; remaining: number; nextResetAt: string | null }
+>;
+
 type Usage = {
-  monthTotal: number;
-  limit: number | null;
   plan: string;
+  unlimited: boolean;
   bulkAllowed: boolean;
+  windowHours: number;
+  perPlatform: PerPlatform;
+  planExpiresAt: string | null;
 };
 
 const PLAN_LABEL: Record<string, string> = {
   free: "Free",
+  monthly: "Monthly",
+  annual: "Annual",
   pro: "Pro",
   business: "Business",
 };
+
+const PLATFORM_LABEL: Record<string, string> = {
+  tiktok: "TikTok",
+  instagram: "Instagram",
+  youtube: "YouTube",
+  twitter: "X (Twitter)",
+};
+
+function formatResetIn(iso: string | null): string {
+  if (!iso) return "—";
+  const ms = new Date(iso).getTime() - Date.now();
+  if (ms <= 0) return "now";
+  const hours = Math.floor(ms / (60 * 60 * 1000));
+  const mins = Math.floor((ms % (60 * 60 * 1000)) / (60 * 1000));
+  if (hours > 0) return `${hours}h ${mins}m`;
+  return `${mins}m`;
+}
 
 export default function ProfilePage() {
   const { user, loading, logout, refresh } = useAuth();
@@ -44,6 +72,10 @@ export default function ProfilePage() {
   const [loadingHist, setLoadingHist] = useState(true);
   const [pwd, setPwd] = useState({ current: "", next: "", msg: "", err: "" });
   const [savingPwd, setSavingPwd] = useState(false);
+  const [billingMsg, setBillingMsg] = useState<{
+    type: "ok" | "err";
+    text: string;
+  } | null>(null);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login?next=/profile");
@@ -99,16 +131,30 @@ export default function ProfilePage() {
     }
   };
 
-  const onUpgrade = async (plan: "pro" | "business" | "free") => {
+  const onDowngrade = async () => {
+    if (!confirm("Cancel your paid plan and switch back to Free?")) return;
     const r = await fetch("/api/billing/upgrade", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ plan }),
+      body: JSON.stringify({ plan: "free" }),
     });
     if (r.ok) {
+      setBillingMsg({ type: "ok", text: "Switched to Free plan." });
       await refresh();
       await loadHistory();
+    } else {
+      const d = await r.json().catch(() => ({}));
+      setBillingMsg({ type: "err", text: d?.error ?? "Could not change plan" });
     }
+  };
+
+  const onPaymentSuccess = async () => {
+    setBillingMsg({
+      type: "ok",
+      text: "Payment verified. Your plan is active.",
+    });
+    await refresh();
+    await loadHistory();
   };
 
   if (loading || !user) {
@@ -121,14 +167,8 @@ export default function ProfilePage() {
     );
   }
 
-  const limitText =
-    usage?.limit === null
-      ? "Unlimited"
-      : usage
-        ? `${usage.monthTotal} / ${usage.limit}`
-        : "—";
-  const overLimit =
-    usage && usage.limit != null && usage.monthTotal >= usage.limit;
+  const plan = usage?.plan ?? user.plan ?? "free";
+  const isFree = plan === "free";
 
   return (
     <SiteLayout>
@@ -160,70 +200,145 @@ export default function ProfilePage() {
               Plan
             </span>
             <h3 className="text-2xl font-extrabold text-foreground mt-1.5 flex items-center gap-2">
-              {PLAN_LABEL[user.plan] ?? user.plan}
-              {user.plan !== "free" && (
-                <Crown size={18} className="text-primary" />
-              )}
+              {PLAN_LABEL[plan] ?? plan}
+              {!isFree && <Crown size={18} className="text-primary" />}
             </h3>
             <p className="text-xs text-muted-foreground mt-1">
               Bulk: {usage?.bulkAllowed ? "Enabled" : "Disabled"}
             </p>
+            {usage?.planExpiresAt && (
+              <p className="text-[11px] text-muted-foreground mt-1">
+                Renews / expires:{" "}
+                {new Date(usage.planExpiresAt).toLocaleDateString()}
+              </p>
+            )}
           </div>
-          <div className="rounded-xl border border-border bg-card p-5">
+
+          <div className="rounded-xl border border-border bg-card p-5 md:col-span-2">
             <span className="text-[10px] font-bold uppercase tracking-widest text-primary">
-              This month
+              Last 24 hours
             </span>
-            <h3 className="text-2xl font-extrabold text-foreground mt-1.5">
-              {limitText}
-            </h3>
-            <p className="text-xs text-muted-foreground mt-1">exports used</p>
+            {usage?.unlimited ? (
+              <h3 className="text-xl font-extrabold text-foreground mt-1.5">
+                Unlimited exports
+              </h3>
+            ) : (
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-2">
+                {Object.entries(usage?.perPlatform ?? {}).map(([p, info]) => (
+                  <div
+                    key={p}
+                    className="rounded-lg border border-border bg-background p-2.5"
+                  >
+                    <p className="text-[10px] uppercase tracking-wider text-muted-foreground font-semibold">
+                      {PLATFORM_LABEL[p] ?? p}
+                    </p>
+                    <p className="text-base font-extrabold text-foreground mt-0.5 tabular-nums">
+                      {info.used} / {info.limit}
+                    </p>
+                    <p className="text-[10px] text-muted-foreground mt-0.5 flex items-center gap-1">
+                      <Clock size={10} />
+                      {info.used > 0 && info.nextResetAt
+                        ? `+1 in ${formatResetIn(info.nextResetAt)}`
+                        : "All credits available"}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            )}
           </div>
         </div>
 
-        {overLimit && (
-          <div className="mb-8 rounded-xl border border-destructive/30 bg-destructive/5 p-4 flex items-start gap-3">
-            <AlertCircle
-              size={18}
-              className="text-destructive flex-shrink-0 mt-0.5"
-            />
-            <div className="flex-1">
-              <p className="text-sm font-semibold text-foreground">
-                You've reached your Free plan limit
-              </p>
-              <p className="text-sm text-muted-foreground mt-1">
-                Please purchase a higher plan to continue exporting comment
-                screenshots.
-              </p>
-            </div>
-            <Link
-              href="/pricing"
-              className="px-3 h-9 rounded-lg gradient-primary text-primary-foreground text-sm font-semibold flex items-center hover:opacity-90"
-            >
-              Upgrade
-            </Link>
+        {/* Billing section */}
+        <div className="mb-8 rounded-2xl border border-border bg-card p-6">
+          <div className="flex items-center gap-2 mb-4">
+            <Crown size={16} className="text-primary" />
+            <h2 className="text-lg font-bold text-foreground">Billing</h2>
           </div>
-        )}
 
-        {/* Quick demo: switch plans (simulated billing) */}
-        <div className="mb-10 rounded-xl border border-dashed border-border bg-card/40 p-4">
-          <p className="text-xs text-muted-foreground mb-3">
-            Demo plan switcher (this stands in for a real billing flow):
-          </p>
-          <div className="flex flex-wrap gap-2">
-            {(["free", "pro", "business"] as const).map((p) => (
+          {billingMsg && (
+            <div
+              className={`mb-4 text-xs rounded-md px-3 py-2 ${
+                billingMsg.type === "ok"
+                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                  : "bg-destructive/10 text-destructive border border-destructive/20"
+              }`}
+            >
+              {billingMsg.text}
+            </div>
+          )}
+
+          {isFree ? (
+            <>
+              <p className="text-sm text-muted-foreground mb-4">
+                Upgrade to unlock unlimited exports and bulk generation.
+                Payments are processed securely through Razorpay.
+              </p>
+              <div className="grid sm:grid-cols-2 gap-3">
+                <div className="rounded-xl border border-border bg-background p-4">
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                    Monthly
+                  </p>
+                  <p className="text-2xl font-extrabold text-foreground mt-1">
+                    ₹329
+                    <span className="text-xs text-muted-foreground font-normal">
+                      /mo
+                    </span>
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 mb-3">
+                    Unlimited exports + bulk
+                  </p>
+                  <RazorpayCheckout
+                    plan="monthly"
+                    label="Buy Monthly"
+                    onSuccess={onPaymentSuccess}
+                    onError={(t) => setBillingMsg({ type: "err", text: t })}
+                  />
+                </div>
+                <div className="rounded-xl border border-primary bg-background p-4 relative">
+                  <span className="absolute -top-2 right-3 text-[10px] font-bold uppercase tracking-wider px-2 py-0.5 rounded-full gradient-primary text-primary-foreground">
+                    Best value
+                  </span>
+                  <p className="text-xs uppercase tracking-wider text-muted-foreground font-semibold">
+                    Annual
+                  </p>
+                  <p className="text-2xl font-extrabold text-foreground mt-1">
+                    ₹1,699
+                    <span className="text-xs text-muted-foreground font-normal">
+                      /yr
+                    </span>
+                  </p>
+                  <p className="text-xs text-muted-foreground mt-1 mb-3">
+                    Unlimited exports + bulk
+                  </p>
+                  <RazorpayCheckout
+                    plan="annual"
+                    label="Buy Annual"
+                    onSuccess={onPaymentSuccess}
+                    onError={(t) => setBillingMsg({ type: "err", text: t })}
+                  />
+                </div>
+              </div>
+            </>
+          ) : (
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <p className="text-sm text-foreground font-semibold">
+                  You're on the {PLAN_LABEL[plan]} plan
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">
+                  {usage?.planExpiresAt
+                    ? `Active until ${new Date(usage.planExpiresAt).toLocaleString()}`
+                    : "No expiration on file"}
+                </p>
+              </div>
               <button
-                key={p}
-                onClick={() => onUpgrade(p)}
-                className={`px-3 h-8 rounded-md text-xs font-semibold border transition-colors ${
-                  user.plan === p
-                    ? "gradient-primary text-primary-foreground border-transparent"
-                    : "border-border bg-background text-foreground hover:bg-accent"
-                }`}
+                onClick={onDowngrade}
+                className="px-3 h-9 rounded-lg border border-border bg-background text-foreground text-sm font-medium hover:bg-accent"
               >
-                Switch to {PLAN_LABEL[p]}
+                Switch to Free
               </button>
-            ))}
-          </div>
+            </div>
+          )}
         </div>
 
         <div className="grid md:grid-cols-2 gap-6">

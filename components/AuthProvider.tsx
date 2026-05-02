@@ -9,11 +9,14 @@ import {
   ReactNode,
 } from "react";
 
+export type PlanKey = "free" | "monthly" | "annual" | "pro" | "business";
+
 export type AuthUser = {
   id: number;
   email: string;
   name: string;
-  plan: "free" | "pro" | "business";
+  plan: PlanKey;
+  planExpiresAt?: string | null;
 };
 
 export type AuthResult =
