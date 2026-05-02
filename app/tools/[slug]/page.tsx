@@ -777,7 +777,7 @@ export default async function PlatformPage({
       )}
 
       <section className="border-b border-border bg-gradient-to-b from-background to-primary/5">
-        <div className="w-full mx-auto px-6 py-12 md:py-16">
+        <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
           {/* Header */}
           <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
@@ -874,7 +874,7 @@ export default async function PlatformPage({
       </section>
 
       <section className="border-b border-border bg-background">
-        <div className="w-full mx-auto px-6 py-12 md:py-16">
+        <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
           {/* Header */}
           <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">
@@ -967,7 +967,7 @@ export default async function PlatformPage({
       </section>
 
       <section className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
-        <div className="w-full mx-auto px-6 py-12 md:py-16">
+        <div className="max-w-[1100px] mx-auto px-6 py-12 md:py-16">
           {/* Header */}
           <div className="w-full">
             <span className="text-xs font-semibold uppercase tracking-widest text-primary">

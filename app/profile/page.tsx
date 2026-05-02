@@ -279,7 +279,7 @@ export default function ProfilePage() {
                     Monthly
                   </p>
                   <p className="text-2xl font-extrabold text-foreground mt-1">
-                    ₹329
+                    $4
                     <span className="text-xs text-muted-foreground font-normal">
                       /mo
                     </span>
@@ -302,7 +302,7 @@ export default function ProfilePage() {
                     Annual
                   </p>
                   <p className="text-2xl font-extrabold text-foreground mt-1">
-                    ₹1,699
+                    $20
                     <span className="text-xs text-muted-foreground font-normal">
                       /yr
                     </span>

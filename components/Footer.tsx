@@ -15,8 +15,12 @@ const Footer = () => (
       <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-10">
         <div className="col-span-2">
           <Link href="/" className="flex items-center gap-2.5 mb-3">
-            <div className="w-8 h-8 rounded-lg gradient-primary flex items-center justify-center shadow-sm">
-              <MessageSquare size={16} className="text-primary-foreground" />
+            <div className="flex items-center justify-center shadow-sm">
+              <img
+                src="/logo.jpeg"
+                alt="logo"
+                className="w-10 h-10 object-contain"
+              />
             </div>
             <span className="font-bold text-foreground tracking-tight">
               Comment tools
