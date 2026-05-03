@@ -42,7 +42,7 @@ export const metadata = createMetadata({
   title: "About Us | Comment Tools",
   description:
     "Learn how Comment Tools helps creators and marketers generate engaging comments faster. Built to save time and improve social media growth.",
-  path: "/about-us",
+  path: "/about",
 });
 
 export default function AboutPage() {

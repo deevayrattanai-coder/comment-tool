@@ -62,7 +62,7 @@ export async function generateMetadata({
   }
 
   const baseUrl = process.env.NEXT_PUBLIC_APP_URL;
-  const url = `${baseUrl}/${slug}-comment-generator`;
+  const url = `${baseUrl}/${slug}`;
 
   return {
     title: `${c.title}`,
