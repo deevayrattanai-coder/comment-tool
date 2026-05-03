@@ -137,21 +137,6 @@ export default function ToolContent() {
             Create social media comments, captions, mockups, and content assets
             in seconds. Built for creators, marketers, and agencies.
           </p>
-
-          <div className="mt-6 flex justify-center gap-4">
-            <Link
-              href="/tools/tiktok-comment-generator"
-              className="px-6 py-3 bg-primary text-white rounded-full shadow hover:opacity-90"
-            >
-              Try Tools
-            </Link>
-            <Link
-              href="/pricing"
-              className="px-6 py-3 border border-border rounded-full hover:bg-muted"
-            >
-              View Pricing
-            </Link>
-          </div>
         </section>
 
         {/* 🧩 TOOLS GRID */}
@@ -175,13 +160,13 @@ export default function ToolContent() {
                     {tool.icon}
                   </span>
 
-                  <h3
+                  <h2
                     className={`text-lg font-semibold transition ${getColor(
                       tool.name,
                     )} group-hover:text-primary`}
                   >
-                    {tool.name}
-                  </h3>
+                    <Link href={tool.slug}> {tool.name}</Link>
+                  </h2>
                 </div>
 
                 <p className="text-sm text-muted-foreground mb-4">
@@ -212,7 +197,7 @@ export default function ToolContent() {
             href="/pricing"
             className="inline-block mt-6 px-6 py-3 rounded-full bg-primary text-white shadow"
           >
-            Get Started
+            View Pricing
           </Link>
         </section>
 

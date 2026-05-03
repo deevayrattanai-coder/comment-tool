@@ -610,10 +610,10 @@ export default function AboutPage() {
               </a>
 
               <a
-                href="/tools/tiktok-comment-generator"
+                href="/tools"
                 className="px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-accent transition"
               >
-                Get Started →
+                View Tools →
               </a>
             </div>
 
