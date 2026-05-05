@@ -14,6 +14,7 @@ import {
   Download,
   Layout,
   Hash,
+  Lock,
 } from "lucide-react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
@@ -39,7 +40,7 @@ const titleColors = [
   "text-red-300",
 ];
 
-/* 🔥 Stable color generator (same tool = same color) */
+/* 🔥 Stable color generator */
 const getColor = (name: string) => {
   let hash = 0;
   for (let i = 0; i < name.length; i++) {
@@ -48,6 +49,7 @@ const getColor = (name: string) => {
   return titleColors[Math.abs(hash) % titleColors.length];
 };
 
+/* ✅ Tools List with disabled flag */
 const tools = [
   {
     name: "TikTok Comment Generator",
@@ -73,29 +75,35 @@ const tools = [
     desc: "Create realistic replies and threads.",
     icon: <Twitter size={20} />,
   },
+
+  /* ❌ DISABLED TOOLS */
   {
     name: "Caption Generator",
     slug: "/tools/caption-generator",
     desc: "Write high-converting captions instantly.",
     icon: <Type size={20} />,
+    disabled: true,
   },
   {
     name: "Hashtag Generator",
     slug: "/tools/hashtag-generator",
     desc: "Generate trending hashtags for reach.",
     icon: <Hash size={20} />,
+    disabled: true,
   },
   {
     name: "Reddit Post Templates",
     slug: "/tools/reddit-templates",
     desc: "Create viral-style Reddit posts.",
     icon: <MessageSquare size={20} />,
+    disabled: true,
   },
   {
     name: "Reddit GIF Downloader",
     slug: "/tools/reddit-gif-downloader",
     desc: "Download Reddit GIFs quickly.",
     icon: <Download size={20} />,
+    disabled: true,
   },
   {
     name: "Pomodoro Timer",
@@ -108,18 +116,47 @@ const tools = [
     slug: "/tools/receipt-generator",
     desc: "Create realistic receipts for demos.",
     icon: <FileText size={20} />,
+    disabled: true,
   },
   {
     name: "Fake Text Generator",
     slug: "/tools/text-generator",
     desc: "Generate placeholder text instantly.",
     icon: <Type size={20} />,
+    disabled: true,
   },
   {
     name: "Textbox Generator",
     slug: "/tools/textbox",
     desc: "Design styled text boxes easily.",
     icon: <Layout size={20} />,
+    disabled: true,
+  },
+
+  /* ✅ ACTIVE */
+  {
+    name: "Twitter Reply Chain Generator",
+    slug: "/tools/twitter-reply-chain-generator",
+    desc: "Design styled reply chains.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter Suspension Generator",
+    slug: "/tools/twitter-suspension-generator",
+    desc: "Create suspension screens.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter Tweet Generator",
+    slug: "/tools/twitter-tweet-generator",
+    desc: "Create realistic tweets.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter Block Generator",
+    slug: "/tools/twitter-block-generator",
+    desc: "Generate block screens.",
+    icon: <Twitter size={20} />,
   },
 ];
 
@@ -128,18 +165,18 @@ export default function ToolContent() {
     <>
       <Navbar />
       <div className="bg-background text-foreground">
-        {/* 🔥 HERO */}
+        {/* HERO */}
         <section className="text-center py-20 px-6 bg-gradient-to-b from-primary/10 to-transparent">
           <h1 className="text-4xl md:text-6xl font-extrabold tracking-tight">
             All-in-One Content Tools
           </h1>
           <p className="mt-4 max-w-2xl mx-auto text-muted-foreground">
             Create social media comments, captions, mockups, and content assets
-            in seconds. Built for creators, marketers, and agencies.
+            in seconds.
           </p>
         </section>
 
-        {/* 🧩 TOOLS GRID */}
+        {/* TOOLS GRID */}
         <section className="max-w-6xl mx-auto px-6 py-16">
           <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
             {tools.map((tool, i) => (
@@ -148,7 +185,11 @@ export default function ToolContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className="group border border-border rounded-2xl p-6 bg-background/70 backdrop-blur hover:shadow-xl hover:border-primary/40 transition"
+                className={`group border rounded-2xl p-6 backdrop-blur transition ${
+                  tool.disabled
+                    ? "opacity-50 cursor-not-allowed border-border bg-background/40"
+                    : "border-border bg-background/70 hover:shadow-xl hover:border-primary/40"
+                }`}
               >
                 {/* Title + Icon */}
                 <div className="flex items-center gap-3 mb-3">
@@ -163,9 +204,16 @@ export default function ToolContent() {
                   <h2
                     className={`text-lg font-semibold transition ${getColor(
                       tool.name,
-                    )} group-hover:text-primary`}
+                    )}`}
                   >
-                    <Link href={tool.slug}> {tool.name}</Link>
+                    {tool.disabled ? (
+                      <span className="flex items-center gap-2">
+                        {tool.name}
+                        <Lock size={14} />
+                      </span>
+                    ) : (
+                      <Link href={tool.slug}>{tool.name}</Link>
+                    )}
                   </h2>
                 </div>
 
@@ -173,20 +221,27 @@ export default function ToolContent() {
                   {tool.desc}
                 </p>
 
-                <Link
-                  href={tool.slug}
-                  className={` text-sm font-medium hover:underline ${getColor(
-                    tool.name,
-                  )} group-hover:text-primary`}
-                >
-                  Try Tool →
-                </Link>
+                {/* CTA */}
+                {tool.disabled ? (
+                  <span className="text-sm text-muted-foreground">
+                    Coming Soon
+                  </span>
+                ) : (
+                  <Link
+                    href={tool.slug}
+                    className={`text-sm font-medium hover:underline ${getColor(
+                      tool.name,
+                    )} group-hover:text-primary`}
+                  >
+                    Try Tool →
+                  </Link>
+                )}
               </motion.div>
             ))}
           </div>
         </section>
 
-        {/* 🚀 CTA */}
+        {/* CTA */}
         <section className="text-center py-16 border-t border-border">
           <h2 className="text-2xl font-bold">Build Better Content Faster</h2>
           <p className="mt-2 text-muted-foreground">
@@ -200,8 +255,6 @@ export default function ToolContent() {
             View Pricing
           </Link>
         </section>
-
-        {/* 🧾 FOOTER */}
 
         <Footer />
       </div>
