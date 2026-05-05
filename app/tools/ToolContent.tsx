@@ -99,7 +99,7 @@ const tools = [
   },
   {
     name: "Pomodoro Timer",
-    slug: "/tools/pomodoro",
+    slug: "/tools/pomodoro-timer",
     desc: "Boost productivity with focus sessions.",
     icon: <Clock size={20} />,
   },
@@ -111,7 +111,7 @@ const tools = [
   },
   {
     name: "Fake Text Generator",
-    slug: "/tools/fake-text",
+    slug: "/tools/text-generator",
     desc: "Generate placeholder text instantly.",
     icon: <Type size={20} />,
   },

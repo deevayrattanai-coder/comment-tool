@@ -2,42 +2,6 @@ import SiteLayout from "@/components/SiteLayout";
 import { Target, Users, Lightbulb, ArrowRight } from "lucide-react";
 import { createMetadata } from "@/lib/seo";
 
-const values = [
-  {
-    icon: <Target size={20} />,
-    title: "Pixel-Perfect",
-    desc: "Every template is reverse-engineered from the actual platform UI to ensure indistinguishable results.",
-  },
-  {
-    icon: <Users size={20} />,
-    title: "Community First",
-    desc: "Feature requests from our users shape the roadmap. We ship what creators actually need.",
-  },
-  {
-    icon: <Lightbulb size={20} />,
-    title: "Always Free Core",
-    desc: "Single-mode generation stays free forever. No hidden paywalls on exports.",
-  },
-];
-
-const milestones = [
-  {
-    year: "2025",
-    title: "Comment tools launches",
-    desc: "TikTok-only, born out of frustration with clunky design tools.",
-  },
-  {
-    year: "2025",
-    title: "Instagram + YouTube",
-    desc: "Added the two most-requested platforms within the first quarter.",
-  },
-  {
-    year: "2026",
-    title: "X support + bulk mode",
-    desc: "Rounded out the four-platform set and shipped batch generation for power users.",
-  },
-];
-
 export const metadata = createMetadata({
   title: "About Us | Comment Tools",
   description:
