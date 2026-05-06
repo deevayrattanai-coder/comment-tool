@@ -45,6 +45,14 @@ export default function TweetGenerator() {
     if (!previewRef.current) return;
     setDownloading(true);
     try {
+      // 🔐 Check login
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+      if (!data.user) {
+        toast.error("Please login to download");
+        setDownloading(false);
+        return;
+      }
       await downloadTweet(previewRef.current, tweetData.theme);
       toast.success("Tweet image saved successfully!");
     } finally {
@@ -54,19 +62,34 @@ export default function TweetGenerator() {
 
   const copyImage = useCallback(async () => {
     if (!previewRef.current) return;
-    const canvas = await html2canvas(previewRef.current, {
-      backgroundColor: null,
-      scale: 2,
-    });
-    canvas.toBlob(async (blob) => {
-      if (blob) {
-        await navigator.clipboard.write([
-          new ClipboardItem({ "image/png": blob }),
-        ]);
-      }
-    });
-  }, [tweetData.theme]);
 
+    try {
+      // 🔐 Check auth
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+
+      if (!data.user) {
+        toast.error("Please login to copy image");
+        return;
+      }
+
+      const canvas = await html2canvas(previewRef.current, {
+        backgroundColor: null,
+        scale: 2,
+      });
+
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+          toast.success("Image copied to clipboard!");
+        }
+      });
+    } catch (err) {
+      toast.error("Copy failed");
+    }
+  }, [tweetData.theme]);
   return (
     <div className="min-h-screen">
       <div className="max-w-[1200px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6 ">

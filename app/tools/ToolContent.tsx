@@ -75,6 +75,30 @@ const tools = [
     desc: "Create realistic replies and threads.",
     icon: <Twitter size={20} />,
   },
+  {
+    name: "Twitter Reply Chain Generator",
+    slug: "/tools/twitter-reply-chain-generator",
+    desc: "Design styled reply chains.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter Suspension Generator",
+    slug: "/tools/twitter-suspension-generator",
+    desc: "Create suspension screens.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter Tweet Generator",
+    slug: "/tools/twitter-tweet-generator",
+    desc: "Create realistic tweets.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter Block Generator",
+    slug: "/tools/twitter-block-generator",
+    desc: "Generate block screens.",
+    icon: <Twitter size={20} />,
+  },
 
   /* ❌ DISABLED TOOLS */
   {
@@ -132,32 +156,6 @@ const tools = [
     icon: <Layout size={20} />,
     disabled: true,
   },
-
-  /* ✅ ACTIVE */
-  {
-    name: "Twitter Reply Chain Generator",
-    slug: "/tools/twitter-reply-chain-generator",
-    desc: "Design styled reply chains.",
-    icon: <Twitter size={20} />,
-  },
-  {
-    name: "Twitter Suspension Generator",
-    slug: "/tools/twitter-suspension-generator",
-    desc: "Create suspension screens.",
-    icon: <Twitter size={20} />,
-  },
-  {
-    name: "Twitter Tweet Generator",
-    slug: "/tools/twitter-tweet-generator",
-    desc: "Create realistic tweets.",
-    icon: <Twitter size={20} />,
-  },
-  {
-    name: "Twitter Block Generator",
-    slug: "/tools/twitter-block-generator",
-    desc: "Generate block screens.",
-    icon: <Twitter size={20} />,
-  },
 ];
 
 export default function ToolContent() {
@@ -204,7 +202,7 @@ export default function ToolContent() {
                   <h2
                     className={`text-lg font-semibold transition ${getColor(
                       tool.name,
-                    )}`}
+                    )} group-hover:text-primary`}
                   >
                     {tool.disabled ? (
                       <span className="flex items-center gap-2">

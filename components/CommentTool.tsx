@@ -1775,7 +1775,7 @@ const CommentTool = ({
         {/* Right Preview Canvas */}
         <section className="flex-1 bg-canvas-bg grid-dots relative flex flex-col overflow-hidden">
           {/* Preview header bar */}
-          <div className="flex items-center justimax-w-[850px]fy-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
+          <div className="flex items-center justimax-w-[850px] justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
             <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wider">
               Preview
             </span>

@@ -498,8 +498,18 @@ export default function ReplyChain() {
     if (!previewRef.current) return;
     setDownloading(true);
     try {
+      // 🔐 Check login
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+      if (!data.user) {
+        toast.error("Please login to download");
+        setDownloading(false);
+        return;
+      }
       await downloadElement(previewRef.current, bg, "reply-chain");
       toast.success("Image downloaded!");
+    } catch (err) {
+      toast.error("Something went wrong");
     } finally {
       setDownloading(false);
     }
@@ -507,18 +517,33 @@ export default function ReplyChain() {
 
   const copyImage = useCallback(async () => {
     if (!previewRef.current) return;
-    const canvas = await html2canvas(previewRef.current, {
-      backgroundColor: null,
-      scale: 2,
-    });
-    canvas.toBlob(async (blob) => {
-      if (blob) {
-        await navigator.clipboard.write([
-          new ClipboardItem({ "image/png": blob }),
-        ]);
+
+    try {
+      // 🔐 Check auth
+      const res = await fetch("/api/auth/me");
+      const data = await res.json();
+
+      if (!data.user) {
+        toast.error("Please login to copy image");
+        return;
       }
-    });
-    toast.success("Image copied to clipboard!");
+
+      const canvas = await html2canvas(previewRef.current, {
+        backgroundColor: null,
+        scale: 2,
+      });
+
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+          toast.success("Image copied to clipboard!");
+        }
+      });
+    } catch (err) {
+      toast.error("Copy failed");
+    }
   }, [bg]);
 
   const updateTweet = (idx: number, t: ReplyTweet) => {
