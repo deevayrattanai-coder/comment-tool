@@ -5,6 +5,26 @@ import { usePathname } from "next/navigation";
 
 const tools = [
   {
+    name: "Tweet Generator",
+    path: "/tools/twitter-tweet-generator",
+    icon: (
+      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
+        <path
+          d="M4 20h4l10-10-4-4L4 16v4z"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinejoin="round"
+        />
+        <path
+          d="M14 6l4 4"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+        />
+      </svg>
+    ),
+  },
+  {
     name: "Block Generator",
     path: "/tools/twitter-block-generator",
     icon: (
@@ -64,26 +84,6 @@ const tools = [
           strokeLinecap="round"
         />
         <circle cx="12" cy="17" r="1" fill="currentColor" />
-      </svg>
-    ),
-  },
-  {
-    name: "Tweet Generator",
-    path: "/tools/twitter-tweet-generator",
-    icon: (
-      <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
-        <path
-          d="M4 20h4l10-10-4-4L4 16v4z"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinejoin="round"
-        />
-        <path
-          d="M14 6l4 4"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-        />
       </svg>
     ),
   },

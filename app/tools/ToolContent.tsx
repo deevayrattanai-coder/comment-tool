@@ -70,7 +70,7 @@ const tools = [
     icon: <Youtube size={20} />,
   },
   {
-    name: "X (Twitter) Reply Generator",
+    name: "X (Twitter) Comment Generator",
     slug: "/tools/twitter-comment-generator",
     desc: "Create realistic replies and threads.",
     icon: <Twitter size={20} />,
@@ -99,15 +99,13 @@ const tools = [
     desc: "Generate block screens.",
     icon: <Twitter size={20} />,
   },
-
-  /* ❌ DISABLED TOOLS */
   {
-    name: "Caption Generator",
-    slug: "/tools/caption-generator",
-    desc: "Write high-converting captions instantly.",
-    icon: <Type size={20} />,
-    disabled: true,
+    name: "Pomodoro Timer",
+    slug: "/tools/pomodoro-timer",
+    desc: "Boost productivity with focus sessions.",
+    icon: <Clock size={20} />,
   },
+
   {
     name: "Hashtag Generator",
     slug: "/tools/hashtag-generator",
@@ -129,12 +127,7 @@ const tools = [
     icon: <Download size={20} />,
     disabled: true,
   },
-  {
-    name: "Pomodoro Timer",
-    slug: "/tools/pomodoro-timer",
-    desc: "Boost productivity with focus sessions.",
-    icon: <Clock size={20} />,
-  },
+
   {
     name: "Receipt Generator",
     slug: "/tools/receipt-generator",
