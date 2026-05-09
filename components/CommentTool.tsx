@@ -787,9 +787,9 @@ const CommentTool = ({
 
     return (
       <div className="min-h-[calc(100vh-3.5rem)] px-2 sm:px-6 lg:px-16 xl:px-32 py-4 sm:py-6">
-        <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-3.5rem-2rem)] lg:h-[calc(100vh-3.5rem-3rem)] max-w-[1200px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
+        <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-3.5rem-2rem)] lg:h-[calc(100vh-3.5rem-3rem)] max-w-[800px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
           {/* LEFT PANEL — preview + platform + comment controls */}
-          <aside className="max-h-[45vh] lg:max-h-full h-auto lg:h-[calc(100vh-4rem)] w-full lg:w-[340px] xl:w-[360px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
+          <aside className="max-h-[45vh] lg:max-h-full h-auto lg:h-[calc(100vh-4rem)] w-full lg:w-[300px]  flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
             <div className="p-4 flex flex-col gap-4 flex-1 overflow-y-auto scrollbar-thin">
               {ModeToggle}
 
@@ -1237,30 +1237,10 @@ const CommentTool = ({
                     : "border border-border bg-background text-foreground hover:bg-accent"
                 }`}
               >
-                {isPaid ? (
                   <Download size={12} />
-                ) : (
-                  <Crown size={12} className="text-yellow-500" />
-                )}
-                {isBulkExporting
-                  ? `${bulkExportProgress?.done ?? 0}/${bulkExportProgress?.total ?? 0}…`
-                  : "Download ALL"}
+              
               </button>
             </div>
-
-            {/* CSV hint */}
-            <div className="px-4 py-1.5 border-b border-border bg-card/60 text-[10px] text-muted-foreground flex items-center gap-1.5">
-              <span>CSV columns:</span>
-              <code className="font-mono bg-muted px-1 rounded">username</code>
-              <code className="font-mono bg-muted px-1 rounded">message</code>
-              <span className="text-muted-foreground/60">optional:</span>
-              <code className="font-mono bg-muted px-1 rounded">likes</code>
-              <code className="font-mono bg-muted px-1 rounded">time</code>
-              <code className="font-mono bg-muted px-1 rounded">
-                isVerified
-              </code>
-            </div>
-
             {/* Table */}
             <div className="flex-1 overflow-auto scrollbar-thin bg-card">
               <table className="w-full text-xs min-w-[480px]">
@@ -1449,9 +1429,9 @@ const CommentTool = ({
 
   return (
     <div className="h-[calc(100vh-3.5rem)] px-2 sm:px-4 md:px-6 lg:px-12 xl:px-24 py-4 sm:py-6">
-      <div className="flex flex-col lg:flex-row w-full h-full max-w-[1200px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
+      <div className="flex flex-col lg:flex-row w-full h-full max-w-[800px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
         {/* Left Sidebar */}
-        <aside className=" max-h-[45vh] lg:max-h-full h-auto lg:h-[calc(100vh-4rem)] w-full lg:w-[340px] xl:w-[360px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
+        <aside className=" max-h-[45vh] lg:max-h-full h-auto lg:h-[calc(100vh-4rem)] w-full lg:w-[300px]  flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
           <div className="flex-1 overflow-y-auto scrollbar-thin p-4 flex flex-col gap-4">
             {ModeToggle}
 
@@ -1775,7 +1755,7 @@ const CommentTool = ({
         {/* Right Preview Canvas */}
         <section className="flex-1 h-[60vh] lg:h-auto bg-canvas-bg grid-dots relative flex flex-col overflow-hidden">
           {/* Preview header bar */}
-          <div className="flex items-center justimax-w-[850px] justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
+          <div className="flex items-center  max-w-[550px] justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
             <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wider">
               Preview
             </span>
