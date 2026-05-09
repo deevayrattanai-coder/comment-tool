@@ -101,8 +101,8 @@ function ReplyPreview({ data }: { data: ReplyChainData }) {
             >
               <div
                 style={{
-                  width: 44,
-                  height: 44,
+                  width: 28,
+                  height: 28,
                   borderRadius: "50%",
                   overflow: "hidden",
                   backgroundColor: "#1D9BF0",
@@ -125,7 +125,7 @@ function ReplyPreview({ data }: { data: ReplyChainData }) {
                   />
                 ) : (
                   <span
-                    style={{ color: "#fff", fontWeight: 700, fontSize: 16 }}
+                    style={{ color: "#fff", fontWeight: 700, fontSize: 14 }}
                   >
                     {getInitials(tweet.displayName || "U")}
                   </span>
@@ -157,19 +157,19 @@ function ReplyPreview({ data }: { data: ReplyChainData }) {
                   flexWrap: "wrap",
                 }}
               >
-                <span style={{ color: text, fontWeight: 700, fontSize: 15 }}>
+                <span style={{ color: text, fontWeight: 700, fontSize: 12 }}>
                   {tweet.displayName || "Display Name"}
                 </span>
                 <VerifiedSvg type={tweet.verified} />
-                <span style={{ color: sub, fontSize: 14 }}>
+                <span style={{ color: sub, fontSize: 12 }}>
                   @{tweet.username || "username"}
                 </span>
-                <span style={{ color: sub, fontSize: 14 }}>· {tweet.time}</span>
+                <span style={{ color: sub, fontSize: 12 }}>· {tweet.time}</span>
               </div>
 
               {/* Reply label for non-first tweets */}
               {idx > 0 && (
-                <div style={{ color: sub, fontSize: 13, marginTop: 1 }}>
+                <div style={{ color: sub, fontSize: 12, marginTop: 1 }}>
                   Replying to{" "}
                   <span style={{ color: "#1D9BF0" }}>
                     @{data.tweets[idx - 1].username || "username"}
@@ -181,7 +181,7 @@ function ReplyPreview({ data }: { data: ReplyChainData }) {
               <div
                 style={{
                   color: text,
-                  fontSize: 15,
+                  fontSize: 12,
                   lineHeight: 1.5,
                   marginTop: 4,
                   wordBreak: "break-word",
@@ -570,9 +570,9 @@ export default function ReplyChain() {
 
   return (
     <div className="min-h-screen">
-      <div className=" max-w-[1200px] mx-auto w-full px-4 sm:px-6 py-6  flex justify-center itmes-center max-md:flex-col max-md:gap-6">
+      <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6  flex justify-center itmes-stretch max-md:flex-col max-md:gap-6">
         {/* Form */}
-        <aside className="lg:sticky lg:w-[300px] w-full lg:top-20 lg:self-start bg-card border border-border rounded-l-2xl overflow-hidden">
+        <aside className=" lg:w-[300px] w-full bg-card border border-border rounded-l-2xl overflow-hidden">
           <div className="border-b border-border px-4 py-3 flex items-center justify-between">
             <h2 className="text-sm font-semibold">Reply Chain Builder</h2>
             <span className="text-xs text-muted-foreground">
@@ -628,7 +628,7 @@ export default function ReplyChain() {
         </aside>
 
         {/* Preview */}
-        <div className="lg:w-[700px] w-full lg:sticky lg:top-20 lg:self-start">
+        <div className="flex-1 w-full flex flex-col">
           <div className="w-full flex rounded-tr-2xl items-center justify-between px-4 py-2 border-b border-border bg-card backdrop-blur-sm">
             <span className="text-sm font-semibold text-white uppercase tracking-wider">
               Preview
@@ -640,13 +640,13 @@ export default function ReplyChain() {
               />
             </div>
           </div>
-          <main className="flex flex-col items-center gap-4">
+          <main className="flex flex-col items-center gap-4 ">
             <div
-              className={`w-full rounded-tb-2xl p-6 flex items-center justify-center transition-colors duration-300 bg-gray-200 dark-grid-dots`}
+              className={`w-full rounded-tb-2xl p-6 py-24 flex items-center justify-center transition-colors duration-300 bg-gray-200 dark-grid-dots`}
             >
               <div
                 ref={previewRef}
-                style={{ width: "100%", maxWidth: 560 }}
+                style={{ width: "100%", maxWidth: 460 }}
                 className="relative"
               >
                 <div className="absolute top-2 right-2 flex gap-2">

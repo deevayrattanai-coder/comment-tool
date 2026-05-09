@@ -92,8 +92,8 @@ export default function TweetGenerator() {
   }, [tweetData.theme]);
   return (
     <div className="min-h-screen">
-      <div className="max-w-[1200px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6 ">
-        <aside className="lg:sticky lg:top-20 lg:self-start ">
+      <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6 ">
+        <aside>
           <div className="bg-card border border-border rounded-l-2xl overflow-hidden">
             <TweetForm tweetData={tweetData} onChange={setTweetData} />
             <div className="flex items-center gap-2 justify-center p-4 ">
@@ -117,7 +117,7 @@ export default function TweetGenerator() {
           </div>
         </aside>
 
-        <div className="lg:w-[700px] w-full lg:sticky lg:top-20 lg:self-start">
+        <div className="flex-1 w-full">
           <div className="flex rounded-tr-2xl items-center justify-between px-4 py-3 border-b border-border bg-card backdrop-blur-sm">
             <span className="text-sm font-semibold text-foreground/70 uppercase tracking-wider">
               Preview

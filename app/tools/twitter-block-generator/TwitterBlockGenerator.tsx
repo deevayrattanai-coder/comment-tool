@@ -352,9 +352,9 @@ export default function BlockScreen() {
 
   return (
     <div className="min-h-screen">
-      <div className=" max-w-[1200px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
+      <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
         {/* Form */}
-        <aside className="lg:sticky lg:w-[300px] w-full lg:top-20 lg:self-start bg-card border border-border rounded-tl-2xl overflow-hidden">
+        <aside className=" lg:w-[300px] w-full bg-card border border-border rounded-tl-2xl overflow-hidden">
           <div className="border-b border-border px-4 py-3">
             <h2 className="text-sm font-semibold">Block Screen Builder</h2>
           </div>
@@ -550,7 +550,7 @@ export default function BlockScreen() {
         </aside>
 
         {/* Preview */}
-        <div className="lg:w-[700px] w-full lg:sticky lg:top-20 lg:self-start ">
+        <div className="flex-1 w-full  ">
           <div className="w-full rounded-tr-2xl flex items-center justify-between px-4 py-3 border-b border-border bg-card backdrop-blur-sm">
             <span className="text-sm font-semibold text-white uppercase tracking-wider">
               Preview
