@@ -1,6 +1,6 @@
-import { CommentData } from '@/types/comment';
-import { Heart, ThumbsDown } from 'lucide-react';
-import AnnotatedText from './AnnotatedText';
+import { CommentData } from "@/types/comment";
+import { Heart, ThumbsDown } from "lucide-react";
+import AnnotatedText from "./AnnotatedText";
 
 interface Props {
   data: CommentData;
@@ -8,22 +8,28 @@ interface Props {
 }
 
 const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
-  const isDark = data.previewTheme === 'dark';
-  const timeMap: Record<string, string> = { wks: 'w', hrs: 'h', days: 'd', months: 'mo' };
+  const isDark = data.previewTheme === "dark";
+  const timeMap: Record<string, string> = {
+    wks: "w",
+    hrs: "h",
+    days: "d",
+    months: "mo",
+  };
   const timeDisplay = `${data.time}${timeMap[data.timeUnit] || data.timeUnit}`;
 
   return (
     <div
       className="rounded-2xl"
       style={{
-        width: 420,
+        width: "100%",
+        maxWidth: 420,
         minHeight: 100,
-        padding: '18px 20px',
-        backgroundColor: isDark ? 'hsl(0, 0%, 12%)' : 'white',
-        color: isDark ? 'white' : 'hsl(0, 0%, 7%)',
+        padding: "18px 20px",
+        backgroundColor: isDark ? "hsl(0, 0%, 12%)" : "white",
+        color: isDark ? "white" : "hsl(0, 0%, 7%)",
         boxShadow: isDark
-          ? '0 8px 32px rgba(0,0,0,0.5)'
-          : '0 4px 24px rgba(0,0,0,0.08)',
+          ? "0 8px 32px rgba(0,0,0,0.5)"
+          : "0 4px 24px rgba(0,0,0,0.08)",
       }}
     >
       <div className="flex gap-3">
@@ -32,14 +38,23 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
           style={{
             width: 40,
             height: 40,
-            backgroundColor: isDark ? 'hsl(0, 0%, 25%)' : 'hsl(0, 0%, 85%)',
+            backgroundColor: isDark ? "hsl(0, 0%, 25%)" : "hsl(0, 0%, 85%)",
           }}
         >
           {avatarUrl ? (
-            <img src={avatarUrl} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            <img
+              src={avatarUrl}
+              alt=""
+              className="w-full h-full object-cover"
+              crossOrigin="anonymous"
+            />
           ) : (
             <svg
-              style={{ width: 24, height: 24, color: isDark ? 'hsl(0,0%,45%)' : 'hsl(0,0%,55%)' }}
+              style={{
+                width: 24,
+                height: 24,
+                color: isDark ? "hsl(0,0%,45%)" : "hsl(0,0%,55%)",
+              }}
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -54,10 +69,10 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
               className="font-semibold"
               style={{
                 fontSize: 14,
-                color: isDark ? 'white' : 'hsl(0, 0%, 7%)',
+                color: isDark ? "white" : "hsl(0, 0%, 7%)",
               }}
             >
-              {data.username || 'username'}
+              {data.username || "username"}
             </span>
             {data.isVerified && (
               <svg
@@ -66,7 +81,13 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
                 fill="none"
               >
                 <circle cx="12" cy="12" r="10" fill="#20D5EC" />
-                <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                <path
+                  d="M9 12l2 2 4-4"
+                  stroke="white"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
               </svg>
             )}
           </div>
@@ -75,13 +96,13 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
             className="mt-0.5 leading-snug break-words"
             style={{
               fontSize: 14,
-              color: isDark ? 'hsl(0, 0%, 85%)' : 'hsl(0, 0%, 7%)',
-              overflowWrap: 'break-word',
-              wordBreak: 'break-word',
+              color: isDark ? "hsl(0, 0%, 85%)" : "hsl(0, 0%, 7%)",
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
             }}
           >
             <AnnotatedText
-              text={data.message || 'Write any comment and see what happens 😊'}
+              text={data.message || "Write any comment and see what happens 😊"}
               annotations={data.annotations}
             />
           </p>
@@ -91,7 +112,7 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
             style={{
               fontSize: 12,
               fontWeight: 500,
-              color: isDark ? 'hsl(0, 0%, 45%)' : 'hsl(0, 0%, 50%)',
+              color: isDark ? "hsl(0, 0%, 45%)" : "hsl(0, 0%, 50%)",
             }}
           >
             <span>{timeDisplay}</span>
@@ -108,14 +129,16 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
               className="mt-2 flex items-center gap-2"
               style={{
                 fontSize: 12,
-                color: isDark ? 'hsl(0, 0%, 45%)' : 'hsl(0, 0%, 50%)',
+                color: isDark ? "hsl(0, 0%, 45%)" : "hsl(0, 0%, 50%)",
               }}
             >
               <div
                 className="h-px"
                 style={{
                   width: 20,
-                  backgroundColor: isDark ? 'hsl(0, 0%, 30%)' : 'hsl(0, 0%, 80%)',
+                  backgroundColor: isDark
+                    ? "hsl(0, 0%, 30%)"
+                    : "hsl(0, 0%, 80%)",
                 }}
               />
               <span>View {data.replies} replies ▾</span>

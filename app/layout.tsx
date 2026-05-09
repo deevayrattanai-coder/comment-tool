@@ -24,6 +24,7 @@ export default function RootLayout({
           name="google-site-verification"
           content="p-AYAABTJAXOLDE05aSyS1N0UmcxiaFjif00qRUM5ws"
         />
+        <meta name="google-adsense-account" content="ca-pub-5661859605340268" />
         <Script
           id="gtm-script"
           strategy="afterInteractive"

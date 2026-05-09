@@ -789,7 +789,7 @@ const CommentTool = ({
       <div className="min-h-[calc(100vh-3.5rem)] px-2 sm:px-6 lg:px-16 xl:px-32 py-4 sm:py-6">
         <div className="flex flex-col lg:flex-row w-full min-h-[calc(100vh-3.5rem-2rem)] lg:h-[calc(100vh-3.5rem-3rem)] max-w-[1200px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
           {/* LEFT PANEL — preview + platform + comment controls */}
-          <aside className="w-full lg:w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden border-b lg:border-b-0 lg:border-r border-border">
+          <aside className="max-h-[45vh] lg:max-h-full h-auto lg:h-[calc(100vh-4rem)] w-full lg:w-[340px] xl:w-[360px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
             <div className="p-4 flex flex-col gap-4 flex-1 overflow-y-auto scrollbar-thin">
               {ModeToggle}
 
@@ -810,7 +810,7 @@ const CommentTool = ({
                         const newSub = platformSubModes[p][0].value;
                         update({ platform: p, subMode: newSub });
                       }}
-                      className={`h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                      className={`h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
                         data.platform === p
                           ? "gradient-primary text-primary-foreground shadow-sm"
                           : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
@@ -863,7 +863,7 @@ const CommentTool = ({
                         syncActiveBulkRow({ username: e.target.value });
                       }}
                       placeholder="username"
-                      className="w-full h-8 pl-7 pr-7 rounded-lg glass-input text-xs"
+                      className="w-full h-10 pl-7 pr-7 rounded-lg glass-input text-xs"
                     />
                     <Upload
                       size={11}
@@ -890,7 +890,7 @@ const CommentTool = ({
                           update({ displayName: e.target.value })
                         }
                         placeholder="Display Name"
-                        className="w-full h-8 pl-7 pr-2 rounded-lg glass-input text-xs"
+                        className="w-full h-10 pl-7 pr-2 rounded-lg glass-input text-xs"
                       />
                     </div>
                   )}
@@ -900,7 +900,7 @@ const CommentTool = ({
                         update({ isVerified: !data.isVerified });
                         syncActiveBulkRow({ isVerified: !data.isVerified });
                       }}
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
+                      className={`w-8 h-10 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
                         data.isVerified
                           ? "gradient-primary text-primary-foreground shadow-sm"
                           : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
@@ -913,7 +913,7 @@ const CommentTool = ({
                   <div className="relative" ref={randomMenuRef}>
                     <button
                       onClick={() => setShowRandomMenu(!showRandomMenu)}
-                      className="w-8 h-8 rounded-lg glass-panel flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors flex-shrink-0"
+                      className="w-8 h-10 rounded-lg glass-panel flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors flex-shrink-0"
                       title="Generate Random Identity"
                     >
                       <svg
@@ -1050,13 +1050,13 @@ const CommentTool = ({
                     <div className="flex gap-1.5">
                       <button
                         onClick={exportImage}
-                        className="flex-1 h-7 gradient-primary text-primary-foreground rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-all active:scale-[0.98]"
+                        className="flex-1 h-7 max-lg:py-2.5 gradient-primary text-primary-foreground rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-all active:scale-[0.98]"
                       >
                         <Download size={10} /> Export
                       </button>
                       <button
                         onClick={copyImage}
-                        className="flex-1 h-7 glass-panel text-sidebar-text rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:bg-sidebar-surface transition-all"
+                        className="flex-1 h-7 max-lg:py-2.5  glass-panel text-sidebar-text rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:bg-sidebar-surface transition-all"
                       >
                         <Copy size={10} /> Copy
                       </button>
@@ -1074,7 +1074,7 @@ const CommentTool = ({
           </aside>
 
           {/* RIGHT PANEL — table of rows */}
-          <section className="flex-1 bg-canvas-bg grid-dots flex flex-col overflow-hidden min-w-0">
+          <section className="flex-1 h-[60vh] lg:h-auto bg-canvas-bg grid-dots flex flex-col overflow-hidden min-w-0">
             {/* Toolbar */}
             <div className="flex items-center justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
               <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wider">
@@ -1087,7 +1087,7 @@ const CommentTool = ({
                       data.previewTheme === "light" ? "dark" : "light",
                   })
                 }
-                className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
+                className={`w-8 h-10 rounded-full border flex items-center justify-center transition-colors ${
                   data.previewTheme === "dark"
                     ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
                     : "border-border text-foreground/50 hover:text-foreground"
@@ -1122,7 +1122,7 @@ const CommentTool = ({
                 </div>
               ) : (
                 <div className="flex flex-col items-center gap-2 py-4 px-4 text-center">
-                  <div className="w-8 h-8 rounded-full bg-sidebar-surface flex items-center justify-center">
+                  <div className="w-8 h-10 rounded-full bg-sidebar-surface flex items-center justify-center">
                     <MessageCircle
                       size={14}
                       className="text-sidebar-text-muted"
@@ -1141,7 +1141,7 @@ const CommentTool = ({
                   onClick={() =>
                     setBulkComments((prev) => [...prev, createBulkComment()])
                   }
-                  className="h-8 px-3 rounded-lg gradient-primary text-primary-foreground text-xs font-bold flex items-center gap-1.5 shadow-sm hover:opacity-90 active:scale-[0.98] transition-all"
+                  className="h-10 px-3 rounded-lg gradient-primary text-primary-foreground text-xs font-bold flex items-center gap-1.5 shadow-sm hover:opacity-90 active:scale-[0.98] transition-all"
                 >
                   <Plus size={13} /> New Row
                 </button>
@@ -1155,7 +1155,7 @@ const CommentTool = ({
                 {/* CSV Import */}
                 <button
                   onClick={() => csvImportRef.current?.click()}
-                  className="h-8 px-3 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                  className="h-10 px-3 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
                   title="Import rows from CSV"
                 >
                   <svg
@@ -1219,7 +1219,7 @@ const CommentTool = ({
                     "username,message,likes,time,isVerified\nsarah_codes,Loved this video!,1.2k,2h,true\nmark_design,Pure gold,850,5h,false\n",
                   )}`}
                   download="comment-tools-bulk-template.csv"
-                  className="h-8 px-2.5 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                  className="h-10 px-2.5 rounded-lg glass-panel text-sidebar-text text-xs font-semibold flex items-center gap-1.5 hover:bg-sidebar-surface transition-all"
                   title="Download CSV template"
                 >
                   <FileText size={12} />
@@ -1231,7 +1231,7 @@ const CommentTool = ({
               <button
                 onClick={downloadAllBulk}
                 disabled={isBulkExporting || bulkComments.length === 0}
-                className={`h-8 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-60 ${
+                className={`h-10 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-60 ${
                   isPaid
                     ? "gradient-primary text-primary-foreground hover:opacity-90 shadow-sm"
                     : "border border-border bg-background text-foreground hover:bg-accent"
@@ -1306,7 +1306,7 @@ const CommentTool = ({
                               if (!isActive) loadBulkRow(bc);
                             }}
                             placeholder="username"
-                            className="w-full h-8 px-2.5 rounded-md border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
+                            className="w-full h-10 px-2.5 rounded-md border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
                         </td>
                         <td className="px-3 py-2">
@@ -1327,7 +1327,7 @@ const CommentTool = ({
                               if (!isActive) loadBulkRow(bc);
                             }}
                             placeholder="Type a comment..."
-                            className="w-full h-8 px-2.5 rounded-md border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
+                            className="w-full h-10 px-2.5 rounded-md border border-border bg-background text-foreground text-xs focus:outline-none focus:ring-2 focus:ring-primary/30"
                           />
                         </td>
                         <td className="px-2 py-2 text-center">
@@ -1344,7 +1344,7 @@ const CommentTool = ({
                               );
                               if (isActive) update({ isVerified: next });
                             }}
-                            className={`w-8 h-8 rounded-md flex items-center justify-center transition-all mx-auto ${
+                            className={`w-8 h-10 rounded-md flex items-center justify-center transition-all mx-auto ${
                               bc.isVerified
                                 ? "gradient-primary text-primary-foreground shadow-sm"
                                 : "border border-border bg-background text-muted-foreground hover:text-foreground"
@@ -1356,7 +1356,7 @@ const CommentTool = ({
                         </td>
                         <td className="px-2 py-2">
                           <div className="flex items-center justify-center gap-1">
-                            <div className="w-8 h-8 rounded-full overflow-hidden border border-border bg-background flex items-center justify-center flex-shrink-0">
+                            <div className="w-8 h-10 rounded-full overflow-hidden border border-border bg-background flex items-center justify-center flex-shrink-0">
                               {bc.avatarUrl ? (
                                 <img
                                   src={bc.avatarUrl}
@@ -1411,7 +1411,7 @@ const CommentTool = ({
                               });
                               if (isActive) setActiveBulkId(null);
                             }}
-                            className="w-8 h-8 rounded-md border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors mx-auto"
+                            className="w-8 h-10 rounded-md border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-destructive hover:border-destructive/40 transition-colors mx-auto"
                             title="Delete row"
                           >
                             <Trash2 size={13} />
@@ -1448,10 +1448,10 @@ const CommentTool = ({
   }
 
   return (
-    <div className="h-[calc(100vh-3.5rem)] px-2 sm:px-8 lg:px-32 py-4 sm:py-6">
-      <div className="flex w-full h-full max-w-[1200px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
+    <div className="h-[calc(100vh-3.5rem)] px-2 sm:px-4 md:px-6 lg:px-12 xl:px-24 py-4 sm:py-6">
+      <div className="flex flex-col lg:flex-row w-full h-full max-w-[1200px] mx-auto rounded-2xl overflow-hidden shadow-elevated border border-border">
         {/* Left Sidebar */}
-        <aside className="w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
+        <aside className=" max-h-[45vh] lg:max-h-full h-auto lg:h-[calc(100vh-4rem)] w-full lg:w-[340px] xl:w-[360px] flex-shrink-0 bg-sidebar-bg flex flex-col overflow-hidden">
           <div className="flex-1 overflow-y-auto scrollbar-thin p-4 flex flex-col gap-4">
             {ModeToggle}
 
@@ -1470,7 +1470,7 @@ const CommentTool = ({
                       onClick={() =>
                         router.push(`/tools/${p}-comment-generator`)
                       }
-                      className={`h-8 rounded-lg flex items-center justify-center transition-all duration-200 ${
+                      className={`h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
                         data.platform === p
                           ? "gradient-primary text-primary-foreground shadow-sm"
                           : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
@@ -1504,7 +1504,7 @@ const CommentTool = ({
                 <label className="text-[10px] font-bold text-sidebar-text-muted uppercase tracking-wider">
                   Comment Controls
                 </label>
-                <div className="flex gap-1.5 items-center">
+                <div className="flex flex-wrap gap-2 items-center">
                   <div className="flex-1 relative">
                     <User
                       size={12}
@@ -1515,7 +1515,7 @@ const CommentTool = ({
                       value={data.username}
                       onChange={(e) => update({ username: e.target.value })}
                       placeholder="username"
-                      className="w-full h-8 pl-7 pr-7 rounded-lg glass-input text-xs"
+                      className="w-full h-10 pl-7 pr-7 rounded-lg glass-input text-xs"
                     />
                     <Upload
                       size={11}
@@ -1542,14 +1542,14 @@ const CommentTool = ({
                           update({ displayName: e.target.value })
                         }
                         placeholder="Display Name"
-                        className="w-full h-8 pl-7 pr-2 rounded-lg glass-input text-xs"
+                        className="w-full h-10 pl-7 pr-2 rounded-lg glass-input text-xs"
                       />
                     </div>
                   )}
                   {showBadge && (
                     <button
                       onClick={() => update({ isVerified: !data.isVerified })}
-                      className={`w-8 h-8 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
+                      className={`w-8 h-10 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
                         data.isVerified
                           ? "gradient-primary text-primary-foreground shadow-sm"
                           : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
@@ -1562,7 +1562,7 @@ const CommentTool = ({
                   <div className="relative" ref={randomMenuRef}>
                     <button
                       onClick={() => setShowRandomMenu(!showRandomMenu)}
-                      className="w-8 h-8 rounded-lg glass-panel flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors flex-shrink-0"
+                      className="w-8 h-10 rounded-lg glass-panel flex items-center justify-center text-sidebar-text-muted hover:text-sidebar-text transition-colors flex-shrink-0"
                       title="Generate Random Identity"
                     >
                       <svg
@@ -1691,14 +1691,14 @@ const CommentTool = ({
                   </div>
                   <textarea
                     ref={textareaRef}
-                    rows={4}
+                    rows={6}
                     value={data.message}
                     onChange={(e) => update({ message: e.target.value })}
                     onSelect={handleTextSelect}
                     onMouseUp={handleTextSelect}
                     onKeyUp={handleTextSelect}
                     onBlur={handleTextBlur}
-                    className="w-full p-2.5 rounded-lg glass-input text-xs resize-none leading-relaxed"
+                    className="w-full p-2.5 rounded-lg glass-input text-xs resize-none leading-relaxed min-h-[140px]"
                   />
                 </div>
               </div>
@@ -1715,7 +1715,7 @@ const CommentTool = ({
                   <button
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => handleAdvancedEdit("highlight")}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${savedSelection ? "glass-panel text-sidebar-text-muted hover:text-yellow-400 cursor-pointer" : "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed"}`}
+                    className={`w-8 h-10 rounded-lg flex items-center justify-center transition-colors ${savedSelection ? "glass-panel text-sidebar-text-muted hover:text-yellow-400 cursor-pointer" : "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed"}`}
                     title="Highlight selected text"
                   >
                     <Highlighter size={13} />
@@ -1723,7 +1723,7 @@ const CommentTool = ({
                   <button
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => handleAdvancedEdit("blur")}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${savedSelection ? "glass-panel text-sidebar-text-muted hover:text-blue-400 cursor-pointer" : "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed"}`}
+                    className={`w-8 h-10 rounded-lg flex items-center justify-center transition-colors ${savedSelection ? "glass-panel text-sidebar-text-muted hover:text-blue-400 cursor-pointer" : "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed"}`}
                     title="Blur selected text"
                   >
                     <EyeOff size={13} />
@@ -1731,14 +1731,14 @@ const CommentTool = ({
                   <button
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => handleAdvancedEdit("cut")}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${savedSelection ? "glass-panel text-sidebar-text-muted hover:text-red-400 cursor-pointer" : "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed"}`}
+                    className={`w-8 h-10 rounded-lg flex items-center justify-center transition-colors ${savedSelection ? "glass-panel text-sidebar-text-muted hover:text-red-400 cursor-pointer" : "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed"}`}
                     title="Remove selected text"
                   >
                     <Scissors size={13} />
                   </button>
                   <button
                     onClick={handleUndo}
-                    className={`w-8 h-8 rounded-lg flex items-center justify-center transition-colors ${editHistory.length <= 1 && data.annotations.length === 0 ? "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed" : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"}`}
+                    className={`w-8 h-10 rounded-lg flex items-center justify-center transition-colors ${editHistory.length <= 1 && data.annotations.length === 0 ? "glass-panel text-sidebar-text-muted opacity-40 cursor-not-allowed" : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"}`}
                     disabled={
                       editHistory.length <= 1 && data.annotations.length === 0
                     }
@@ -1753,17 +1753,17 @@ const CommentTool = ({
 
           {/* Export bar */}
           <div className="p-4 pt-0">
-            <div className="flex gap-2 pt-3 border-t border-sidebar-border">
+            <div className="flex flex-col sm:flex-row gap-2 pt-3 border-t border-sidebar-border">
               <button
                 onClick={exportImage}
-                className="flex-1 h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
+                className="flex-1 h-9 max-lg:py-2.5  gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
               >
                 <Download size={13} />
                 Export Image
               </button>
               <button
                 onClick={copyImage}
-                className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                className="flex-1 h-9 max-lg:py-2.5  glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
               >
                 <Copy size={13} />
                 Copy
@@ -1773,7 +1773,7 @@ const CommentTool = ({
         </aside>
 
         {/* Right Preview Canvas */}
-        <section className="flex-1 bg-canvas-bg grid-dots relative flex flex-col overflow-hidden">
+        <section className="flex-1 h-[60vh] lg:h-auto bg-canvas-bg grid-dots relative flex flex-col overflow-hidden">
           {/* Preview header bar */}
           <div className="flex items-center justimax-w-[850px] justify-between px-5 py-2.5 border-b border-border bg-gradient-primary backdrop-blur-sm">
             <span className="text-xs font-semibold text-foreground/70 uppercase tracking-wider">
@@ -1786,7 +1786,7 @@ const CommentTool = ({
                     data.previewTheme === "light" ? "dark" : "light",
                 })
               }
-              className={`w-8 h-8 rounded-full border flex items-center justify-center transition-colors ${
+              className={`w-8 h-10 rounded-full border flex items-center justify-center transition-colors ${
                 data.previewTheme === "dark"
                   ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
                   : "border-border text-foreground/50 hover:text-foreground"
@@ -1807,10 +1807,15 @@ const CommentTool = ({
 
           {/* Preview Area */}
           <div
-            className={`flex-1 flex items-center justify-center p-12 ${data.previewTheme === "dark" ? "bg-gray-200 dark-grid-dots" : "bg-gray-200 dark-grid-dots"} overflow-auto `}
+            className={`flex-1 flex items-center justify-center w-full p-3 sm:p-6 md:p-8 lg:p-12 z-10 ${data.previewTheme === "dark" ? "bg-gray-200 dark-grid-dots" : "bg-gray-200 dark-grid-dots"} overflow-auto `}
             onMouseUp={handlePreviewMouseUp}
           >
-            <div ref={previewRef}>{renderPreview()}</div>
+            <div
+              ref={previewRef}
+              className="w-full flex justify-center px-2 sm:px-4"
+            >
+              {renderPreview()}
+            </div>
           </div>
         </section>
       </div>

@@ -1,5 +1,5 @@
-import { CommentData } from '@/types/comment';
-import AnnotatedText from './AnnotatedText';
+import { CommentData } from "@/types/comment";
+import AnnotatedText from "./AnnotatedText";
 
 interface Props {
   data: CommentData;
@@ -7,19 +7,20 @@ interface Props {
 }
 
 const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
-  const isDark = data.previewTheme === 'dark';
+  const isDark = data.previewTheme === "dark";
 
   return (
     <div
       className="rounded-2xl"
       style={{
-        width: 340,
-        padding: '16px 18px',
-        backgroundColor: isDark ? 'hsl(0, 0%, 0%)' : 'white',
-        color: isDark ? 'white' : 'hsl(0, 0%, 7%)',
+        width: "100%",
+        maxWidth: 320,
+        padding: "16px 18px",
+        backgroundColor: isDark ? "hsl(0, 0%, 0%)" : "white",
+        color: isDark ? "white" : "hsl(0, 0%, 7%)",
         boxShadow: isDark
-          ? '0 8px 32px rgba(0,0,0,0.5)'
-          : '0 4px 24px rgba(0,0,0,0.08)',
+          ? "0 8px 32px rgba(0,0,0,0.5)"
+          : "0 4px 24px rgba(0,0,0,0.08)",
       }}
     >
       <div className="flex gap-3 items-start">
@@ -28,14 +29,23 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
           style={{
             width: 36,
             height: 36,
-            backgroundColor: isDark ? 'hsl(0, 0%, 25%)' : 'hsl(0, 0%, 90%)',
+            backgroundColor: isDark ? "hsl(0, 0%, 25%)" : "hsl(0, 0%, 90%)",
           }}
         >
           {avatarUrl ? (
-            <img src={avatarUrl} alt="" className="w-full h-full object-cover" crossOrigin="anonymous" />
+            <img
+              src={avatarUrl}
+              alt=""
+              className="w-full h-full object-cover"
+              crossOrigin="anonymous"
+            />
           ) : (
             <svg
-              style={{ width: 20, height: 20, color: isDark ? 'hsl(0,0%,45%)' : 'hsl(0,0%,60%)' }}
+              style={{
+                width: 20,
+                height: 20,
+                color: isDark ? "hsl(0,0%,45%)" : "hsl(0,0%,60%)",
+              }}
               fill="currentColor"
               viewBox="0 0 24 24"
             >
@@ -48,18 +58,24 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
             className="font-medium leading-snug break-words"
             style={{
               fontSize: 14,
-              color: isDark ? 'white' : 'hsl(0, 0%, 7%)',
-              overflowWrap: 'break-word',
-              wordBreak: 'break-word',
+              color: isDark ? "white" : "hsl(0, 0%, 7%)",
+              overflowWrap: "break-word",
+              wordBreak: "break-word",
             }}
           >
             <AnnotatedText
-              text={data.message || 'Write any comment and see what happens 😊'}
+              text={data.message || "Write any comment and see what happens 😊"}
               annotations={data.annotations}
             />
           </p>
-          <p style={{ fontSize: 13, color: isDark ? 'hsl(0,0%,50%)' : 'hsl(0,0%,55%)', marginTop: 4 }}>
-            Replying to {data.username || 'username'}
+          <p
+            style={{
+              fontSize: 13,
+              color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,55%)",
+              marginTop: 4,
+            }}
+          >
+            Replying to {data.username || "username"}
           </p>
         </div>
       </div>
