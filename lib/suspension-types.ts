@@ -26,7 +26,7 @@ export const defaultSuspensionData: SuspensionData = {
 };
 
 export const SUSPENSION_MESSAGES: Record<string, string> = {
-  rules: `Twitter suspends accounts which violate the <span style="color:#1D9BF0">Twitter Rules</span>.`,
+  rules: `Twitter suspends accounts which violate the <span style="color:#1D9BF0">X Rules</span>.`,
   unusual: "This account has been suspended due to unusual activity. If you think this is a mistake, please contact our support team.",
   spam: "This account has been suspended due to multiple or repeat violations of the Twitter Rules on platform manipulation and spam.",
   custom: "",

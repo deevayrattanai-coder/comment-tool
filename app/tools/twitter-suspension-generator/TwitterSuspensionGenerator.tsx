@@ -43,12 +43,24 @@ function VerifiedSvg({ type }: { type: VerifiedBadge }) {
 
 function SuspensionPreview({ data }: { data: SuspensionData }) {
   const isDark = data.theme !== "light";
+
   const bg =
-    data.theme === "dark" ? "#000" : data.theme === "dim" ? "#15202b" : "#fff";
-  const text = isDark ? "#e7e9ea" : "#0f1419";
-  const sub = isDark ? "#71767b" : "#536471";
-  const border =
-    data.theme === "dim" ? "#38444d" : isDark ? "#2f3336" : "#eff3f4";
+    data.theme === "dark"
+      ? "#000"
+      : data.theme === "dim"
+        ? "#15202b"
+        : "#ffffff";
+
+  const text = isDark ? "#E7E9EA" : "#0F1419";
+  const sub = isDark ? "#536471" : "#536471";
+
+  const coverBg =
+    data.theme === "dark"
+      ? "#16181c"
+      : data.theme === "dim"
+        ? "#1e2732"
+        : "#CFD9DE";
+
   const avatar = data.avatarFile || data.avatarUrl;
 
   const message =
@@ -59,93 +71,37 @@ function SuspensionPreview({ data }: { data: SuspensionData }) {
   return (
     <div
       style={{
-        backgroundColor: bg,
-        fontFamily: "'Inter', -apple-system, sans-serif",
         width: "100%",
-        maxWidth: "560px",
+        maxWidth: 560,
+        background: bg,
+        fontFamily:
+          'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
+        overflow: "hidden",
       }}
     >
-      {/* Minimal profile header */}
+      {/* Cover */}
       <div
         style={{
-          padding: "12px 16px",
-          borderBottom: `1px solid ${border}`,
-          display: "flex",
-          alignItems: "center",
-          gap: 10,
-        }}
-      >
-        <div
-          style={{
-            width: 36,
-            height: 36,
-            borderRadius: "50%",
-            overflow: "hidden",
-            backgroundColor: "#536471",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-          }}
-        >
-          {avatar ? (
-            <img
-              src={avatar}
-              alt=""
-              crossOrigin="anonymous"
-              style={{ width: "100%", height: "100%", objectFit: "cover" }}
-            />
-          ) : (
-            <span style={{ color: "#fff", fontWeight: 700, fontSize: 13 }}>
-              {getInitials(data.displayName || "U")}
-            </span>
-          )}
-        </div>
-        <div>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span style={{ color: text, fontWeight: 700, fontSize: 14 }}>
-              {data.displayName || "Display Name"}
-            </span>
-            <VerifiedSvg type={data.verified} />
-          </div>
-          <span style={{ color: sub, fontSize: 12 }}>
-            @{data.username || "username"}
-          </span>
-        </div>
-        {/* X logo */}
-        <div style={{ marginLeft: "auto", color: text }}>
-          <svg
-            viewBox="0 0 24 24"
-            style={{ width: 22, height: 22, fill: "currentColor" }}
-          >
-            <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.73-8.835L1.254 2.25H8.08l4.259 5.625zM17.083 19.77h1.833L7.084 4.126H5.117z" />
-          </svg>
-        </div>
-      </div>
-
-      {/* Gray profile strip (greyed out) */}
-      <div
-        style={{
-          height: 90,
-          backgroundColor: isDark ? "#1a1a1a" : "#e7e9ea",
+          height: 60,
+          background: coverBg,
           position: "relative",
-          overflow: "hidden",
         }}
       >
+        {/* Avatar */}
         <div
           style={{
             position: "absolute",
-            bottom: -36,
-            left: 16,
-            width: 72,
-            height: 72,
+            bottom: -52,
+            left: 32,
+            width: 80,
+            height: 80,
             borderRadius: "50%",
-            border: `4px solid ${bg}`,
-            backgroundColor: "#536471",
+            border: `5px solid ${bg}`,
+            overflow: "hidden",
+            background: "#ffffff",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
-            overflow: "hidden",
           }}
         >
           {avatar ? (
@@ -157,61 +113,108 @@ function SuspensionPreview({ data }: { data: SuspensionData }) {
                 width: "100%",
                 height: "100%",
                 objectFit: "cover",
-                filter: "grayscale(60%)",
               }}
             />
           ) : (
-            <span style={{ color: "#fff", fontWeight: 700, fontSize: 22 }}>
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                background: "#5B7083",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: 34,
+              }}
+            >
               {getInitials(data.displayName || "U")}
-            </span>
+            </div>
           )}
         </div>
       </div>
 
-      {/* Profile info below grey strip */}
-      <div style={{ padding: "44px 16px 16px" }}>
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <span style={{ color: text, fontWeight: 700, fontSize: 18 }}>
+      {/* Profile Section */}
+      <div
+        style={{
+          paddingLeft: 32,
+          paddingRight: 32,
+          paddingTop: 68,
+          paddingBottom: 44,
+          background: bg,
+        }}
+      >
+        {/* Name */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: 8,
+            flexWrap: "wrap",
+          }}
+        >
+          <span
+            style={{
+              color: text,
+              fontSize: 24,
+              fontWeight: 800,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.1,
+            }}
+          >
             {data.displayName || "Display Name"}
           </span>
+
           <VerifiedSvg type={data.verified} />
         </div>
-        <div style={{ color: sub, fontSize: 14 }}>
+
+        {/* Username */}
+        <div
+          style={{
+            marginTop: 10,
+            color: sub,
+            fontSize: 16,
+            fontWeight: 500,
+          }}
+        >
           @{data.username || "username"}
-        </div>
-        <div style={{ color: sub, fontSize: 13, marginTop: 4 }}>
-          {data.tweetCount} posts
         </div>
       </div>
 
-      {/* Suspension notice */}
+      {/* Suspension Section */}
       <div
         style={{
-          margin: "0 16px 20px",
-          borderRadius: 12,
-          padding: "24px 20px",
+          background: coverBg,
+          padding: "70px 40px 90px",
           textAlign: "center",
         }}
       >
-        {/* Warning icon */}
-
         <div
           style={{
             color: text,
-            fontWeight: 700,
-            fontSize: 20,
-            marginBottom: 8,
+            fontSize: 28,
+            fontWeight: 800,
+            lineHeight: 1.1,
+            letterSpacing: "-0.03em",
           }}
         >
           Account suspended
         </div>
+
         <div
-          style={{ color: sub, fontSize: 14, lineHeight: 1.6 }}
+          style={{
+            marginTop: 28,
+            color: sub,
+            fontSize: 18,
+            lineHeight: 1.5,
+            fontWeight: 400,
+          }}
           dangerouslySetInnerHTML={{
             __html:
               message ||
-              `Twitter suspends accounts which violate the 
-       <span style="color:#1D9BF0">Twitter Rules</span>.`,
+              `Twitter suspends accounts that violate the 
+              <span style="color:#1D9BF0">Twitter Rules</span>.`,
           }}
         />
       </div>

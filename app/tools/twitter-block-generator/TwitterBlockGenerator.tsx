@@ -76,191 +76,174 @@ function ThemeSelector({
 
 function BlockPreview({ data }: { data: BlockData }) {
   const isDark = data.theme !== "light";
+
   const bg =
-    data.theme === "dark" ? "#000" : data.theme === "dim" ? "#15202b" : "#fff";
-  const text = isDark ? "#e7e9ea" : "#0f1419";
-  const sub = isDark ? "#71767b" : "#536471";
-  const border =
-    data.theme === "dim" ? "#38444d" : isDark ? "#2f3336" : "#eff3f4";
-  const btnBorder = isDark ? "#536471" : "#cfd9de";
+    data.theme === "dark"
+      ? "#000"
+      : data.theme === "dim"
+        ? "#15202b"
+        : "#ffffff";
+
+  const text = isDark ? "#E7E9EA" : "#0F1419";
+  const sub = "#536471";
+
+  const coverBg =
+    data.theme === "dark"
+      ? "#16181c"
+      : data.theme === "dim"
+        ? "#1e2732"
+        : "#CFD9DE";
+
   const avatar = data.blockerAvatarFile || data.blockerAvatarUrl;
 
   return (
     <div
       style={{
-        backgroundColor: bg,
-        fontFamily: "'Inter', -apple-system, sans-serif",
         width: "100%",
         maxWidth: 560,
+        background: bg,
+        fontFamily:
+          'Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif',
         overflow: "hidden",
       }}
     >
-      {/* Cover photo */}
+      {/* Top Cover */}
       <div
         style={{
-          height: 30,
-          backgroundColor: data.coverColor,
+          height: 60,
+          background: coverBg,
           position: "relative",
         }}
       >
-        {/* Gradient overlay */}
+        {/* Avatar */}
         <div
           style={{
             position: "absolute",
-            inset: 0,
-            background:
-              "linear-gradient(to bottom, transparent 60%, rgba(0,0,0,0.15))",
+            bottom: -52,
+            left: 32,
+            width: 80,
+            height: 80,
+            borderRadius: "50%",
+            overflow: "hidden",
+            border: `5px solid ${bg}`,
+            background: "#ffffff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        />
+        >
+          {avatar ? (
+            <img
+              src={avatar}
+              alt=""
+              crossOrigin="anonymous"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+          ) : (
+            <div
+              style={{
+                width: "100%",
+                height: "100%",
+                background: "#5B7083",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                color: "#fff",
+                fontWeight: 700,
+                fontSize: 34,
+              }}
+            >
+              {getInitials(data.blockerDisplayName || "U")}
+            </div>
+          )}
+        </div>
       </div>
 
-      {/* Profile section */}
-      <div style={{ padding: "0 16px" }}>
-        {/* Avatar row */}
+      {/* Profile Info */}
+      <div
+        style={{
+          paddingLeft: 32,
+          paddingRight: 32,
+          paddingTop: 68,
+          paddingBottom: 44,
+          background: bg,
+        }}
+      >
+        {/* Name */}
         <div
           style={{
             display: "flex",
-            alignItems: "flex-end",
-            justifyContent: "space-between",
-            marginTop: -46,
+            alignItems: "center",
+            gap: 8,
+            flexWrap: "wrap",
           }}
         >
-          <div
-            style={{
-              width: 90,
-              height: 90,
-              borderRadius: "50%",
-              overflow: "hidden",
-              border: `4px solid ${bg}`,
-              backgroundColor: "#1D9BF0",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-          >
-            {avatar ? (
-              <img
-                src={avatar}
-                alt=""
-                crossOrigin="anonymous"
-                style={{ width: "100%", height: "100%", objectFit: "cover" }}
-              />
-            ) : (
-              <span style={{ color: "#fff", fontWeight: 700, fontSize: 28 }}>
-                {getInitials(data.blockerDisplayName || "U")}
-              </span>
-            )}
-          </div>
-
-          {/* Blocked button */}
-          <button
-            style={{
-              marginBottom: 8,
-              border: `1px solid ${btnBorder}`,
-              borderRadius: 20,
-              padding: "6px 16px",
-              backgroundColor: "transparent",
-              color: text,
-              fontSize: 14,
-              fontWeight: 700,
-              cursor: "default",
-            }}
-          >
-            Blocked
-          </button>
-        </div>
-
-        {/* Name */}
-        <div style={{ marginTop: 6 }}>
-          <div style={{ display: "flex", alignItems: "center" }}>
-            <span style={{ color: text, fontWeight: 700, fontSize: 18 }}>
-              {data.blockerDisplayName || "Display Name"}
-            </span>
-            <VerifiedSvg type={data.blockerVerified} />
-          </div>
-          <div style={{ color: sub, fontSize: 14, marginTop: 1 }}>
-            @{data.blockerUsername || "username"}
-          </div>
-        </div>
-
-        {/* Bio */}
-        {data.blockerBio && (
-          <div
+          <span
             style={{
               color: text,
-              fontSize: 14,
-              marginTop: 8,
-              lineHeight: 1.5,
+              fontSize: 24,
+              fontWeight: 800,
+              lineHeight: 1.1,
+              letterSpacing: "-0.03em",
             }}
           >
-            {data.blockerBio}
-          </div>
-        )}
+            {data.blockerDisplayName || "Display Name"}
+          </span>
 
-        {/* Following / Followers */}
-        <div style={{ display: "flex", gap: 16, marginTop: 10 }}>
-          <span style={{ color: sub, fontSize: 14 }}>
-            <span style={{ color: text, fontWeight: 700 }}>
-              {formatNum(data.blockerFollowing)}
-            </span>{" "}
-            Following
-          </span>
-          <span style={{ color: sub, fontSize: 14 }}>
-            <span style={{ color: text, fontWeight: 700 }}>
-              {formatNum(data.blockerFollowers)}
-            </span>{" "}
-            Followers
-          </span>
+          <VerifiedSvg type={data.blockerVerified} />
         </div>
 
-        {/* Divider */}
-        <div style={{ height: 1, backgroundColor: border, margin: "16px 0" }} />
-
-        {/* Block notice box */}
+        {/* Username */}
         <div
           style={{
-            border: `1px solid ${border}`,
-            borderRadius: 12,
-            padding: "20px 16px",
-            marginBottom: 16,
-            textAlign: "center",
+            marginTop: 10,
+            color: sub,
+            fontSize: 16,
+            fontWeight: 500,
           }}
         >
-          {/* Lock icon */}
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-              marginBottom: 8,
-            }}
-          >
-            <svg
-              viewBox="0 0 24 24"
-              style={{ width: 28, height: 28, fill: text }}
-            >
-              <path d="M17 10V7A5 5 0 0 0 7 7v3H5v12h14V10h-2zM9 7a3 3 0 1 1 6 0v3H9V7zm3 10a2 2 0 1 1 0-4 2 2 0 0 1 0 4z" />
-            </svg>
-          </div>
-          <div
-            style={{
-              color: text,
-              fontWeight: 700,
-              fontSize: 19,
-              marginBottom: 4,
-            }}
-          >
-            You're blocked
-          </div>
-          <div style={{ color: sub, fontSize: 14, lineHeight: 1.6 }}>
-            You can't follow or see @{data.blockerUsername || "username"}'s
-            posts.{" "}
-            {data.viewerUsername &&
-              data.viewerUsername !== "you" &&
-              `@${data.viewerUsername} `}
-            <span style={{ color: "#1D9BF0", cursor: "pointer" }}>
-              Learn more
-            </span>
-          </div>
+          @{data.blockerUsername || "username"}
+        </div>
+      </div>
+
+      {/* Block Message Section */}
+      <div
+        style={{
+          background: coverBg,
+          padding: "50px",
+          textAlign: "center",
+        }}
+      >
+        {/* Main Heading */}
+        <div
+          style={{
+            color: text,
+            fontSize: 28,
+            fontWeight: 800,
+            lineHeight: 1.15,
+            letterSpacing: "-0.03em",
+          }}
+        >
+          @{data.blockerUsername || "username"} blocked you
+        </div>
+
+        {/* Description */}
+        <div
+          style={{
+            marginTop: 18,
+            color: sub,
+            fontSize: 24,
+            lineHeight: 1.55,
+            fontWeight: 400,
+          }}
+        >
+          You are blocked from following @
+          {data.blockerUsername || "username"} and viewing @
+          {data.blockerUsername || "username"}’s Tweets.
         </div>
       </div>
     </div>
