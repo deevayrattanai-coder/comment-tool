@@ -4,10 +4,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = createMetadata({
-  title: "Best Twitter Reply Chain Generator Tool Online | Reply Chain Tools",
+  title: "Best Tweet Reply Generator Tool Online | Comment Tools",
   description:
-    "Generate realistic Twitter reply chains instantly. Save time, and create convincing reply chains for your needs.",
-  path: "/tools/twitter-reply-chain-generator",
+    "Generate realistic tweet replies and conversation threads with the Best Tweet Reply Generator Tool Online. Perfect for creators, marketers, and social media mockups.",
+  path: "/tools/tweet-reply-generator",
 });
 
 const ReplyChainPage = () => {

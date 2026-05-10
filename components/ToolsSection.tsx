@@ -6,7 +6,7 @@ import { usePathname } from "next/navigation";
 const tools = [
   {
     name: "Tweet Generator",
-    path: "/tools/twitter-tweet-generator",
+    path: "/tools/fake-tweet-generator",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
         <path
@@ -47,7 +47,7 @@ const tools = [
   },
   {
     name: "Reply Chain",
-    path: "/tools/twitter-reply-chain-generator",
+    path: "/tools/tweet-reply-generator",
     icon: (
       <svg viewBox="0 0 24 24" fill="none" className="w-5 h-5">
         <path
@@ -102,10 +102,9 @@ export default function ToolsSection() {
             key={tool.path}
             href={tool.path}
             className={`flex items-center gap-3 p-3 rounded-xl border transition
-              ${
-                active
-                  ? "bg-purple-600/20 border-purple-500 text-purple-400"
-                  : "bg-gradient-primary border-neutral-800 text-gray-400 hover:text-white hover:border-purple-500"
+              ${active
+                ? "bg-purple-600/20 border-purple-500 text-purple-400"
+                : "bg-gradient-primary border-neutral-800 text-gray-400 hover:text-white hover:border-purple-500"
               }`}
           >
             <div className="flex items-center justify-center w-4 h-4 rounded-lg bg-black/40">

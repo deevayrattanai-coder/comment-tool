@@ -285,6 +285,7 @@ export default function BlockScreen() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
   const avatarRef = useRef<HTMLInputElement>(null);
+  const [active, setActive] = useState<number | null>(0);
 
   const bg =
     data.theme === "dark" ? "#000" : data.theme === "dim" ? "#15202b" : "#fff";
@@ -350,8 +351,33 @@ export default function BlockScreen() {
     r.readAsDataURL(file);
   };
 
+
+  const faqs = [
+    {
+      q: "Can I customize usernames and profile images?",
+      a: "Yes, all major elements are fully customizable.",
+    },
+    {
+      q: "Is premium required for bulk generation?",
+      a: "Yes, bulk generation is available with premium plans.",
+    },
+    {
+      q: "Can I export screenshots in HD?",
+      a: "Absolutely. The tool supports high-quality exports.",
+    },
+    {
+      q: "Why is Comment Tools better than Top Comment?",
+      a: "Comment Tools is continuously growing with more social media tools and advanced creator-focused features.",
+    },
+  ];
+
   return (
     <div className="min-h-screen">
+      <h1 className="text-3xl mt-5 flex justify-center font-black leading-tight tracking-tight text-white lg:text-5xl">
+        <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+          Best Twitter (X) Block Generator Tool Online
+        </span>
+      </h1>
       <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
         {/* Form */}
         <aside className=" lg:w-[300px] w-full bg-card border border-border rounded-tl-2xl overflow-hidden">
@@ -576,6 +602,389 @@ export default function BlockScreen() {
           </main>
         </div>
       </div>
+
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-1/2 h-[420px] w-full -translate-x-1/2 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+
+          {/* Content */}
+          <div className="flex flex-col items-center text-center">
+
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-white lg:text-4xl">
+              <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+                Generate Realistic Twitter Block
+              </span>
+              <br />
+              Screenshots Instantly
+            </h2>
+
+            <p className="mt-8 max-w-4xl text-lg leading-8 text-slate-300 sm:text-xl">
+              The Best Twitter (X) Block Generator Tool Online helps users create
+              realistic block screenshots for memes, social media creatives, and
+              engagement mockups. Inspired by the real interface of X, the tool makes
+              customization simple and fast.
+            </p>
+
+            <p className="mt-5 max-w-3xl text-lg leading-8 text-slate-400 sm:text-xl">
+              Whether you're a creator, marketer, or agency, you can generate
+              professional visuals within seconds.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden py-20">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-20 left-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          {/* Heading */}
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-4 inline-flex rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 backdrop-blur-xl">
+              🚀 Why Use a Twitter Block Generator?
+            </div>
+
+            <h2 className="text-3xl font-black leading-tight text-white sm:text-4xl lg:text-5xl">
+              Block screenshots are popular across social media for humor,
+              storytelling, and creative campaigns.
+            </h2>
+
+            <p className="mt-6 text-lg leading-8 text-slate-300">
+              Therefore, having a realistic generator saves time while improving
+              content quality.
+            </p>
+          </div>
+
+          {/* Features Grid */}
+          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+
+            {/* Card 1 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-purple-500/40 hover:bg-white/[0.05]">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-purple-500/10 blur-2xl transition-all duration-300 group-hover:bg-purple-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500 text-2xl shadow-lg">
+                  📸
+                </div>
+
+                <h3 className="text-xl font-bold text-white">
+                  Generate realistic block screenshots
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-pink-500/40 hover:bg-white/[0.05]">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-pink-500/10 blur-2xl transition-all duration-300 group-hover:bg-pink-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 text-2xl shadow-lg">
+                  ✏️
+                </div>
+
+                <h3 className="text-xl font-bold text-white">
+                  Customize usernames and messages
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-500/40 hover:bg-white/[0.05]">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-blue-500/10 blur-2xl transition-all duration-300 group-hover:bg-blue-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 text-2xl shadow-lg">
+                  😂
+                </div>
+
+                <h3 className="text-xl font-bold text-white">
+                  Create engaging meme content
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-green-500/40 hover:bg-white/[0.05]">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-green-500/10 blur-2xl transition-all duration-300 group-hover:bg-green-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-2xl shadow-lg">
+                  ⚡
+                </div>
+
+                <h3 className="text-xl font-bold text-white">
+                  Improve social media creatives
+                </h3>
+
+                <p className="mt-4 text-sm leading-6 text-slate-400">
+                  Export HD visuals instantly
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section className="relative overflow-hidden py-20">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="mx-auto max-w-3xl text-center">
+            <div className="mb-4 inline-flex rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 backdrop-blur-xl">
+              Key Features
+            </div>
+
+            <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Built for creators, agencies, and viral content
+            </h2>
+
+            <p className="mt-5 text-lg leading-8 text-slate-400">
+              Powerful customization with realistic visuals and production-ready
+              export quality.
+            </p>
+          </div>
+
+          {/* Features */}
+          <div className="mt-14 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+
+            {/* Feature 1 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-purple-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-purple-500/10 blur-2xl transition-all duration-300 group-hover:bg-purple-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500 text-2xl shadow-lg">
+                  ✔
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Realistic Block UI
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Generate screenshots that closely match the real X interface.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 2 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-pink-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-pink-500/10 blur-2xl transition-all duration-300 group-hover:bg-pink-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 text-2xl shadow-lg">
+                  ✏️
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Full Customization
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Edit usernames, profile pictures, handles, and block messages
+                  easily.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 3 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-blue-500/10 blur-2xl transition-all duration-300 group-hover:bg-blue-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 text-2xl shadow-lg">
+                  📥
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  High-Quality Export
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Download professional HD screenshots for campaigns and content.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 4 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-green-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-green-500/10 blur-2xl transition-all duration-300 group-hover:bg-green-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-2xl shadow-lg">
+                  🔒
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Login-Based Access
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Securely save and manage projects anytime.
+                </p>
+              </div>
+            </div>
+
+            {/* Feature 5 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-yellow-500/10 blur-2xl transition-all duration-300 group-hover:bg-yellow-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 text-2xl shadow-lg">
+                  ⚡
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Bulk Generation (Premium)
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Generate multiple screenshots quickly with premium features.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Ideal For */}
+          <div className="mt-20">
+            <div className="mb-8 flex items-center justify-center">
+              <div className="rounded-full border border-blue-500/20 bg-blue-500/10 px-5 py-2 text-sm font-medium text-blue-300 backdrop-blur-xl">
+                🎯 Ideal For
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {[
+                "Meme pages",
+                "Social media creators",
+                "Marketing agencies",
+                "Designers and freelancers",
+                "Viral content creators",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-slate-200 backdrop-blur-xl transition-all duration-300 hover:border-purple-500/40 hover:bg-white/[0.05]"
+                >
+                  {item}
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden py-20">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute left-1/2 top-0 h-[420px] w-[420px] -translate-x-1/2 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+          <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.03] p-8 shadow-2xl backdrop-blur-2xl sm:p-12 lg:p-16">
+
+            {/* Glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 opacity-60" />
+
+            {/* Content */}
+            <div className="relative z-10 text-center">
+
+              {/* Badge */}
+              <div className="mb-6 inline-flex items-center rounded-full border border-purple-500/20 bg-purple-500/10 px-5 py-2 text-sm font-medium text-purple-300 backdrop-blur-xl">
+                Final Thoughts
+              </div>
+
+              {/* Heading */}
+              <h2 className="mx-auto max-w-4xl text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                The Best Twitter (X) Block Generator Tool Online helps creators
+                produce realistic and engaging visuals quickly while simplifying
+                content creation workflows.
+              </h2>
+
+              {/* Bottom Glow Line */}
+              <div className="mx-auto mt-10 h-[4px] w-32 rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section className="relative overflow-hidden py-20">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+
+          {/* Heading */}
+          <div className="mb-12 text-center">
+            <div className="mb-4 inline-flex rounded-full border border-purple-500/20 bg-purple-500/10 px-4 py-2 text-sm font-medium text-purple-300 backdrop-blur-xl">
+              FAQs
+            </div>
+
+            <h2 className="text-3xl font-black tracking-tight text-white sm:text-4xl lg:text-5xl">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          {/* Accordion */}
+          <div className="space-y-4">
+            {faqs.map((faq, i) => {
+              const isOpen = active === i;
+
+              return (
+                <div
+                  key={i}
+                  className="group overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl transition-all duration-300 hover:border-purple-500/30"
+                >
+                  <button
+                    onClick={() => setActive(isOpen ? null : i)}
+                    className="flex w-full items-center justify-between gap-4 px-5 py-5 text-left sm:px-6"
+                  >
+                    <span className="text-base font-semibold leading-7 text-white sm:text-lg">
+                      {faq.q}
+                    </span>
+
+                    <div
+                      className={`flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-purple-500 to-blue-500 text-xl font-medium text-white transition-transform duration-300 ${isOpen ? "rotate-45" : ""
+                        }`}
+                    >
+                      +
+                    </div>
+                  </button>
+
+                  <div
+                    className={`grid transition-all duration-300 ease-in-out ${isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                      }`}
+                  >
+                    <div className="overflow-hidden">
+                      <p className="px-5 pb-5 text-sm leading-7 text-slate-400 sm:px-6 sm:text-base">
+                        {faq.a}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

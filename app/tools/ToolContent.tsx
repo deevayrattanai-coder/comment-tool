@@ -77,7 +77,7 @@ const tools = [
   },
   {
     name: "Twitter Reply Chain Generator",
-    slug: "/tools/twitter-reply-chain-generator",
+    slug: "/tools/tweet-reply-generator",
     desc: "Design styled reply chains.",
     icon: <Twitter size={20} />,
   },
@@ -89,7 +89,7 @@ const tools = [
   },
   {
     name: "Twitter Tweet Generator",
-    slug: "/tools/twitter-tweet-generator",
+    slug: "/tools/fake-tweet-generator",
     desc: "Create realistic tweets.",
     icon: <Twitter size={20} />,
   },
@@ -176,11 +176,10 @@ export default function ToolContent() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.05 }}
-                className={`group border rounded-2xl p-6 backdrop-blur transition ${
-                  tool.disabled
-                    ? "opacity-50 cursor-not-allowed border-border bg-background/40"
-                    : "border-border bg-background/70 hover:shadow-xl hover:border-primary/40"
-                }`}
+                className={`group border rounded-2xl p-6 backdrop-blur transition ${tool.disabled
+                  ? "opacity-50 cursor-not-allowed border-border bg-background/40"
+                  : "border-border bg-background/70 hover:shadow-xl hover:border-primary/40"
+                  }`}
               >
                 {/* Title + Icon */}
                 <div className="flex items-center gap-3 mb-3">

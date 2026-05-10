@@ -251,7 +251,7 @@ export default function SuspensionScreen() {
   const previewRef = useRef<HTMLDivElement>(null);
   const [downloading, setDownloading] = useState(false);
   const avatarRef = useRef<HTMLInputElement>(null);
-
+  const [active, setActive] = useState<number | null>(0);
   const bg =
     data.theme === "dark" ? "#000" : data.theme === "dim" ? "#15202b" : "#fff";
   const up = (patch: Partial<SuspensionData>) => setData({ ...data, ...patch });
@@ -319,8 +319,32 @@ export default function SuspensionScreen() {
     r.readAsDataURL(file);
   };
 
+  const faqs = [
+    {
+      q: "Can I customize the suspension message?",
+      a: "Yes, usernames, handles, and visuals are fully customizable.",
+    },
+    {
+      q: "Is this tool free to use?",
+      a: "Yes, basic features are available for free.",
+    },
+    {
+      q: "Is login required?",
+      a: "Yes, login is required to securely manage projects.",
+    },
+    {
+      q: "Why is Comment Tools better than Top Comment?",
+      a: "Comment Tools is designed to expand with more tools, platforms, and advanced features for creators.",
+    },
+  ];
+
   return (
     <div className="min-h-screen flex flex-col">
+      <h1 className="text-3xl mt-5 flex justify-center font-black leading-tight tracking-tight text-white lg:text-5xl">
+        <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+          Best Twitter (X) Suspension Generator Tool Online
+        </span>
+      </h1>
       <div className="flex-1 max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
         {/* Form */}
         <aside className="lg:w-[300px] w-full  bg-card border border-border rounded-l-2xl overflow-hidden">
@@ -539,6 +563,470 @@ export default function SuspensionScreen() {
           </main>
         </div>
       </div>
+
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-1/2 h-full w-full -translate-x-1/2 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto w-full px-4 sm:px-6 lg:px-8">
+
+          <div className="flex justify-center items-center">
+
+            {/* Left Content */}
+            <div>
+              {/* Badge */}
+              <div className="mb-6 inline-flex overflow-hidden rounded-full border border-purple-500/20 bg-white/[0.03] p-[1px] shadow-lg backdrop-blur-xl">
+                <div className="flex items-center gap-2 rounded-full bg-[#0f172a]/90 px-5 py-2.5">
+                  <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
+
+                  <span className="bg-gradient-to-r from-purple-300 via-indigo-200 to-blue-300 bg-clip-text text-sm font-semibold tracking-wide text-transparent sm:text-base">
+                    Best Twitter (X) Suspension Generator Tool Online
+                  </span>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="text-4xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+                <span className="bg-gradient-to-r from-purple-400 via-indigo-400 to-blue-400 bg-clip-text text-transparent">
+                  Create Realistic Twitter
+                  Suspension Screenshots   </span>
+              </h2>
+
+              {/* Description */}
+              <p className="mt-8 text-lg leading-8 text-slate-300 sm:text-xl">
+                The Best Twitter (X) Suspension Generator Tool Online allows users to
+                generate realistic suspension screenshots instantly. Whether you're
+                creating memes, mockups, creative visuals, or campaign concepts, this
+                tool delivers professional-looking results within seconds.
+              </p>
+
+              <p className="mt-5 text-lg leading-8 text-slate-400 sm:text-xl">
+                Built for creators, agencies, and marketers, it closely matches the
+                interface of X for maximum realism.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          {/* Heading */}
+          <div className="mx-auto max-w-4xl text-center">
+
+            <div className="mb-5 inline-flex overflow-hidden rounded-full border border-purple-500/20 bg-white/[0.03] p-[1px] shadow-lg backdrop-blur-xl">
+              <div className="flex items-center gap-2 rounded-full bg-[#0f172a]/90 px-5 py-2.5">
+                <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
+
+                <span className="bg-gradient-to-r from-purple-300 via-indigo-200 to-blue-300 bg-clip-text text-sm font-semibold tracking-wide text-transparent sm:text-base">
+                  Why Use a Twitter Suspension Generator?
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Suspension-style mockups are widely used in creative content,
+              meme culture, and campaign visuals.
+            </h2>
+
+            <p className="mx-auto mt-7 max-w-3xl text-lg leading-8 text-slate-400 sm:text-xl">
+              Therefore, having a realistic generator helps creators produce
+              engaging content quickly.
+            </p>
+          </div>
+
+          {/* Feature Cards */}
+          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+
+            {/* Card 1 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-purple-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-purple-500/10 blur-2xl transition-all duration-300 group-hover:bg-purple-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500 text-2xl shadow-lg">
+                  ⚡
+                </div>
+
+                <h3 className="text-xl font-bold leading-8 text-white">
+                  Generate realistic suspension screenshots
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-pink-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-pink-500/10 blur-2xl transition-all duration-300 group-hover:bg-pink-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 text-2xl shadow-lg">
+                  ✏️
+                </div>
+
+                <h3 className="text-xl font-bold leading-8 text-white">
+                  Customize usernames and profile details
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-blue-500/10 blur-2xl transition-all duration-300 group-hover:bg-blue-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 text-2xl shadow-lg">
+                  😂
+                </div>
+
+                <h3 className="text-xl font-bold leading-8 text-white">
+                  Create meme-style visuals faster
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-green-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-green-500/10 blur-2xl transition-all duration-300 group-hover:bg-green-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-2xl shadow-lg">
+                  🚀
+                </div>
+
+                <h3 className="text-xl font-bold leading-8 text-white">
+                  Improve campaign creativity
+                </h3>
+              </div>
+            </div>
+
+            {/* Card 5 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-6 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-yellow-500/10 blur-2xl transition-all duration-300 group-hover:bg-yellow-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-5 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 text-2xl shadow-lg">
+                  ⏱️
+                </div>
+
+                <h3 className="text-xl font-bold leading-8 text-white">
+                  Save editing time
+                </h3>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+
+          {/* Header */}
+          <div className="mx-auto max-w-4xl text-center">
+
+            <div className="mb-5 inline-flex overflow-hidden rounded-full border border-purple-500/20 bg-white/[0.03] p-[1px] shadow-lg backdrop-blur-xl">
+              <div className="flex items-center gap-2 rounded-full bg-[#0f172a]/90 px-5 py-2.5">
+                <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
+
+                <span className="bg-gradient-to-r from-purple-300 via-indigo-200 to-blue-300 bg-clip-text text-sm font-semibold tracking-wide text-transparent sm:text-base">
+                  Key Features
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-black leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+              Designed for creators, agencies, and campaigns
+            </h2>
+          </div>
+
+          {/* Features Grid */}
+          <div className="mt-16 grid gap-6 md:grid-cols-2 xl:grid-cols-5">
+
+            {/* Card 1 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-purple-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-purple-500/10 blur-2xl transition-all duration-300 group-hover:bg-purple-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-indigo-500 text-2xl shadow-lg">
+                  ✔
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Realistic Suspension UI
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Generate suspension screenshots that look authentic and clean.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 2 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-pink-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-pink-500/10 blur-2xl transition-all duration-300 group-hover:bg-pink-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-pink-500 to-orange-400 text-2xl shadow-lg">
+                  ✏️
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Full Customization
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Customize usernames, handles, profile images, and messages easily.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 3 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-blue-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-blue-500/10 blur-2xl transition-all duration-300 group-hover:bg-blue-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-blue-500 to-cyan-400 text-2xl shadow-lg">
+                  📥
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  High-Quality Export
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Download HD screenshots optimized for social media and
+                  presentations.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 4 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-green-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-green-500/10 blur-2xl transition-all duration-300 group-hover:bg-green-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-green-500 to-emerald-400 text-2xl shadow-lg">
+                  🔒
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Secure Login-Based Access
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Login is required to save and manage projects securely.
+                </p>
+              </div>
+            </div>
+
+            {/* Card 5 */}
+            <div className="group relative overflow-hidden rounded-3xl border border-white/10 bg-white/[0.03] p-7 backdrop-blur-xl transition-all duration-300 hover:-translate-y-2 hover:border-yellow-500/40">
+              <div className="absolute top-0 right-0 h-28 w-28 rounded-full bg-yellow-500/10 blur-2xl transition-all duration-300 group-hover:bg-yellow-500/20" />
+
+              <div className="relative z-10">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-br from-yellow-400 to-orange-500 text-2xl shadow-lg">
+                  ⚡
+                </div>
+
+                <h3 className="text-2xl font-bold text-white">
+                  Fast & Easy Workflow
+                </h3>
+
+                <p className="mt-4 leading-7 text-slate-400">
+                  Create suspension mockups within seconds.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Best For */}
+          <div className="mt-24">
+
+            <div className="mb-8 flex justify-center">
+              <div className="inline-flex overflow-hidden rounded-full border border-blue-500/20 bg-white/[0.03] p-[1px] shadow-lg backdrop-blur-xl">
+                <div className="flex items-center gap-2 rounded-full bg-[#0f172a]/90 px-5 py-2.5">
+                  <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-blue-400 to-cyan-400 shadow-[0_0_12px_rgba(59,130,246,0.8)]" />
+
+                  <span className="bg-gradient-to-r from-blue-300 via-cyan-200 to-indigo-300 bg-clip-text text-sm font-semibold tracking-wide text-transparent sm:text-base">
+                    🎯 Best For
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-4">
+              {[
+                "Meme creators",
+                "Content creators",
+                "Social media marketers",
+                "Agencies and designers",
+                "Digital campaigns",
+              ].map((item) => (
+                <div
+                  key={item}
+                  className="group relative overflow-hidden rounded-2xl border border-white/10 bg-white/[0.03] px-5 py-3 text-sm font-medium text-slate-200 backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-purple-500/40 hover:bg-white/[0.05]"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-r from-purple-500/0 via-purple-500/10 to-blue-500/0 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+
+                  <span className="relative z-10">{item}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-1/2 h-[450px] w-[450px] -translate-x-1/2 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-72 w-72 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+
+          <div className="relative overflow-hidden rounded-[36px] border border-white/10 bg-white/[0.03] p-8 shadow-2xl backdrop-blur-2xl sm:p-12 lg:p-16">
+
+            {/* Gradient Glow */}
+            <div className="absolute inset-0 bg-gradient-to-r from-purple-500/10 via-indigo-500/10 to-blue-500/10 opacity-70" />
+
+            {/* Decorative Blur */}
+            <div className="absolute -top-16 left-1/2 h-40 w-40 -translate-x-1/2 rounded-full bg-purple-500/20 blur-3xl" />
+
+            {/* Content */}
+            <div className="relative z-10 text-center">
+
+              {/* Badge */}
+              <div className="mb-6 inline-flex overflow-hidden rounded-full border border-purple-500/20 bg-white/[0.03] p-[1px] shadow-lg backdrop-blur-xl">
+                <div className="flex items-center gap-2 rounded-full bg-[#0f172a]/90 px-5 py-2.5">
+                  <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
+
+                  <span className="bg-gradient-to-r from-purple-300 via-indigo-200 to-blue-300 bg-clip-text text-sm font-semibold tracking-wide text-transparent sm:text-base">
+                    Final Thoughts
+                  </span>
+                </div>
+              </div>
+
+              {/* Heading */}
+              <h2 className="mx-auto max-w-4xl text-3xl font-black leading-tight tracking-tight text-white sm:text-4xl lg:text-5xl">
+                If you're searching for the Best Twitter (X) Suspension Generator
+                Tool Online, Comment Tools provides a fast, realistic, and highly
+                customizable solution for creators and agencies.
+              </h2>
+
+              {/* Bottom Line */}
+              <div className="mx-auto mt-10 h-[4px] w-32 rounded-full bg-gradient-to-r from-purple-500 via-indigo-500 to-blue-500" />
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+
+      <section className="relative overflow-hidden py-20 sm:py-28">
+        {/* Background */}
+        <div className="absolute inset-0 grid-dots opacity-40" />
+        <div className="absolute top-0 left-0 h-72 w-72 rounded-full bg-purple-500/20 blur-3xl" />
+        <div className="absolute bottom-0 right-0 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
+
+        <div className="relative z-10 mx-auto max-w-4xl px-4 sm:px-6 lg:px-8">
+
+          {/* Heading */}
+          <div className="mb-14 text-center">
+
+            <div className="mb-5 inline-flex overflow-hidden rounded-full border border-purple-500/20 bg-white/[0.03] p-[1px] shadow-lg backdrop-blur-xl">
+              <div className="flex items-center gap-2 rounded-full bg-[#0f172a]/90 px-5 py-2.5">
+                <div className="h-2.5 w-2.5 rounded-full bg-gradient-to-r from-purple-400 to-blue-400 shadow-[0_0_12px_rgba(168,85,247,0.8)]" />
+
+                <span className="bg-gradient-to-r from-purple-300 via-indigo-200 to-blue-300 bg-clip-text text-sm font-semibold tracking-wide text-transparent sm:text-base">
+                  FAQs
+                </span>
+              </div>
+            </div>
+
+            <h2 className="text-3xl font-black tracking-tight text-white sm:text-5xl">
+              Frequently Asked Questions
+            </h2>
+          </div>
+
+          {/* Accordion */}
+          <div className="space-y-5">
+            {faqs.map((faq, i) => {
+              const isOpen = active === i;
+
+              return (
+                <div
+                  key={i}
+                  className={`group relative overflow-hidden rounded-3xl border transition-all duration-300 ${isOpen
+                    ? "border-purple-500/40 bg-white/[0.05]"
+                    : "border-white/10 bg-white/[0.03] hover:border-purple-500/30"
+                    } backdrop-blur-2xl`}
+                >
+                  {/* Glow */}
+                  <div
+                    className={`absolute inset-0 bg-gradient-to-r from-purple-500/5 via-indigo-500/5 to-blue-500/5 transition-opacity duration-300 ${isOpen ? "opacity-100" : "opacity-0 group-hover:opacity-100"
+                      }`}
+                  />
+
+                  {/* Question */}
+                  <button
+                    onClick={() => setActive(isOpen ? null : i)}
+                    className="relative z-10 flex w-full items-center justify-between gap-5 px-6 py-6 text-left sm:px-8"
+                  >
+                    <div className="flex items-start gap-4">
+
+                      {/* Number */}
+                      <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl bg-gradient-to-br from-purple-500 to-blue-500 text-sm font-bold text-white shadow-lg">
+                        0{i + 1}
+                      </div>
+
+                      {/* Question */}
+                      <span className="text-base font-semibold leading-7 text-white sm:text-lg">
+                        {faq.q}
+                      </span>
+                    </div>
+
+                    {/* Icon */}
+                    <div
+                      className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/[0.04] text-2xl font-light text-white transition-all duration-300 ${isOpen
+                        ? "rotate-45 border-purple-500/40 bg-purple-500/10"
+                        : ""
+                        }`}
+                    >
+                      +
+                    </div>
+                  </button>
+
+                  {/* Answer */}
+                  <div
+                    className={`grid transition-all duration-500 ease-in-out ${isOpen
+                      ? "grid-rows-[1fr] opacity-100"
+                      : "grid-rows-[0fr] opacity-0"
+                      }`}
+                  >
+                    <div className="overflow-hidden">
+                      <div className="relative z-10 border-t border-white/5 px-6 pb-6 pt-5 sm:px-8">
+                        <p className="max-w-3xl text-sm leading-8 text-slate-400 sm:text-base">
+                          {faq.a}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+      </section>
     </div>
   );
 }

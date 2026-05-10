@@ -4,10 +4,10 @@ import Footer from "@/components/Footer";
 import { createMetadata } from "@/lib/seo";
 
 export const metadata = createMetadata({
-  title: "Best Twitter Tweet Generator Tool Online | Tweet Chain Tools",
+  title: "Best Fake Tweet Generator Tool Online | Comment Tools",
   description:
-    "Generate realistic Twitter tweets instantly. Save time, and create convincing tweets for your needs.",
-  path: "/tools/twitter-tweet-generator",
+    "Create realistic fake tweets instantly with the Best Fake Tweet Generator Tool Online. Customize usernames, likes, replies, themes, and export high-quality tweet screenshots easily.",
+  path: "/tools/fake-tweet-generator",
 });
 
 const TweetGeneratorPage = () => {

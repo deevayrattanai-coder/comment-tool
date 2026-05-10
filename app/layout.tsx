@@ -25,6 +25,7 @@ export default function RootLayout({
           content="p-AYAABTJAXOLDE05aSyS1N0UmcxiaFjif00qRUM5ws"
         />
         <meta name="google-adsense-account" content="ca-pub-5661859605340268" />
+        <meta name="yandex-verification" content="3681a53d3399547d" />
         <Script
           id="gtm-script"
           strategy="afterInteractive"

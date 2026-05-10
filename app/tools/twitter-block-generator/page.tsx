@@ -4,9 +4,9 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 export const metadata = createMetadata({
-  title: "Best Twitter Block Generator Tool Online | Block Chain Tools",
+  title:"Best Twitter (X) Block Generator Tool Online | Comment Tools",
   description:
-    "Generate realistic Twitter block lists instantly. Save time, and create convincing block lists for your needs.",
+    "Generate realistic Twitter (X) block you screenshots instantly using the Best Twitter Block Generator Tool Online. Customize profiles, messages, and export HD visuals effortlessly.",
   path: "/tools/twitter-block-generator",
 });
 
