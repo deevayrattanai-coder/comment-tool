@@ -110,7 +110,7 @@ function BlockPreview({ data }: { data: BlockData }) {
     >
       <div
         style={{
-          height: 110,
+          height: 60,
           background: coverBg,
           position: "relative",
         }}
@@ -120,8 +120,8 @@ function BlockPreview({ data }: { data: BlockData }) {
             position: "absolute",
             bottom: -44,
             left: 28,
-            width: 88,
-            height: 88,
+            width: 70,
+            height: 70,
             borderRadius: "50%",
             overflow: "hidden",
             border: `5px solid ${bg}`,
@@ -182,7 +182,7 @@ function BlockPreview({ data }: { data: BlockData }) {
           <span
             style={{
               color: text,
-              fontSize: 24,
+              fontSize: 18,
               fontWeight: 800,
             }}
           >
@@ -196,7 +196,7 @@ function BlockPreview({ data }: { data: BlockData }) {
           style={{
             marginTop: 4,
             color: sub,
-            fontSize: 15,
+            fontSize: 16,
           }}
         >
           @{data.blockerUsername || "username"}
@@ -204,16 +204,16 @@ function BlockPreview({ data }: { data: BlockData }) {
       </div>
 
       <div
+        className="py-5 px-10 "
         style={{
           background: coverBg,
-          padding: 40,
           textAlign: "center",
         }}
       >
         <div
           style={{
             color: text,
-            fontSize: 30,
+            fontSize: 18,
             fontWeight: 800,
             lineHeight: 1.2,
           }}
@@ -225,7 +225,7 @@ function BlockPreview({ data }: { data: BlockData }) {
           style={{
             marginTop: 18,
             color: sub,
-            fontSize: 22,
+            fontSize: 12,
             lineHeight: 1.5,
           }}
         >
@@ -547,36 +547,6 @@ export default function BlockScreen() {
                         data-testid="input-bio"
                       />
                     </div>
-
-                    <div className="grid grid-cols-2 gap-2">
-                      <div>
-                        <label className={labelClass}>Following</label>
-                        <input
-                          type="number"
-                          min={0}
-                          value={data.blockerFollowing}
-                          onChange={(e) =>
-                            up({ blockerFollowing: +e.target.value })
-                          }
-                          className={inputClass}
-                          data-testid="input-following"
-                        />
-                      </div>
-                      <div>
-                        <label className={labelClass}>Followers</label>
-                        <input
-                          type="number"
-                          min={0}
-                          value={data.blockerFollowers}
-                          onChange={(e) =>
-                            up({ blockerFollowers: +e.target.value })
-                          }
-                          className={inputClass}
-                          data-testid="input-followers"
-                        />
-                      </div>
-                    </div>
-
                   </div>
                 </div>
               </div>

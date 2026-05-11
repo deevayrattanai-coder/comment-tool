@@ -246,7 +246,7 @@ function ReplyPreview({ data }: { data: ReplyChainData }) {
                 </span>
 
                 <span style={{ color: sub, fontSize: 12 }}>
-                  · {tweet.time}
+                  · {tweet.time} {tweet.timeUnit}
                 </span>
               </div>
 
@@ -588,18 +588,26 @@ function TweetEditor({
         />
 
         <div className="flex items-center flex-wrap gap-4">
+
           <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
             <Clock size={11} className="text-sidebar-text-muted" />
             <input
               type="text"
               value={tweet.time}
-              onChange={(e) =>
-                up({ time: e.target.value.replace(/[^0-9]/g, "") })
-              }
-              className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+              onChange={(e) => up({ time: e.target.value })}
+              className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
             />
+            <select
+              value={tweet.timeUnit}
+              onChange={(e) => up({ timeUnit: e.target.value })}
+              className="bg-transparent text-sidebar-text-muted text-[10px] cursor-pointer"
+            >
+              <option value="hrs">hrs</option>
+              <option value="days">days</option>
+              <option value="wks">wks</option>
+              <option value="months">months</option>
+            </select>
           </div>
-
 
           <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
             <Heart size={11} className="text-pink-400" />

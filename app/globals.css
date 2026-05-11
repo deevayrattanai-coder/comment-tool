@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -7,6 +6,36 @@
 /* =========================
 🌌 ROOT THEME (DARK PREMIUM)
 ========================= */
+
+
+@font-face {
+  font-family: 'TwitterChirp';
+  src: url('https://abs.twimg.com/fonts/v2/chirp-regular-web.woff2') format('woff2');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'TwitterChirp';
+  src: url('https://abs.twimg.com/fonts/v2/chirp-medium-web.woff2') format('woff2');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'TwitterChirp';
+  src: url('https://abs.twimg.com/fonts/v2/chirp-bold-web.woff2') format('woff2');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'TwitterChirp';
+  src: url('https://abs.twimg.com/fonts/v2/chirp-heavy-web.woff2') format('woff2');
+  font-weight: 800;
+}
+
+body {
+  font-family: 'TwitterChirp', sans-serif;
+}
+
 @layer base {
 :root {
 /* Base */

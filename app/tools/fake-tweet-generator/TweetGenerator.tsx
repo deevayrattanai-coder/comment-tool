@@ -169,8 +169,7 @@ export default function TweetGenerator() {
               </div>
             </div>
           </aside>
-
-          <div className="flex-1 w-full lg:h-[480px] overflow-y-auto scrollbar-thin">
+          <div className="flex flex-col flex-1 w-full ">
             <div className="flex rounded-tr-2xl items-center justify-between px-4 py-3 border-b border-border bg-card backdrop-blur-sm">
               <span className="text-sm font-semibold text-foreground/70 uppercase tracking-wider">
                 Preview
@@ -184,7 +183,7 @@ export default function TweetGenerator() {
             </div>
             <main className="flex flex-col items-center justify-start gap-4">
               <div
-                className={`w-full rounded-tb-2xl p-14 flex flex-col items-center justify-center transition-colors duration-300 bg-gray-200 dark-grid-dots`}
+                className={`w-full rounded-br-2xl lg:h-[413px] h-full overflow-y-auto scrollbar-thin p-14 flex flex-col items-center justify-center transition-colors duration-300 bg-gray-200 dark-grid-dots`}
               >
                 <TweetPreview ref={previewRef} tweetData={tweetData} />
               </div>

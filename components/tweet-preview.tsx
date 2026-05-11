@@ -91,7 +91,6 @@ const TweetPreview = forwardRef<HTMLDivElement, TweetPreviewProps>(
     return (
       <div
         ref={ref}
-        className=""
         style={{
           backgroundColor: bg,
           fontFamily:

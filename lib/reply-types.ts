@@ -12,6 +12,7 @@ export interface ReplyTweet {
   verified: VerifiedBadge;
   content: string;
   time: string;
+  timeUnit:string;
   replyCount: string;
   retweetCount: string;
   likeCount: string;
@@ -38,6 +39,7 @@ export function newReply(overrides?: Partial<ReplyTweet>): ReplyTweet {
     content: "Replying to this tweet...",
     time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
     replyCount: "12",
+    timeUnit:"wks",
     retweetCount: "45",
     likeCount: "230",
     viewCount: "8900",
@@ -56,7 +58,8 @@ export const defaultReplyChain: ReplyChainData = {
       avatarFile: null,
       verified: "blue",
       content: "The thing I find most surprising is how few people realize that the future is going to be unbelievably good.",
-      time: "3:42 PM",
+      time: "3",
+      timeUnit:"wks",
       replyCount: "4821",
       retweetCount: "12500",
       likeCount: "98400",
@@ -70,7 +73,8 @@ export const defaultReplyChain: ReplyChainData = {
       avatarFile: null,
       verified: "blue",
       content: "Couldn't agree more! The pace of innovation is truly staggering. What excites you most about the next decade?",
-      time: "4:01 PM",
+      time: "4",
+      timeUnit:"wks",
       replyCount: "142",
       retweetCount: "380",
       likeCount: "2100",
