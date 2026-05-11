@@ -419,197 +419,197 @@ export default function SuspensionScreen() {
   return (
     <div className="min-h-screen bg-background">
       {/* YOUR EXISTING BUILDER + PREVIEW SECTION HERE */}
-
       <div className="flex-1 max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
         {/* Form */}
-        <aside className="lg:w-[300px] w-full  bg-card border border-border rounded-l-2xl overflow-hidden">
-          <div className="border-b border-border px-4 py-3">
-            <h2 className="text-sm font-semibold">Suspension Screen Builder</h2>
-          </div>
-          <div className="p-4 space-y-4 max-h-[calc(100vh-140px)] overflow-y-auto">
-            <ToolsSection />
-          </div>
+        <aside className="w-full lg:h-[480px] h-auto lg:w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col ">
+          <div className="flex-1 overflow-y-auto scrollbar-thin">
 
-          <div className="p-4 space-y-4 max-h-[calc(100vh-140px)] overflow-y-auto">
-            {/* Theme */}
+            <div className="border-b border-border px-4 py-3">
+              <h2 className="text-sm font-semibold">Suspension Screen Builder</h2>
+            </div>
+            <div className="p-4 ">
+              {/* Theme */}
+              <div className="py-2"> <ToolsSection /> </div>
 
-            <hr className="border-border" />
+              <hr className="border-border" />
 
-            {/* Profile */}
-            <div>
-              <div className="space-y-2">
-                <div>
-                  <div className="flex my-2 justify-between items-center">
-                    <label className={labelClass}>Display Name</label>
-                    <div className="relative">
-                      {" "}
-                      {/* Trigger */}
-                      <button
-                        type="button"
-                        onClick={() => setShowVerifiedDropdown((prev) => !prev)}
-                        className=" flex h-5 w-5 items-center justify-center
+              {/* Profile */}
+              <div>
+                <div className="space-y-2">
+                  <div>
+                    <div className="flex my-2 justify-between items-center">
+                      <label className={labelClass}>Display Name</label>
+                      <div className="relative">
+                        {" "}
+                        {/* Trigger */}
+                        <button
+                          type="button"
+                          onClick={() => setShowVerifiedDropdown((prev) => !prev)}
+                          className=" flex h-5 w-5 items-center justify-center
       rounded-full border border-border
       bg-background transition-all
       hover:border-primary"
-                      >
-                        <VerifiedIcon type={data.verified} />
-                      </button>
-                      {/* Dropdown */}
-                      {showVerifiedDropdown && (
-                        <div
-                          className="
+                        >
+                          <VerifiedIcon type={data.verified} />
+                        </button>
+                        {/* Dropdown */}
+                        {showVerifiedDropdown && (
+                          <div
+                            className="
         absolute  right-0 top-full z-50 mt-2
         flex items-center gap-1
         rounded-2xl border border-border
         bg-card p-1.5 shadow-2xl
         backdrop-blur-xl
       "
-                        >
-                          {verifiedOptions.map((badge) => (
-                            <button
-                              key={badge}
-                              type="button"
-                              onClick={() => {
-                                up({ verified: badge });
-                                setShowVerifiedDropdown(false);
-                              }}
-                              className={`
+                          >
+                            {verifiedOptions.map((badge) => (
+                              <button
+                                key={badge}
+                                type="button"
+                                onClick={() => {
+                                  up({ verified: badge });
+                                  setShowVerifiedDropdown(false);
+                                }}
+                                className={`
             flex h-9 w-9 items-center justify-center
             rounded-xl transition-all duration-200
                  ${data.verified === badge
-                                  ? "bg-primary/15 ring-1 ring-primary"
-                                  : "hover:bg-muted"
-                                }
+                                    ? "bg-primary/15 ring-1 ring-primary"
+                                    : "hover:bg-muted"
+                                  }
          
           `}
-                            >
-                              {badge === "none" ? (
-                                <span className="text-xs text-muted-foreground">
-                                  ×
-                                </span>
-                              ) : (
-                                <VerifiedIcon type={badge} />
-                              )}
-                            </button>
-                          ))}
-                        </div>
-                      )}
+                              >
+                                {badge === "none" ? (
+                                  <span className="text-xs text-muted-foreground">
+                                    ×
+                                  </span>
+                                ) : (
+                                  <VerifiedIcon type={badge} />
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                  <input
-                    type="text"
-                    value={data.displayName}
-                    onChange={(e) => up({ displayName: e.target.value })}
-                    className={inputClass}
-                    data-testid="input-display-name"
-                  />
-                </div>
-
-                <div>
-                  <label className={labelClass}>Username</label>
-                  <div className="relative">
-                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                      @
-                    </span>
                     <input
                       type="text"
-                      value={data.username}
-                      onChange={(e) =>
-                        up({ username: e.target.value.replace(/^@/, "") })
-                      }
-                      className={`${inputClass} pl-7`}
-                      data-testid="input-username"
-                    />
-                    <Upload
-                      onClick={() => avatarRef.current?.click()}
-                      size={11}
-                      className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
-                    />
-                    <input
-                      ref={avatarRef}
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleAvatar}
+                      value={data.displayName}
+                      onChange={(e) => up({ displayName: e.target.value })}
+                      className={inputClass}
+                      data-testid="input-display-name"
                     />
                   </div>
+
+                  <div className="py-2">
+                    <label className={labelClass}>Username</label>
+                    <div className="relative">
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+                        @
+                      </span>
+                      <input
+                        type="text"
+                        value={data.username}
+                        onChange={(e) =>
+                          up({ username: e.target.value.replace(/^@/, "") })
+                        }
+                        className={`${inputClass} pl-7`}
+                        data-testid="input-username"
+                      />
+                      <Upload
+                        onClick={() => avatarRef.current?.click()}
+                        size={11}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
+                      />
+                      <input
+                        ref={avatarRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleAvatar}
+                      />
+                    </div>
+                  </div>
+
                 </div>
-
               </div>
-            </div>
 
-            <hr className="border-border" />
+              <hr className="border-border py-2" />
 
-            {/* Suspension reason */}
-            <div>
-              <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                Suspension Reason
-              </h3>
-              <div className="space-y-2">
-                {(["rules", "unusual", "spam", "custom"] as const).map((r) => (
-                  <label
-                    key={r}
-                    className="flex items-start gap-2.5 cursor-pointer"
-                  >
-                    <input
-                      type="radio"
-                      name="reason"
-                      value={r}
-                      checked={data.reason === r}
-                      onChange={() => up({ reason: r })}
-                      className="mt-0.5 accent-primary"
+              {/* Suspension reason */}
+              <div>
+                <h3 className="text-xs py-2 font-semibold uppercase tracking-wider text-muted-foreground mb-2">
+                  Suspension Reason
+                </h3>
+                <div className="space-y-2">
+                  {(["rules", "unusual", "spam", "custom"] as const).map((r) => (
+                    <label
+                      key={r}
+                      className="flex items-start gap-2.5 cursor-pointer"
+                    >
+                      <input
+                        type="radio"
+                        name="reason"
+                        value={r}
+                        checked={data.reason === r}
+                        onChange={() => up({ reason: r })}
+                        className="mt-0.5 accent-primary"
+                      />
+                      <span className="text-sm text-foreground">
+                        {r === "rules" && "Twitter Rules violation"}
+                        {r === "unusual" && "Unusual activity"}
+                        {r === "spam" && "Spam / Platform manipulation"}
+                        {r === "custom" && "Custom message"}
+                      </span>
+                    </label>
+                  ))}
+
+                  {data.reason === "custom" && (
+                    <textarea
+                      rows={3}
+                      value={data.customMessage}
+                      onChange={(e) => up({ customMessage: e.target.value })}
+                      placeholder="Enter your custom suspension message..."
+                      className={`${inputClass} resize-none mt-1`}
+                      data-testid="input-custom-message"
                     />
-                    <span className="text-sm text-foreground">
-                      {r === "rules" && "Twitter Rules violation"}
-                      {r === "unusual" && "Unusual activity"}
-                      {r === "spam" && "Spam / Platform manipulation"}
-                      {r === "custom" && "Custom message"}
-                    </span>
-                  </label>
-                ))}
+                  )}
 
-                {data.reason === "custom" && (
-                  <textarea
-                    rows={3}
-                    value={data.customMessage}
-                    onChange={(e) => up({ customMessage: e.target.value })}
-                    placeholder="Enter your custom suspension message..."
-                    className={`${inputClass} resize-none mt-1`}
-                    data-testid="input-custom-message"
-                  />
-                )}
-
-                {data.reason !== "custom" && (
-                  <div className="bg-muted/50 rounded-lg p-3 text-xs text-muted-foreground leading-relaxed">
-                    "{SUSPENSION_MESSAGES[data.reason]}"
-                  </div>
-                )}
+                  {data.reason !== "custom" && (
+                    <div className="bg-muted/50 rounded-lg p-3 text-xs text-muted-foreground leading-relaxed">
+                      "{SUSPENSION_MESSAGES[data.reason]}"
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
 
-            <div className="flex items-center gap-2 justify-center  ">
-              <button
-                onClick={handleDownload}
-                disabled={downloading}
-                className="flex-1  h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
-              >
-                <Download size={13} />
-                Export Image
-              </button>
 
-              <button
-                onClick={copyImage}
-                className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
-              >
-                <Copy size={13} />
-                Copy
-              </button>
             </div>
+          </div>
+          <div className="flex items-center gap-2 justify-center py-4">
+            <button
+              onClick={handleDownload}
+              disabled={downloading}
+              className="flex-1  h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
+            >
+              <Download size={13} />
+              Export Image
+            </button>
+
+            <button
+              onClick={copyImage}
+              className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
+            >
+              <Copy size={13} />
+              Copy
+            </button>
           </div>
         </aside>
 
         {/* Preview */}
-        <div className="flex-1 w-full ">
+        <div className="flex-1 w-full lg:h-[480px] overflow-y-auto scrollbar-thin">
           <div className="flex w-full rounded-tr-2xl items-center justify-between px-4 py-3 border-b border-border bg-card backdrop-blur-sm">
             <span className="text-sm font-semibold text-white uppercase tracking-wider">
               Preview
@@ -629,9 +629,7 @@ export default function SuspensionScreen() {
                 <SuspensionPreview data={data} />
               </div>
             </div>
-            <p className="text-xs text-muted-foreground text-center">
-              For entertainment purposes only. Not affiliated with X Corp.
-            </p>
+
           </main>
         </div>
       </div>

@@ -25,6 +25,6 @@ export const defaultBlockData: BlockData = {
   blockerBio: "CEO of X, Tesla & SpaceX. Technoking.",
   blockerFollowing: 742,
   blockerFollowers: 180000000,
-  coverColor: "#1D9BF0",
+  coverColor: "#64748b",
   viewerUsername: "you",
 };

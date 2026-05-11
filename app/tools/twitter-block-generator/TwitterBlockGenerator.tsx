@@ -409,191 +409,190 @@ export default function BlockScreen() {
       <section className="border-b border-border bg-background">
         <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
           {/* Form */}
-          <aside className=" lg:w-[300px] w-full bg-card border border-border rounded-tl-2xl overflow-hidden">
-            <div className="border-b border-border px-4 py-3">
-              <h2 className="text-sm font-semibold">Block Screen Builder</h2>
-            </div>
-
-            <div className="p-4 space-y-4 max-h-[calc(100vh-140px)] overflow-y-auto">
-              {/* Theme */}
-
-              <ToolsSection />
-
-              <hr className="border-border" />
-
-              {/* Blocker profile */}
-              <div>
-                <div className="space-y-2">
-                  <div>
-                    <div className="flex my-2 justify-between items-center">
-                      <label className={labelClass}>Display Name</label>
-                      <div className="relative">
-                        {" "}
-                        {/* Trigger */}
-                        <button
-                          type="button"
-                          onClick={() =>
-                            setShowVerifiedDropdown((prev) => !prev)
-                          }
-                          className=" flex h-5 w-5 items-center justify-center
+          <aside className=" lg:w-[300px] lg:h-[480px] h-auto w-full flex-shrink-0 bg-sidebar-bg flex flex-col">
+            <div className="flex-1 overflow-y-auto scrollbar-thin">
+              <div className="border-b border-border px-4 py-3">
+                <h2 className="text-sm font-semibold">Block Screen Builder</h2>
+              </div>
+              <div className="px-4">
+                {/* Blocker profile */}
+                <div>
+                  <div className="py-2"> <ToolsSection /></div>
+                  <div className="space-y-2">
+                    <div>
+                      <div className="flex my-2 justify-between items-center">
+                        <label className={labelClass}>Display Name</label>
+                        <div className="relative">
+                          {" "}
+                          {/* Trigger */}
+                          <button
+                            type="button"
+                            onClick={() =>
+                              setShowVerifiedDropdown((prev) => !prev)
+                            }
+                            className=" flex h-5 w-5 items-center justify-center
       rounded-full border border-border
       bg-background transition-all
       hover:border-primary"
-                        >
-                          <VerifiedIcon type={data.blockerVerified} />
-                        </button>
-                        {/* Dropdown */}
-                        {showVerifiedDropdown && (
-                          <div
-                            className="
+                          >
+                            <VerifiedIcon type={data.blockerVerified} />
+                          </button>
+                          {/* Dropdown */}
+                          {showVerifiedDropdown && (
+                            <div
+                              className="
         absolute  right-0 top-full z-50 mt-2
         flex items-center gap-1
         rounded-2xl border border-border
         bg-card p-1.5 shadow-2xl
         backdrop-blur-xl
       "
-                          >
-                            {verifiedOptions.map((badge) => (
-                              <button
-                                key={badge}
-                                type="button"
-                                onClick={() => {
-                                  up({ blockerVerified: badge });
-                                  setShowVerifiedDropdown(false);
-                                }}
-                                className={`
+                            >
+                              {verifiedOptions.map((badge) => (
+                                <button
+                                  key={badge}
+                                  type="button"
+                                  onClick={() => {
+                                    up({ blockerVerified: badge });
+                                    setShowVerifiedDropdown(false);
+                                  }}
+                                  className={`
             flex h-9 w-9 items-center justify-center
             rounded-xl transition-all duration-200
                  ${data.blockerVerified === badge
-                                    ? "bg-primary/15 ring-1 ring-primary"
-                                    : "hover:bg-muted"
-                                  }
+                                      ? "bg-primary/15 ring-1 ring-primary"
+                                      : "hover:bg-muted"
+                                    }
          
           `}
-                              >
-                                {badge === "none" ? (
-                                  <span className="text-xs text-muted-foreground">
-                                    ×
-                                  </span>
-                                ) : (
-                                  <VerifiedIcon type={badge} />
-                                )}
-                              </button>
-                            ))}
-                          </div>
-                        )}
+                                >
+                                  {badge === "none" ? (
+                                    <span className="text-xs text-muted-foreground">
+                                      ×
+                                    </span>
+                                  ) : (
+                                    <VerifiedIcon type={badge} />
+                                  )}
+                                </button>
+                              ))}
+                            </div>
+                          )}
+                        </div>
+                      </div>
+
+                      <input
+                        type="text"
+                        value={data.blockerDisplayName}
+                        onChange={(e) =>
+                          up({ blockerDisplayName: e.target.value })
+                        }
+                        className={inputClass}
+                        data-testid="input-display-name"
+                      />
+                    </div>
+
+                    <div>
+                      <label className={labelClass}>Username</label>
+                      <div className="relative">
+                        <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
+                          @
+                        </span>
+                        <input
+                          type="text"
+                          value={data.blockerUsername}
+                          onChange={(e) =>
+                            up({
+                              blockerUsername: e.target.value.replace(/^@/, ""),
+                            })
+                          }
+                          className={`${inputClass} pl-7`}
+                          data-testid="input-username"
+                        />
+                        <Upload
+                          onClick={() => avatarRef.current?.click()}
+                          size={11}
+                          className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
+                        />
+
+                        <input
+                          ref={avatarRef}
+                          type="file"
+                          accept="image/*"
+                          className="hidden"
+                          onChange={handleAvatar}
+                        />
                       </div>
                     </div>
 
-                    <input
-                      type="text"
-                      value={data.blockerDisplayName}
-                      onChange={(e) =>
-                        up({ blockerDisplayName: e.target.value })
-                      }
-                      className={inputClass}
-                      data-testid="input-display-name"
-                    />
-                  </div>
 
-                  <div>
-                    <label className={labelClass}>Username</label>
-                    <div className="relative">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">
-                        @
-                      </span>
-                      <input
-                        type="text"
-                        value={data.blockerUsername}
-                        onChange={(e) =>
-                          up({
-                            blockerUsername: e.target.value.replace(/^@/, ""),
-                          })
-                        }
-                        className={`${inputClass} pl-7`}
-                        data-testid="input-username"
-                      />
-                      <Upload
-                        onClick={() => avatarRef.current?.click()}
-                        size={11}
-                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
-                      />
-
-                      <input
-                        ref={avatarRef}
-                        type="file"
-                        accept="image/*"
-                        className="hidden"
-                        onChange={handleAvatar}
-                      />
-                    </div>
-                  </div>
-
-
-                  <div>
-                    <label className={labelClass}>Bio</label>
-                    <textarea
-                      rows={2}
-                      value={data.blockerBio}
-                      onChange={(e) => up({ blockerBio: e.target.value })}
-                      className={`${inputClass} resize-none`}
-                      data-testid="input-bio"
-                    />
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-2">
                     <div>
-                      <label className={labelClass}>Following</label>
-                      <input
-                        type="number"
-                        min={0}
-                        value={data.blockerFollowing}
-                        onChange={(e) =>
-                          up({ blockerFollowing: +e.target.value })
-                        }
-                        className={inputClass}
-                        data-testid="input-following"
+                      <label className={labelClass}>Bio</label>
+                      <textarea
+                        rows={2}
+                        value={data.blockerBio}
+                        onChange={(e) => up({ blockerBio: e.target.value })}
+                        className={`${inputClass} resize-none`}
+                        data-testid="input-bio"
                       />
                     </div>
-                    <div>
-                      <label className={labelClass}>Followers</label>
-                      <input
-                        type="number"
-                        min={0}
-                        value={data.blockerFollowers}
-                        onChange={(e) =>
-                          up({ blockerFollowers: +e.target.value })
-                        }
-                        className={inputClass}
-                        data-testid="input-followers"
-                      />
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-2 justify-center ">
-                    <button
-                      onClick={handleDownload}
-                      disabled={downloading}
-                      className="flex-1  h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
-                    >
-                      <Download size={13} />
-                      Export Image
-                    </button>
 
-                    <button
-                      onClick={copyImage}
-                      className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
-                    >
-                      <Copy size={13} />
-                      Copy
-                    </button>
+                    <div className="grid grid-cols-2 gap-2">
+                      <div>
+                        <label className={labelClass}>Following</label>
+                        <input
+                          type="number"
+                          min={0}
+                          value={data.blockerFollowing}
+                          onChange={(e) =>
+                            up({ blockerFollowing: +e.target.value })
+                          }
+                          className={inputClass}
+                          data-testid="input-following"
+                        />
+                      </div>
+                      <div>
+                        <label className={labelClass}>Followers</label>
+                        <input
+                          type="number"
+                          min={0}
+                          value={data.blockerFollowers}
+                          onChange={(e) =>
+                            up({ blockerFollowers: +e.target.value })
+                          }
+                          className={inputClass}
+                          data-testid="input-followers"
+                        />
+                      </div>
+                    </div>
+
                   </div>
                 </div>
               </div>
+
+            </div>
+
+            <div className="flex items-center gap-2 justify-center py-4 ">
+              <button
+                onClick={handleDownload}
+                disabled={downloading}
+                className="flex-1  h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
+              >
+                <Download size={13} />
+                Export Image
+              </button>
+
+              <button
+                onClick={copyImage}
+                className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
+              >
+                <Copy size={13} />
+                Copy
+              </button>
             </div>
           </aside>
 
           {/* Preview */}
-          <div className="flex-1 w-full  ">
+          <div className="flex-1 w-full lg:h-[480px] overflow-y-auto scrollbar-thin">
             <div className="w-full rounded-tr-2xl flex items-center justify-between px-4 py-3 border-b border-border bg-card backdrop-blur-sm">
               <span className="text-sm font-semibold text-white uppercase tracking-wider">
                 Preview
@@ -613,9 +612,6 @@ export default function BlockScreen() {
                   <BlockPreview data={data} />
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground text-center">
-                For entertainment purposes only. Not affiliated with X Corp.
-              </p>
             </main>
           </div>
         </div>

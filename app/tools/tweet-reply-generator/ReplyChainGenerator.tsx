@@ -435,7 +435,7 @@ function TweetEditor({
 
 
   return (
-    <div className="rounded-2xl border border-border bg-card overflow-hidden">
+    <div className="rounded-2xl border border-border bg-card overflow-hidden my-4">
       <div className="flex items-center justify-between border-b border-border px-4 py-3">
         <span className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">
           {label}
@@ -806,63 +806,65 @@ export default function ReplyChain() {
 
         <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6  flex justify-center itmes-stretch max-md:flex-col max-md:gap-6">
           {/* Form */}
-          <aside className=" lg:w-[300px] w-full bg-card border border-border rounded-l-2xl overflow-hidden">
-            <div className="border-b border-border px-4 py-3 flex items-center justify-between">
-              <h2 className="text-sm font-semibold">Reply Chain Builder</h2>
-              <span className="text-xs text-muted-foreground">
-                {data.tweets.length} tweet{data.tweets.length !== 1 ? "s" : ""}
-              </span>
-            </div>
-
-            <div className="p-4 space-y-4 max-h-[calc(100vh-140px)] overflow-y-auto">
-              <ToolsSection />
-
-              {data.tweets.map((tweet, idx) => (
-                <TweetEditor
-                  key={tweet.id}
-                  tweet={tweet}
-                  index={idx}
-                  total={data.tweets.length}
-                  onChange={(t) => updateTweet(idx, t)}
-                  onRemove={() => removeTweet(idx)}
-                  onMoveUp={() => moveUp(idx)}
-                  onMoveDown={() => moveDown(idx)}
-                />
-              ))}
-
-              {data.tweets.length < 6 && (
-                <button
-                  onClick={addTweet}
-                  data-testid="btn-add-tweet"
-                  className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-border rounded-xl py-3 text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors"
-                >
-                  <Plus className="w-4 h-4" /> Add Reply
-                </button>
-              )}
-
-              <div className="flex items-center gap-2 justify-center  ">
-                <button
-                  onClick={handleDownload}
-                  disabled={downloading}
-                  className="flex-1  h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
-                >
-                  <Download size={13} />
-                  Export Image
-                </button>
-
-                <button
-                  onClick={copyImage}
-                  className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
-                >
-                  <Copy size={13} />
-                  Copy
-                </button>
+          <aside className="lg:w-[300px] lg:h-[480px] h-auto w-full flex-shrink-0 bg-sidebar-bg flex flex-col">
+            <div className="flex-1 overflow-y-auto scrollbar-thin">
+              <div className="border-b border-border px-4 py-3 flex items-center justify-between">
+                <h2 className="text-sm font-semibold">Reply Chain Builder</h2>
+                <span className="text-xs text-muted-foreground">
+                  {data.tweets.length} tweet{data.tweets.length !== 1 ? "s" : ""}
+                </span>
               </div>
+
+              <div className="p-4">
+                <div className="py-2">
+                  <ToolsSection /> </div>
+
+                {data.tweets.map((tweet, idx) => (
+                  <TweetEditor
+                    key={tweet.id}
+                    tweet={tweet}
+                    index={idx}
+                    total={data.tweets.length}
+                    onChange={(t) => updateTweet(idx, t)}
+                    onRemove={() => removeTweet(idx)}
+                    onMoveUp={() => moveUp(idx)}
+                    onMoveDown={() => moveDown(idx)}
+                  />
+                ))}
+
+                {data.tweets.length < 6 && (
+                  <button
+                    onClick={addTweet}
+                    data-testid="btn-add-tweet"
+                    className="w-full flex items-center justify-center gap-2 border-2 border-dashed border-border rounded-xl py-3 text-sm text-muted-foreground hover:border-primary hover:text-primary transition-colors"
+                  >
+                    <Plus className="w-4 h-4" /> Add Reply
+                  </button>
+                )}
+              </div>
+            </div>
+            <div className="flex items-center gap-2 justify-center p-4 ">
+              <button
+                onClick={handleDownload}
+                disabled={downloading}
+                className="flex-1  h-9 gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
+              >
+                <Download size={13} />
+                Export Image
+              </button>
+
+              <button
+                onClick={copyImage}
+                className="flex-1 h-9 glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
+              >
+                <Copy size={13} />
+                Copy
+              </button>
             </div>
           </aside>
 
           {/* Preview */}
-          <div className="flex-1 w-full flex flex-col">
+          <div className="flex flex-col flex-1 w-full lg:h-[480px] overflow-y-auto scrollbar-thin">
             <div className="w-full flex rounded-tr-2xl items-center justify-between px-4 py-2 border-b border-border bg-card backdrop-blur-sm">
               <span className="text-sm font-semibold text-white uppercase tracking-wider">
                 Preview
@@ -909,9 +911,6 @@ export default function ReplyChain() {
                   <ReplyPreview data={data} />
                 </div>
               </div>
-              <p className="text-xs text-muted-foreground text-center">
-                For entertainment purposes only. Not affiliated with X Corp.
-              </p>
             </main>
           </div>
         </div>
