@@ -20,6 +20,10 @@ import {
   ChevronDown,
   Copy,
   ChevronUp,
+  Heart,
+  Reply,
+  Repeat2,
+  Clock,
 } from "lucide-react";
 
 import ToolsSection from "@/components/ToolsSection";
@@ -363,7 +367,7 @@ function TweetEditor({
   onMoveDown: () => void;
 }) {
   const avatarRef = useRef<HTMLInputElement>(null);
-
+  const [showVerifiedDropdown, setShowVerifiedDropdown] = useState(false);
   const up = (patch: Partial<ReplyTweet>) =>
     onChange({ ...tweet, ...patch });
 
@@ -382,6 +386,53 @@ function TweetEditor({
 
   const label =
     index === 0 ? "Original Tweet" : `Reply ${index}`;
+
+  const verifiedOptions: VerifiedBadge[] = [
+    "none",
+    "blue",
+    "gold",
+    "government",
+  ];
+
+  const VerifiedIcon = ({ type }: { type: string }) => {
+    if (type === "none") return null;
+    if (type === "gold") {
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          className="w-4 h-4 inline-block ml-0.5"
+          fill="#F7BA2A"
+          aria-label="Gold verified"
+        >
+          <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91C2.88 9.33 2 10.57 2 12s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.8 3.91s2.52 1.26 3.91.8C9.33 21.12 10.57 22 12 22s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" />
+        </svg>
+      );
+    }
+    if (type === "government") {
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          className="w-4 h-4 inline-block ml-0.5"
+          fill="#829AAB"
+          aria-label="Government verified"
+        >
+          <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91C2.88 9.33 2 10.57 2 12s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.8 3.91s2.52 1.26 3.91.8C9.33 21.12 10.57 22 12 22s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" />
+        </svg>
+      );
+    }
+    // blue
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4 inline-block ml-0.5"
+        fill="#1D9BF0"
+        aria-label="Blue verified"
+      >
+        <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91C2.88 9.33 2 10.57 2 12s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.8 3.91s2.52 1.26 3.91.8C9.33 21.12 10.57 22 12 22s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" />
+      </svg>
+    );
+  };
+
 
   return (
     <div className="rounded-2xl border border-border bg-card overflow-hidden">
@@ -422,7 +473,66 @@ function TweetEditor({
         <div className="flex items-center gap-3">
 
           <div className="flex flex-col gap-2">
-            <label className={labelClass}>Display Name</label>
+            <div className="flex justify-between my-2 items-center">
+              <label className={labelClass}>Display Name</label>
+
+              <div className="relative">
+                {" "}
+                {/* Trigger */}
+                <button
+                  type="button"
+                  onClick={() => setShowVerifiedDropdown((prev) => !prev)}
+                  className=" flex h-5 w-5 items-center justify-center
+      rounded-full border border-border
+      bg-background transition-all
+      hover:border-primary"
+                >
+                  <VerifiedIcon type={tweet.verified} />
+                </button>
+                {/* Dropdown */}
+                {showVerifiedDropdown && (
+                  <div
+                    className="
+        absolute  right-0 top-full z-50 mt-2
+        flex items-center gap-1
+        rounded-2xl border border-border
+        bg-card p-1.5 shadow-2xl
+        backdrop-blur-xl
+      "
+                  >
+                    {verifiedOptions.map((badge) => (
+                      <button
+                        key={badge}
+                        type="button"
+                        onClick={() => {
+                          up({ verified: badge });
+                          setShowVerifiedDropdown(false);
+                        }}
+                        className={`
+            flex h-9 w-9 items-center justify-center
+            rounded-xl transition-all duration-200
+                 ${tweet.verified === badge
+                            ? "bg-primary/15 ring-1 ring-primary"
+                            : "hover:bg-muted"
+                          }
+         
+          `}
+                      >
+                        {badge === "none" ? (
+                          <span className="text-xs text-muted-foreground">
+                            ×
+                          </span>
+                        ) : (
+                          <VerifiedIcon type={badge} />
+                        )}
+                      </button>
+                    ))}
+                  </div>
+                )}
+              </div>
+            </div>
+
+
             <input
               type="text"
               placeholder="Display name"
@@ -432,8 +542,11 @@ function TweetEditor({
               }
               className={inputClass}
             />
-
+            <label className={`${labelClass} my-2`}>
+              Username (without @)
+            </label>
             <div className="relative">
+
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs">
                 @
               </span>
@@ -466,30 +579,6 @@ function TweetEditor({
         </div>
 
 
-
-        <div className="flex gap-2">
-          {(
-            ["none", "blue", "gold", "government"] as VerifiedBadge[]
-          ).map((b) => (
-            <button
-              key={b}
-              onClick={() => up({ verified: b })}
-              className={`flex-1 rounded-xl border py-2 text-xs font-medium transition ${tweet.verified === b
-                ? "border-primary bg-primary text-primary-foreground"
-                : "border-border hover:border-primary/40"
-                }`}
-            >
-              {b === "none"
-                ? "—"
-                : b === "blue"
-                  ? "🔵"
-                  : b === "gold"
-                    ? "🟡"
-                    : "🏛️"}
-            </button>
-          ))}
-        </div>
-
         <textarea
           rows={3}
           placeholder="Tweet content..."
@@ -498,57 +587,56 @@ function TweetEditor({
           className={`${inputClass} resize-none`}
         />
 
-        <div className="grid grid-cols-2 gap-3">
-          <div>
-            <label className={labelClass}>Time</label>
-
+        <div className="flex items-center flex-wrap gap-4">
+          <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+            <Clock size={11} className="text-sidebar-text-muted" />
             <input
               type="text"
               value={tweet.time}
-              onChange={(e) => up({ time: e.target.value })}
-              className={inputClass}
+              onChange={(e) =>
+                up({ time: e.target.value.replace(/[^0-9]/g, "") })
+              }
+              className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
             />
           </div>
 
-          <div>
-            <label className={labelClass}>Likes</label>
 
+          <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+            <Heart size={11} className="text-pink-400" />
             <input
-              type="number"
-              min={0}
+              type="text"
               value={tweet.likeCount}
               onChange={(e) =>
-                up({ likeCount: +e.target.value })
+                up({ likeCount: e.target.value.replace(/[^0-9]/g, "") })
               }
-              className={inputClass}
+              className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
             />
           </div>
 
-          <div>
-            <label className={labelClass}>Replies</label>
-
+          <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+            <Reply size={11} className="text-sidebar-text-muted" />
             <input
-              type="number"
-              min={0}
+              type="text"
               value={tweet.replyCount}
               onChange={(e) =>
-                up({ replyCount: +e.target.value })
+                up({ replyCount: e.target.value.replace(/[^0-9]/g, "") })
               }
-              className={inputClass}
+              className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
             />
           </div>
 
-          <div>
-            <label className={labelClass}>Reposts</label>
 
+          <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+            <Repeat2 size={11} className="text-sidebar-text-muted" />
             <input
-              type="number"
-              min={0}
+              type="text"
               value={tweet.retweetCount}
               onChange={(e) =>
-                up({ retweetCount: +e.target.value })
+                up({
+                  retweetCount: e.target.value.replace(/[^0-9]/g, ""),
+                })
               }
-              className={inputClass}
+              className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
             />
           </div>
         </div>

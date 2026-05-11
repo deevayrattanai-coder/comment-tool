@@ -12,10 +12,10 @@ export interface ReplyTweet {
   verified: VerifiedBadge;
   content: string;
   time: string;
-  replyCount: number;
-  retweetCount: number;
-  likeCount: number;
-  viewCount: number;
+  replyCount: string;
+  retweetCount: string;
+  likeCount: string;
+  viewCount: string;
 }
 
 export interface ReplyChainData {
@@ -37,10 +37,10 @@ export function newReply(overrides?: Partial<ReplyTweet>): ReplyTweet {
     verified: "none",
     content: "Replying to this tweet...",
     time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
-    replyCount: 12,
-    retweetCount: 45,
-    likeCount: 230,
-    viewCount: 8900,
+    replyCount: "12",
+    retweetCount: "45",
+    likeCount: "230",
+    viewCount: "8900",
     ...overrides,
   };
 }
@@ -57,10 +57,10 @@ export const defaultReplyChain: ReplyChainData = {
       verified: "blue",
       content: "The thing I find most surprising is how few people realize that the future is going to be unbelievably good.",
       time: "3:42 PM",
-      replyCount: 4821,
-      retweetCount: 12500,
-      likeCount: 98400,
-      viewCount: 5200000,
+      replyCount: "4821",
+      retweetCount: "12500",
+      likeCount: "98400",
+      viewCount: "5200000",
     },
     {
       id: makeId(),
@@ -68,13 +68,13 @@ export const defaultReplyChain: ReplyChainData = {
       username: "janesmith",
       avatarUrl: "",
       avatarFile: null,
-      verified: "none",
+      verified: "blue",
       content: "Couldn't agree more! The pace of innovation is truly staggering. What excites you most about the next decade?",
       time: "4:01 PM",
-      replyCount: 142,
-      retweetCount: 380,
-      likeCount: 2100,
-      viewCount: 45000,
+      replyCount: "142",
+      retweetCount: "380",
+      likeCount: "2100",
+      viewCount: "45000",
     },
   ],
 };

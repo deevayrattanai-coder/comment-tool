@@ -32,11 +32,7 @@ function VerifiedSvg({ type }: { type: VerifiedBadge }) {
   if (type === "none") return null;
 
   const fill =
-    type === "gold"
-      ? "#F7BA2A"
-      : type === "government"
-        ? "#829AAB"
-        : "#1D9BF0";
+    type === "gold" ? "#F7BA2A" : type === "government" ? "#829AAB" : "#1D9BF0";
 
   return (
     <svg
@@ -233,9 +229,8 @@ function BlockPreview({ data }: { data: BlockData }) {
             lineHeight: 1.5,
           }}
         >
-          You are blocked from following @
-          {data.blockerUsername || "username"} and viewing @
-          {data.blockerUsername || "username"}’s posts.
+          You are blocked from following @{data.blockerUsername || "username"}{" "}
+          and viewing @{data.blockerUsername || "username"}’s posts.
         </div>
       </div>
     </div>
@@ -265,16 +260,12 @@ export default function BlockScreen() {
   const [downloading, setDownloading] = useState(false);
 
   const [active, setActive] = useState<number | null>(0);
+  const [showVerifiedDropdown, setShowVerifiedDropdown] = useState(false);
 
   const bg =
-    data.theme === "dark"
-      ? "#000"
-      : data.theme === "dim"
-        ? "#15202b"
-        : "#fff";
+    data.theme === "dark" ? "#000" : data.theme === "dim" ? "#15202b" : "#fff";
 
-  const up = (patch: Partial<BlockData>) =>
-    setData({ ...data, ...patch });
+  const up = (patch: Partial<BlockData>) => setData({ ...data, ...patch });
 
   const handleDownload = useCallback(async () => {
     if (!previewRef.current) return;
@@ -291,11 +282,7 @@ export default function BlockScreen() {
         return;
       }
 
-      await downloadElement(
-        previewRef.current,
-        bg,
-        "twitter-block"
-      );
+      await downloadElement(previewRef.current, bg, "twitter-block");
 
       toast.success("Image downloaded!");
     } catch {
@@ -337,9 +324,7 @@ export default function BlockScreen() {
     }
   }, []);
 
-  const handleAvatar = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
+  const handleAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
     if (!file) return;
@@ -373,9 +358,53 @@ export default function BlockScreen() {
     },
   ];
 
+  const verifiedOptions: VerifiedBadge[] = [
+    "none",
+    "blue",
+    "gold",
+    "government",
+  ];
+
+  const VerifiedIcon = ({ type }: { type: string }) => {
+    if (type === "none") return null;
+    if (type === "gold") {
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          className="w-4 h-4 inline-block ml-0.5"
+          fill="#F7BA2A"
+          aria-label="Gold verified"
+        >
+          <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91C2.88 9.33 2 10.57 2 12s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.8 3.91s2.52 1.26 3.91.8C9.33 21.12 10.57 22 12 22s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" />
+        </svg>
+      );
+    }
+    if (type === "government") {
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          className="w-4 h-4 inline-block ml-0.5"
+          fill="#829AAB"
+          aria-label="Government verified"
+        >
+          <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91C2.88 9.33 2 10.57 2 12s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.8 3.91s2.52 1.26 3.91.8C9.33 21.12 10.57 22 12 22s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" />
+        </svg>
+      );
+    }
+    // blue
+    return (
+      <svg
+        viewBox="0 0 24 24"
+        className="w-4 h-4 inline-block ml-0.5"
+        fill="#1D9BF0"
+        aria-label="Blue verified"
+      >
+        <path d="M22.25 12c0-1.43-.88-2.67-2.19-3.34.46-1.39.2-2.9-.81-3.91s-2.52-1.27-3.91-.81c-.66-1.31-1.91-2.19-3.34-2.19s-2.67.88-3.33 2.19c-1.4-.46-2.91-.2-3.92.81s-1.26 2.52-.8 3.91C2.88 9.33 2 10.57 2 12s.88 2.67 2.19 3.34c-.46 1.39-.2 2.9.8 3.91s2.52 1.26 3.91.8C9.33 21.12 10.57 22 12 22s2.67-.88 3.34-2.19c1.39.46 2.9.2 3.91-.81s1.27-2.52.81-3.91c1.31-.67 2.19-1.91 2.19-3.34zm-11.71 4.2L6.8 12.46l1.41-1.42 2.26 2.26 4.8-5.23 1.47 1.36-6.2 6.77z" />
+      </svg>
+    );
+  };
   return (
     <div className="min-h-screen bg-background">
-
       {/* TOOL */}
       <section className="border-b border-border bg-background">
         <div className="max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
@@ -390,81 +419,78 @@ export default function BlockScreen() {
 
               <ToolsSection />
 
-              {/* Cover color */}
-              <div>
-                <label className={labelClass}>Cover Photo Color</label>
-                <div className="flex flex-wrap gap-2">
-                  {COVER_COLORS.map((c) => (
-                    <button
-                      key={c}
-                      onClick={() => up({ coverColor: c })}
-                      className={`w-7 h-7 rounded-full border-2 transition-all ${data.coverColor === c ? "border-primary scale-110" : "border-border"}`}
-                      style={{ backgroundColor: c }}
-                      data-testid={`cover-color-${c}`}
-                    />
-                  ))}
-                  <input
-                    type="color"
-                    value={data.coverColor}
-                    onChange={(e) => up({ coverColor: e.target.value })}
-                    className="w-7 h-7 rounded-full cursor-pointer border border-border"
-                    title="Custom color"
-                  />
-                </div>
-              </div>
-
               <hr className="border-border" />
 
               {/* Blocker profile */}
               <div>
-                <h3 className="text-xs font-semibold uppercase tracking-wider text-muted-foreground mb-2">
-                  Blocker Profile
-                </h3>
                 <div className="space-y-2">
-                  {/* Avatar */}
-                  <div className="flex items-center gap-2">
-                    <div
-                      className="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden cursor-pointer border border-border"
-                      onClick={() => avatarRef.current?.click()}
-                    >
-                      {data.blockerAvatarFile || data.blockerAvatarUrl ? (
-                        <img
-                          src={data.blockerAvatarFile || data.blockerAvatarUrl}
-                          alt=""
-                          className="w-full h-full object-cover"
-                        />
-                      ) : (
-                        <Upload className="w-3.5 h-3.5 text-primary-foreground" />
-                      )}
-                    </div>
-                    <input
-                      ref={avatarRef}
-                      type="file"
-                      accept="image/*"
-                      className="hidden"
-                      onChange={handleAvatar}
-                    />
-                    <input
-                      type="url"
-                      placeholder="Avatar URL"
-                      value={data.blockerAvatarUrl}
-                      onChange={(e) =>
-                        up({
-                          blockerAvatarUrl: e.target.value,
-                          blockerAvatarFile: null,
-                        })
-                      }
-                      className={inputClass}
-                      data-testid="input-avatar-url"
-                    />
-                  </div>
-
                   <div>
-                    <label className={labelClass}>Display Name</label>
+                    <div className="flex my-2 justify-between items-center">
+                      <label className={labelClass}>Display Name</label>
+                      <div className="relative">
+                        {" "}
+                        {/* Trigger */}
+                        <button
+                          type="button"
+                          onClick={() =>
+                            setShowVerifiedDropdown((prev) => !prev)
+                          }
+                          className=" flex h-5 w-5 items-center justify-center
+      rounded-full border border-border
+      bg-background transition-all
+      hover:border-primary"
+                        >
+                          <VerifiedIcon type={data.blockerVerified} />
+                        </button>
+                        {/* Dropdown */}
+                        {showVerifiedDropdown && (
+                          <div
+                            className="
+        absolute  right-0 top-full z-50 mt-2
+        flex items-center gap-1
+        rounded-2xl border border-border
+        bg-card p-1.5 shadow-2xl
+        backdrop-blur-xl
+      "
+                          >
+                            {verifiedOptions.map((badge) => (
+                              <button
+                                key={badge}
+                                type="button"
+                                onClick={() => {
+                                  up({ blockerVerified: badge });
+                                  setShowVerifiedDropdown(false);
+                                }}
+                                className={`
+            flex h-9 w-9 items-center justify-center
+            rounded-xl transition-all duration-200
+                 ${data.blockerVerified === badge
+                                    ? "bg-primary/15 ring-1 ring-primary"
+                                    : "hover:bg-muted"
+                                  }
+         
+          `}
+                              >
+                                {badge === "none" ? (
+                                  <span className="text-xs text-muted-foreground">
+                                    ×
+                                  </span>
+                                ) : (
+                                  <VerifiedIcon type={badge} />
+                                )}
+                              </button>
+                            ))}
+                          </div>
+                        )}
+                      </div>
+                    </div>
+
                     <input
                       type="text"
                       value={data.blockerDisplayName}
-                      onChange={(e) => up({ blockerDisplayName: e.target.value })}
+                      onChange={(e) =>
+                        up({ blockerDisplayName: e.target.value })
+                      }
                       className={inputClass}
                       data-testid="input-display-name"
                     />
@@ -487,31 +513,22 @@ export default function BlockScreen() {
                         className={`${inputClass} pl-7`}
                         data-testid="input-username"
                       />
+                      <Upload
+                        onClick={() => avatarRef.current?.click()}
+                        size={11}
+                        className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
+                      />
+
+                      <input
+                        ref={avatarRef}
+                        type="file"
+                        accept="image/*"
+                        className="hidden"
+                        onChange={handleAvatar}
+                      />
                     </div>
                   </div>
 
-                  <div>
-                    <label className={labelClass}>Verified Badge</label>
-                    <div className="grid grid-cols-4 gap-1">
-                      {(
-                        ["none", "blue", "gold", "government"] as VerifiedBadge[]
-                      ).map((b) => (
-                        <button
-                          key={b}
-                          onClick={() => up({ blockerVerified: b })}
-                          className={`py-1 rounded text-[10px] font-medium border capitalize transition-all ${data.blockerVerified === b ? "bg-primary text-primary-foreground border-primary" : "border-border hover:border-primary"}`}
-                        >
-                          {b === "none"
-                            ? "None"
-                            : b === "blue"
-                              ? "🔵"
-                              : b === "gold"
-                                ? "🟡"
-                                : "🏛️"}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
 
                   <div>
                     <label className={labelClass}>Bio</label>
@@ -607,7 +624,6 @@ export default function BlockScreen() {
       {/* HERO */}
       <section className="relative border-b border-border bg-gradient-to-b from-primary/5 via-background to-background">
         <div className="max-w-[1200px] mx-auto px-6 py-14 md:py-20">
-
           <div className="inline-flex rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary">
             X / Twitter Tool
           </div>
@@ -625,16 +641,12 @@ export default function BlockScreen() {
             Customize usernames, profile images, verified badges, and themes
             with a clean and realistic X interface.
           </p>
-
         </div>
       </section>
-
-
 
       {/* WHY */}
       <section className="border-b border-border bg-background">
         <div className="max-w-[1100px] mx-auto px-6 py-14">
-
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
             Why Use It
           </span>
@@ -649,7 +661,6 @@ export default function BlockScreen() {
           </p>
 
           <div className="grid md:grid-cols-2 gap-5 mt-10">
-
             <div className="rounded-2xl border border-border bg-background/60 p-5 hover:shadow-md transition-all">
               <h3 className="font-semibold text-foreground">
                 Create realistic screenshots instantly
@@ -689,7 +700,6 @@ export default function BlockScreen() {
                 Designed for creators, marketers, and content teams.
               </p>
             </div>
-
           </div>
         </div>
       </section>
@@ -697,7 +707,6 @@ export default function BlockScreen() {
       {/* FEATURES */}
       <section className="border-b border-border bg-gradient-to-b from-background to-primary/5">
         <div className="max-w-[1100px] mx-auto px-6 py-14">
-
           <span className="text-xs font-semibold uppercase tracking-widest text-primary">
             Features
           </span>
@@ -711,7 +720,6 @@ export default function BlockScreen() {
           </p>
 
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-10">
-
             {[
               {
                 title: "Realistic X Interface",
@@ -742,16 +750,13 @@ export default function BlockScreen() {
                 key={item.title}
                 className="rounded-2xl border border-border bg-background/70 p-5 hover:shadow-md transition-all"
               >
-                <h3 className="font-semibold text-foreground">
-                  {item.title}
-                </h3>
+                <h3 className="font-semibold text-foreground">{item.title}</h3>
 
                 <p className="mt-2 text-sm text-muted-foreground leading-relaxed">
                   {item.desc}
                 </p>
               </div>
             ))}
-
           </div>
         </div>
       </section>
@@ -759,9 +764,7 @@ export default function BlockScreen() {
       {/* FAQ */}
       <section className="bg-background">
         <div className="max-w-[900px] mx-auto px-6 py-16">
-
           <div className="text-center">
-
             <span className="inline-flex rounded-full border border-primary/20 bg-primary/10 px-4 py-2 text-xs font-semibold uppercase tracking-widest text-primary">
               FAQs
             </span>
@@ -769,11 +772,9 @@ export default function BlockScreen() {
             <h2 className="mt-5 text-3xl md:text-5xl font-extrabold tracking-tight text-foreground">
               Frequently Asked Questions
             </h2>
-
           </div>
 
           <div className="mt-12 space-y-4">
-
             {faqs.map((faq, i) => {
               const isOpen = active === i;
 
@@ -782,11 +783,8 @@ export default function BlockScreen() {
                   key={i}
                   className="rounded-2xl border border-border bg-background overflow-hidden"
                 >
-
                   <button
-                    onClick={() =>
-                      setActive(isOpen ? null : i)
-                    }
+                    onClick={() => setActive(isOpen ? null : i)}
                     className="flex w-full items-center justify-between gap-4 px-6 py-5 text-left"
                   >
                     <span className="font-semibold text-foreground">
@@ -794,9 +792,7 @@ export default function BlockScreen() {
                     </span>
 
                     <div
-                      className={`transition-transform ${isOpen
-                        ? "rotate-45"
-                        : ""
+                      className={`transition-transform ${isOpen ? "rotate-45" : ""
                         }`}
                     >
                       +
@@ -804,9 +800,7 @@ export default function BlockScreen() {
                   </button>
 
                   <div
-                    className={`grid transition-all duration-300 ${isOpen
-                      ? "grid-rows-[1fr]"
-                      : "grid-rows-[0fr]"
+                    className={`grid transition-all duration-300 ${isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
                       }`}
                   >
                     <div className="overflow-hidden">
@@ -815,11 +809,9 @@ export default function BlockScreen() {
                       </p>
                     </div>
                   </div>
-
                 </div>
               );
             })}
-
           </div>
         </div>
       </section>
