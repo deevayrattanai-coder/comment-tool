@@ -419,7 +419,7 @@ export default function SuspensionScreen() {
   return (
     <div className="min-h-screen bg-background">
       {/* YOUR EXISTING BUILDER + PREVIEW SECTION HERE */}
-      <div className="flex-1 max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center itmes-center max-md:flex-col max-md:gap-6">
+      <div className="flex-1 max-w-[800px] mx-auto w-full px-4 sm:px-6 py-6 flex justify-center items-stretch max-md:flex-col max-md:gap-6">
         {/* Form */}
         <aside className="w-full lg:h-[480px] h-auto lg:w-[300px] flex-shrink-0 bg-sidebar-bg flex flex-col ">
           <div className="flex-1 overflow-y-auto scrollbar-thin">
@@ -642,14 +642,15 @@ export default function SuspensionScreen() {
               Twitter (X) Mockup Tool
             </span>
           </div>
-
-          <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight max-w-4xl">
+          <h2 className="text-3xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight max-w-4xl">
             Best Twitter (X) Suspension Generator Tool Online
-          </h1>
+          </h2>
 
           <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-4xl">
-            The Best Twitter (X) Suspension Generator Tool Online allows users
-            to generate realistic suspension screenshots instantly.
+            The <b><i className="underline">Best Twitter (X) Suspension Generator Tool Online</i></b> allows users to generate realistic suspension screenshots instantly. Whether you're creating memes, mockups, creative visuals, or campaign concepts, this tool delivers professional-looking results within seconds.
+          </p>
+          <p className="mt-4 text-base md:text-lg text-muted-foreground leading-relaxed max-w-4xl">
+            Built for creators, agencies, and marketers, it closely matches the interface of X for maximum realism.
           </p>
 
           <div className="grid md:grid-cols-3 gap-4 mt-10">
@@ -802,11 +803,28 @@ export default function SuspensionScreen() {
         </div>
       </section>
 
+      {/* FINAL CTA */}
+      <section className="border-b border-border bg-gradient-to-b from-primary/5 to-background">
+        <div className="max-w-[1000px] mx-auto px-4 sm:px-6 py-14 md:py-20 text-center">
+          <span className="inline-flex items-center px-3 py-1 text-xs font-semibold uppercase tracking-widest text-primary">
+            Final Thoughts
+          </span>
+
+          <h2 className="mt-5 text-3xl md:text-5xl font-extrabold tracking-tight text-foreground leading-tight">
+            Create realistic tweet screenshots faster with a cleaner workflow
+          </h2>
+
+          <p className="mt-6 text-base md:text-lg text-muted-foreground leading-relaxed max-w-3xl mx-auto">
+            If you're searching for the <b><i className="underline">Best Twitter (X) Suspension Generator Tool Online</i></b>, Comment Tools provides a fast, realistic, and highly customizable solution for creators and agencies.
+          </p>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="border-b border-border bg-gradient-to-b from-background to-primary/5">
         <div className="max-w-[900px] mx-auto px-6 py-12 md:py-16">
           <div className="text-center mb-12">
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">
+            <span className="text-base font-semibold uppercase tracking-widest text-primary">
               FAQs
             </span>
 

@@ -356,6 +356,18 @@ export default function BlockScreen() {
       q: "Why is this better than other generators?",
       a: "It provides cleaner UI, realistic visuals, and advanced creator-focused features.",
     },
+    {
+      q: "Why is Comment Tools better than Top Comment?",
+      a: `
+    <a
+      href="/"
+      class="font-semibold text-purple-400 underline underline-offset-4 transition-colors hover:text-purple-300"
+    >
+      Comment Tools
+    </a>
+    is continuously expanding with more social media tools and advanced workflow features.
+  `,
+    },
   ];
 
   const verifiedOptions: VerifiedBadge[] = [
@@ -624,18 +636,16 @@ export default function BlockScreen() {
             X / Twitter Tool
           </div>
 
-          <h1 className="mt-5 max-w-4xl text-4xl md:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
+          <h2 className="mt-5 w-full text-4xl md:text-6xl font-extrabold tracking-tight text-foreground leading-tight">
             Best Twitter (X) Block Generator Tool Online
-          </h1>
+          </h2>
 
-          <p className="mt-6 max-w-3xl text-base md:text-lg leading-relaxed text-muted-foreground">
-            Create realistic Twitter block screenshots instantly for memes,
-            content marketing, social media campaigns, and engagement visuals.
+          <p className="mt-6 w-full text-base md:text-lg leading-relaxed text-muted-foreground">
+            The <b><i className="underline"> Best Twitter (X) Block Generator Tool Online</i> </b> helps users create realistic block screenshots for memes, social media creatives, and engagement mockups. Inspired by the real interface of X, the tool makes customization simple and fast.
           </p>
 
-          <p className="mt-4 max-w-3xl text-base md:text-lg leading-relaxed text-muted-foreground">
-            Customize usernames, profile images, verified badges, and themes
-            with a clean and realistic X interface.
+          <p className="mt-4 w-full text-base md:text-lg leading-relaxed text-muted-foreground">
+            Whether you're a creator, marketer, or agency, you can generate professional visuals within seconds.
           </p>
         </div>
       </section>
@@ -757,6 +767,29 @@ export default function BlockScreen() {
         </div>
       </section>
 
+      <section className="w-full py-12 sm:py-16 border-b border-border bg-background">
+        <div className="max-w-4xl mx-auto px-4 sm:px-6">
+          <div className="relative  p-6 sm:p-8 lg:p-10">
+            <div className="absolute -top-20 -right-20 h-52 w-52 rounded-full bg-primary/20 blur-3xl"></div>
+            <div className="absolute -bottom-20 -left-20 h-52 w-52 rounded-full bg-purple-500/10 blur-3xl"></div>
+
+            <div className="relative z-10">
+              <span className="inline-flex items-center text-base px-4 py-1 font-medium text-primary">
+                Final Thoughts
+              </span>
+
+              <h2 className="mt-5 text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-foreground leading-tight">
+                Best Twitter (X) Block Generator Tool Online
+              </h2>
+
+              <p className="mt-5 text-sm sm:text-base leading-7 text-muted-foreground">
+                The <b><i className="underline">Best Twitter (X) Block Generator Tool Online</i></b> helps creators produce realistic and engaging visuals quickly while simplifying content creation workflows.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section className="bg-background">
         <div className="max-w-[900px] mx-auto px-6 py-16">
@@ -800,9 +833,7 @@ export default function BlockScreen() {
                       }`}
                   >
                     <div className="overflow-hidden">
-                      <p className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground">
-                        {faq.a}
-                      </p>
+                      <p className="px-6 pb-5 text-sm leading-relaxed text-muted-foreground" dangerouslySetInnerHTML={{ __html: faq.a }} />
                     </div>
                   </div>
                 </div>
