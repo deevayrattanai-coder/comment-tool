@@ -19,7 +19,7 @@ export const defaultSuspensionData: SuspensionData = {
   username: "suspendeduser",
   avatarUrl: "",
   avatarFile: null,
-  verified: "none",
+  verified: "blue",
   tweetCount: "1,204",
   reason: "rules",
   customMessage: "",
