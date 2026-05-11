@@ -241,56 +241,8 @@ const TweetPreview = forwardRef<HTMLDivElement, TweetPreviewProps>(
           }}
         >
           {tweetData.time} · {tweetData.date}
-          {tweetData.showSource && tweetData.sourceApp && (
-            <span>
-              {" "}
-              · <span style={{ color: "#1D9BF0" }}>{tweetData.sourceApp}</span>
-            </span>
-          )}
         </div>
 
-        {/* Stats row */}
-        {tweetData.showMetrics && (
-          <div
-            style={{
-              display: "flex",
-              gap: "20px",
-              paddingTop: "12px",
-              paddingBottom: "12px",
-              borderBottom: `1px solid ${borderColor}`,
-              flexWrap: "wrap",
-            }}
-          >
-            {[
-              { label: "Views", value: formatCount(tweetData.viewCount) },
-              { label: "Likes", value: formatCount(tweetData.likeCount) },
-              { label: "Reposts", value: formatCount(tweetData.retweetCount) },
-              { label: "Replies", value: formatCount(tweetData.replyCount) },
-              {
-                label: "Bookmarks",
-                value: formatCount(tweetData.bookmarkCount),
-              },
-            ].map(({ label, value }) => (
-              <div
-                key={label}
-                style={{ display: "flex", gap: "4px", alignItems: "baseline" }}
-              >
-                <span
-                  style={{
-                    color: textPrimary,
-                    fontWeight: 700,
-                    fontSize: "14px",
-                  }}
-                >
-                  {value}
-                </span>
-                <span style={{ color: textSecondary, fontSize: "14px" }}>
-                  {label}
-                </span>
-              </div>
-            ))}
-          </div>
-        )}
 
         {/* Action icons row */}
         <div
