@@ -420,30 +420,9 @@ function TweetEditor({
 
       <div className="p-4 space-y-3">
         <div className="flex items-center gap-3">
-          <div
-            className="w-10 h-10 rounded-full bg-primary flex items-center justify-center overflow-hidden cursor-pointer"
-            onClick={() => avatarRef.current?.click()}
-          >
-            {tweet.avatarFile || tweet.avatarUrl ? (
-              <img
-                src={tweet.avatarFile || tweet.avatarUrl}
-                alt=""
-                className="w-full h-full object-cover"
-              />
-            ) : (
-              <Upload className="w-4 h-4 text-primary-foreground" />
-            )}
-          </div>
 
-          <input
-            ref={avatarRef}
-            type="file"
-            accept="image/*"
-            className="hidden"
-            onChange={handleAvatar}
-          />
-
-          <div className="flex-1 grid grid-cols-2 gap-2">
+          <div className="flex flex-col gap-2">
+            <label className={labelClass}>Display Name</label>
             <input
               type="text"
               placeholder="Display name"
@@ -458,7 +437,6 @@ function TweetEditor({
               <span className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground text-xs">
                 @
               </span>
-
               <input
                 type="text"
                 placeholder="username"
@@ -470,22 +448,24 @@ function TweetEditor({
                 }
                 className={`${inputClass} pl-7`}
               />
+              <Upload
+                onClick={() => avatarRef.current?.click()}
+                size={11}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
+              />
+
+              <input
+                ref={avatarRef}
+                type="file"
+                accept="image/*"
+                className="hidden"
+                onChange={handleAvatar}
+              />
             </div>
           </div>
         </div>
 
-        <input
-          type="url"
-          placeholder="Avatar URL"
-          value={tweet.avatarUrl}
-          onChange={(e) =>
-            up({
-              avatarUrl: e.target.value,
-              avatarFile: null,
-            })
-          }
-          className={inputClass}
-        />
+
 
         <div className="flex gap-2">
           {(
