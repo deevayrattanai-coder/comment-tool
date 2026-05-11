@@ -16,7 +16,7 @@ export interface BlockData {
 }
 
 export const defaultBlockData: BlockData = {
-  theme: "dark",
+  theme: "light",
   blockerDisplayName: "Elon Musk",
   blockerUsername: "elonmusk",
   blockerAvatarUrl: "",

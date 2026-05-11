@@ -10,11 +10,11 @@ export interface TweetData {
   content: string;
   date: string;
   time: string;
-  replyCount: number;
-  retweetCount: number;
-  likeCount: number;
-  viewCount: number;
-  bookmarkCount: number;
+  replyCount: string;
+  retweetCount: string;
+  likeCount: string;
+  viewCount: string;
+  bookmarkCount: string;
   theme: TweetTheme;
   mediaUrl: string | null;
   mediaFile: string | null;
@@ -32,12 +32,12 @@ export const defaultTweetData: TweetData = {
   content: "The thing I find most surprising is how few people realize that the future is going to be unbelievably good.",
   date: new Date().toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }),
   time: new Date().toLocaleTimeString("en-US", { hour: "numeric", minute: "2-digit", hour12: true }),
-  replyCount: 4821,
-  retweetCount: 12500,
-  likeCount: 98400,
-  viewCount: 5200000,
-  bookmarkCount: 3200,
-  theme: "dark",
+  replyCount: "4821",
+  retweetCount: "12500",
+  likeCount: "98400",
+  viewCount: "5200000",
+  bookmarkCount: "3200",
+  theme: "light",
   mediaUrl: null,
   mediaFile: null,
   showMetrics: true,
@@ -45,7 +45,7 @@ export const defaultTweetData: TweetData = {
   sourceApp: "Twitter for iPhone",
 };
 
-export function formatCount(n: number): string {
+export function formatCount(n): string {
   if (n >= 1_000_000) return (n / 1_000_000).toFixed(1).replace(/\.0$/, "") + "M";
   if (n >= 1_000) return (n / 1_000).toFixed(1).replace(/\.0$/, "") + "K";
   return String(n);

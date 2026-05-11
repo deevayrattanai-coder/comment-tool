@@ -76,25 +76,26 @@ const tools = [
     icon: <Twitter size={20} />,
   },
   {
-    name: "Twitter Reply Chain Generator",
-    slug: "/tools/tweet-reply-generator",
-    desc: "Design styled reply chains.",
-    icon: <Twitter size={20} />,
-  },
-  {
-    name: "Twitter Suspension Generator",
-    slug: "/tools/twitter-suspension-generator",
-    desc: "Create suspension screens.",
-    icon: <Twitter size={20} />,
-  },
-  {
-    name: "Twitter Tweet Generator",
+    name: "Fake Tweet Generator",
     slug: "/tools/fake-tweet-generator",
     desc: "Create realistic tweets.",
     icon: <Twitter size={20} />,
   },
   {
-    name: "Twitter Block Generator",
+    name: "Tweet Reply Generator",
+    slug: "/tools/tweet-reply-generator",
+    desc: "Design styled reply chains.",
+    icon: <Twitter size={20} />,
+  },
+  {
+    name: "Twitter (X) Suspension Generator",
+    slug: "/tools/twitter-suspension-generator",
+    desc: "Create suspension screens.",
+    icon: <Twitter size={20} />,
+  },
+
+  {
+    name: "Twitter (X) Block Generator",
     slug: "/tools/twitter-block-generator",
     desc: "Generate block screens.",
     icon: <Twitter size={20} />,

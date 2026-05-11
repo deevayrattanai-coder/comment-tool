@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 import { TweetData, formatCount } from "@/lib/tweet-types";
-import { SiX } from "react-icons/si";
+
 
 interface TweetPreviewProps {
   tweetData: TweetData;
@@ -191,7 +191,7 @@ const TweetPreview = forwardRef<HTMLDivElement, TweetPreviewProps>(
         <div
           style={{
             color: textPrimary,
-            fontSize: "20px",
+            fontSize: "15px",
             lineHeight: 1.5,
             marginTop: "12px",
             wordBreak: "break-word",

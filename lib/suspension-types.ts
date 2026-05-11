@@ -14,7 +14,7 @@ export interface SuspensionData {
 }
 
 export const defaultSuspensionData: SuspensionData = {
-  theme: "dark",
+  theme: "light",
   displayName: "Suspended User",
   username: "suspendeduser",
   avatarUrl: "",

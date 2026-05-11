@@ -46,7 +46,7 @@ export function newReply(overrides?: Partial<ReplyTweet>): ReplyTweet {
 }
 
 export const defaultReplyChain: ReplyChainData = {
-  theme: "dark",
+  theme: "light",
   tweets: [
     {
       id: makeId(),
