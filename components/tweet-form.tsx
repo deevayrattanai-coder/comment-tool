@@ -192,6 +192,13 @@ export default function TweetForm({ tweetData, onChange }: TweetFormProps) {
                   size={11}
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted cursor-pointer hover:text-sidebar-text"
                 />
+                <input
+                  ref={avatarInputRef}
+                  type="file"
+                  accept="image/*"
+                  className="hidden"
+                  onChange={handleAvatarUpload}
+                />
               </div>
             </div>
           </div>
