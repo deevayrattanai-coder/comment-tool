@@ -176,6 +176,38 @@ interface BulkComment {
   avatarUrl: string | null;
 }
 
+async function exportViaAPI(data: any) {
+  const response = await fetch("/api/generate-comment", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      platform: data.platform,           // "instagram" | "twitter" | "youtube" | "tiktok"
+      message: data.message,
+      commentType: data.subMode,         // "post-comment" | "reels-comment" | etc.
+      username: data.username,
+      displayName: data.displayName,
+      likes: data.likes,
+      replies: data.replies,
+      retweets: data.retweets,
+      views: data.views,
+      time: data.time,
+      timeUnit: data.timeUnit,
+      isVerified: data.isVerified,
+      theme: data.previewTheme,          // "light" | "dark"
+    }),
+  });
+
+  // API returns raw PNG bytes — convert to download link
+  const blob = await response.blob();
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${data.platform}-comment-${Date.now()}.png`;
+  link.click();
+  URL.revokeObjectURL(url);
+}
+
+
 const createBulkComment = (): BulkComment => ({
   id: Math.random().toString(36).slice(2),
   username: "",
@@ -311,7 +343,7 @@ const CommentTool = ({
       if (type === "celebrity") {
         const profile =
           celebrityProfiles[
-            Math.floor(Math.random() * celebrityProfiles.length)
+          Math.floor(Math.random() * celebrityProfiles.length)
           ];
         const name = profile.name;
         const seed = name.replace(/\s/g, "");
@@ -404,10 +436,10 @@ const CommentTool = ({
         prev.map((c) =>
           c.id === id
             ? {
-                ...c,
-                avatarUrl: url,
-                username: c.username || profile.name.toLowerCase(),
-              }
+              ...c,
+              avatarUrl: url,
+              username: c.username || profile.name.toLowerCase(),
+            }
             : c,
         ),
       );
@@ -746,21 +778,19 @@ const CommentTool = ({
     <div className="glass-panel rounded-lg p-0.5 flex gap-0.5 w-full">
       <button
         onClick={() => setMode("single")}
-        className={`flex-1 py-1.5 px-3 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
-          mode === "single"
-            ? "gradient-primary text-primary-foreground shadow-sm"
-            : "text-sidebar-text-muted hover:text-sidebar-text"
-        }`}
+        className={`flex-1 py-1.5 px-3 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${mode === "single"
+          ? "gradient-primary text-primary-foreground shadow-sm"
+          : "text-sidebar-text-muted hover:text-sidebar-text"
+          }`}
       >
         <span className="text-xs">📄</span> Single Mode
       </button>
       <button
         onClick={() => setMode("bulk")}
-        className={`flex-1 py-1.5 px-3 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${
-          mode === "bulk"
-            ? "gradient-primary text-primary-foreground shadow-sm"
-            : "text-sidebar-text-muted hover:text-sidebar-text"
-        }`}
+        className={`flex-1 py-1.5 px-3 rounded-md text-xs font-semibold flex items-center justify-center gap-1.5 transition-all ${mode === "bulk"
+          ? "gradient-primary text-primary-foreground shadow-sm"
+          : "text-sidebar-text-muted hover:text-sidebar-text"
+          }`}
       >
         <span className="text-xs">📊</span> Bulk Mode
       </button>
@@ -810,11 +840,10 @@ const CommentTool = ({
                         const newSub = platformSubModes[p][0].value;
                         update({ platform: p, subMode: newSub });
                       }}
-                      className={`h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
-                        data.platform === p
-                          ? "gradient-primary text-primary-foreground shadow-sm"
-                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
-                      }`}
+                      className={`h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${data.platform === p
+                        ? "gradient-primary text-primary-foreground shadow-sm"
+                        : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                        }`}
                     >
                       {platformIcons[p]}
                     </button>
@@ -827,11 +856,10 @@ const CommentTool = ({
                     <button
                       key={sm.value}
                       onClick={() => update({ subMode: sm.value })}
-                      className={`py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 ${
-                        data.subMode === sm.value
-                          ? "gradient-primary text-primary-foreground shadow-sm"
-                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
-                      }`}
+                      className={`py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 ${data.subMode === sm.value
+                        ? "gradient-primary text-primary-foreground shadow-sm"
+                        : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                        }`}
                     >
                       {sm.label}
                     </button>
@@ -900,11 +928,10 @@ const CommentTool = ({
                         update({ isVerified: !data.isVerified });
                         syncActiveBulkRow({ isVerified: !data.isVerified });
                       }}
-                      className={`w-8 h-10 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
-                        data.isVerified
-                          ? "gradient-primary text-primary-foreground shadow-sm"
-                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
-                      }`}
+                      className={`w-8 h-10 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${data.isVerified
+                        ? "gradient-primary text-primary-foreground shadow-sm"
+                        : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                        }`}
                       title="Toggle verified badge"
                     >
                       <BadgeCheck size={13} />
@@ -1049,7 +1076,7 @@ const CommentTool = ({
                   {activeBulkId && (
                     <div className="flex gap-1.5">
                       <button
-                        onClick={exportImage}
+                        onClick={() => exportViaAPI(data)}
                         className="flex-1 h-7 max-lg:py-2.5 gradient-primary text-primary-foreground rounded-lg text-[10px] font-bold flex items-center justify-center gap-1 hover:opacity-90 transition-all active:scale-[0.98]"
                       >
                         <Download size={10} /> Export
@@ -1087,11 +1114,10 @@ const CommentTool = ({
                       data.previewTheme === "light" ? "dark" : "light",
                   })
                 }
-                className={`w-8 h-10 rounded-full border flex items-center justify-center transition-colors ${
-                  data.previewTheme === "dark"
-                    ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
-                    : "border-border text-foreground/50 hover:text-foreground"
-                }`}
+                className={`w-8 h-10 rounded-full border flex items-center justify-center transition-colors ${data.previewTheme === "dark"
+                  ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
+                  : "border-border text-foreground/50 hover:text-foreground"
+                  }`}
                 title={
                   data.previewTheme === "light"
                     ? "Switch to dark mode"
@@ -1106,11 +1132,10 @@ const CommentTool = ({
               </button>
             </div>
             <div
-              className={`flex items-center justify-center  overflow-hidden min-h-[140px] ${
-                data.previewTheme === "dark"
-                  ? "bg-gray-200  dark-grid-dots"
-                  : "bg-gray-200  dark-grid-dots"
-              }`}
+              className={`flex items-center justify-center  overflow-hidden min-h-[140px] ${data.previewTheme === "dark"
+                ? "bg-gray-200  dark-grid-dots"
+                : "bg-gray-200  dark-grid-dots"
+                }`}
             >
               {activeBulkId ? (
                 <div
@@ -1231,14 +1256,13 @@ const CommentTool = ({
               <button
                 onClick={downloadAllBulk}
                 disabled={isBulkExporting || bulkComments.length === 0}
-                className={`h-10 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-60 ${
-                  isPaid
-                    ? "gradient-primary text-primary-foreground hover:opacity-90 shadow-sm"
-                    : "border border-border bg-background text-foreground hover:bg-accent"
-                }`}
+                className={`h-10 px-3 rounded-lg text-xs font-semibold flex items-center gap-1.5 transition-all active:scale-[0.98] disabled:opacity-60 ${isPaid
+                  ? "gradient-primary text-primary-foreground hover:opacity-90 shadow-sm"
+                  : "border border-border bg-background text-foreground hover:bg-accent"
+                  }`}
               >
-                  <Download size={12} />
-              
+                <Download size={12} />
+
               </button>
             </div>
             {/* Table */}
@@ -1262,11 +1286,10 @@ const CommentTool = ({
                       <tr
                         key={bc.id}
                         onClick={() => loadBulkRow(bc)}
-                        className={`border-b border-border cursor-pointer transition-colors ${
-                          isActive
-                            ? "bg-primary/5 ring-1 ring-inset ring-primary/20"
-                            : "hover:bg-accent/40"
-                        }`}
+                        className={`border-b border-border cursor-pointer transition-colors ${isActive
+                          ? "bg-primary/5 ring-1 ring-inset ring-primary/20"
+                          : "hover:bg-accent/40"
+                          }`}
                       >
                         <td className="px-3 py-2">
                           <input
@@ -1324,11 +1347,10 @@ const CommentTool = ({
                               );
                               if (isActive) update({ isVerified: next });
                             }}
-                            className={`w-8 h-10 rounded-md flex items-center justify-center transition-all mx-auto ${
-                              bc.isVerified
-                                ? "gradient-primary text-primary-foreground shadow-sm"
-                                : "border border-border bg-background text-muted-foreground hover:text-foreground"
-                            }`}
+                            className={`w-8 h-10 rounded-md flex items-center justify-center transition-all mx-auto ${bc.isVerified
+                              ? "gradient-primary text-primary-foreground shadow-sm"
+                              : "border border-border bg-background text-muted-foreground hover:text-foreground"
+                              }`}
                             title={bc.isVerified ? "Verified" : "Mark verified"}
                           >
                             <BadgeCheck size={13} />
@@ -1450,11 +1472,10 @@ const CommentTool = ({
                       onClick={() =>
                         router.push(`/tools/${p}-comment-generator`)
                       }
-                      className={`h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${
-                        data.platform === p
-                          ? "gradient-primary text-primary-foreground shadow-sm"
-                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
-                      }`}
+                      className={`h-10 rounded-lg flex items-center justify-center transition-all duration-200 ${data.platform === p
+                        ? "gradient-primary text-primary-foreground shadow-sm"
+                        : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                        }`}
                     >
                       {platformIcons[p]}
                     </button>
@@ -1467,11 +1488,10 @@ const CommentTool = ({
                     <button
                       key={sm.value}
                       onClick={() => update({ subMode: sm.value })}
-                      className={`py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 ${
-                        data.subMode === sm.value
-                          ? "gradient-primary text-primary-foreground shadow-sm"
-                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
-                      }`}
+                      className={`py-1.5 rounded-lg text-[11px] font-semibold transition-all duration-200 ${data.subMode === sm.value
+                        ? "gradient-primary text-primary-foreground shadow-sm"
+                        : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                        }`}
                     >
                       {sm.label}
                     </button>
@@ -1529,11 +1549,10 @@ const CommentTool = ({
                   {showBadge && (
                     <button
                       onClick={() => update({ isVerified: !data.isVerified })}
-                      className={`w-8 h-10 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${
-                        data.isVerified
-                          ? "gradient-primary text-primary-foreground shadow-sm"
-                          : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
-                      }`}
+                      className={`w-8 h-10 rounded-lg flex items-center justify-center transition-all duration-200 flex-shrink-0 ${data.isVerified
+                        ? "gradient-primary text-primary-foreground shadow-sm"
+                        : "glass-panel text-sidebar-text-muted hover:text-sidebar-text"
+                        }`}
                       title="Toggle verified badge"
                     >
                       <BadgeCheck size={13} />
@@ -1766,11 +1785,10 @@ const CommentTool = ({
                     data.previewTheme === "light" ? "dark" : "light",
                 })
               }
-              className={`w-8 h-10 rounded-full border flex items-center justify-center transition-colors ${
-                data.previewTheme === "dark"
-                  ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
-                  : "border-border text-foreground/50 hover:text-foreground"
-              }`}
+              className={`w-8 h-10 rounded-full border flex items-center justify-center transition-colors ${data.previewTheme === "dark"
+                ? "bg-[hsl(240,5%,20%)] border-[hsl(240,5%,30%)] text-[hsl(240,5%,70%)] hover:text-white"
+                : "border-border text-foreground/50 hover:text-foreground"
+                }`}
               title={
                 data.previewTheme === "light"
                   ? "Switch to dark mode"
