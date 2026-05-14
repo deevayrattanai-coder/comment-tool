@@ -163,7 +163,7 @@ function SuspensionPreview({ data }: { data: SuspensionData }) {
           <span
             style={{
               color: text,
-              fontSize: 24,
+              fontSize: 18,
               fontWeight: 800,
               letterSpacing: "-0.02em",
               lineHeight: 1.1,
@@ -190,14 +190,14 @@ function SuspensionPreview({ data }: { data: SuspensionData }) {
       <div
         style={{
           background: coverBg,
-          padding: "70px 40px 90px",
+          padding: "20px 40px",
           textAlign: "center",
         }}
       >
         <div
           style={{
             color: text,
-            fontSize: 28,
+            fontSize: 18,
             fontWeight: 800,
             lineHeight: 1.1,
             letterSpacing: "-0.03em",
@@ -208,9 +208,9 @@ function SuspensionPreview({ data }: { data: SuspensionData }) {
 
         <div
           style={{
-            marginTop: 28,
+            marginTop: 18,
             color: sub,
-            fontSize: 18,
+            fontSize: 12,
             lineHeight: 1.5,
             fontWeight: 400,
           }}
