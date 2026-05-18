@@ -112,6 +112,8 @@ const dicebearAvatar = (
 ) =>
   `https://api.dicebear.com/7.x/${style}/svg?seed=${encodeURIComponent(seed)}&backgroundColor=b6e3f4,c0aede,d1d4f9,ffd5dc,ffdfbf`;
 
+
+
 const celebrityProfiles = [
   { name: "Elon Musk", handle: "elonmusk" },
   { name: "Taylor Swift", handle: "taylorswift13" },
@@ -338,6 +340,34 @@ const CommentTool = ({
     [activeBulkId],
   );
 
+  // Male images
+  const maleImages = [
+    "/avatars/male1.png",
+    "/avatars/male2.png",
+    "/avatars/male3.png",
+    "/avatars/male4.png",
+    "/avatars/male5.png",
+    "/avatars/male6.png",
+    "/avatars/male7.png",
+    "/avatars/male8.png",
+    "/avatars/male9.png",
+    "/avatars/male10.png",
+  ];
+
+  // Female images
+  const femaleImages = [
+    "/avatars/female1.png",
+    "/avatars/female2.png",
+    "/avatars/female3.png",
+    "/avatars/female4.png",
+    "/avatars/female5.png",
+    "/avatars/female6.png",
+    "/avatars/female7.png",
+    "/avatars/female8.png",
+    "/avatars/female9.png",
+    "/avatars/female10.png",
+  ];
+
   const randomize = useCallback(
     (type: "male" | "female" | "celebrity") => {
       if (type === "celebrity") {
@@ -345,26 +375,44 @@ const CommentTool = ({
           celebrityProfiles[
           Math.floor(Math.random() * celebrityProfiles.length)
           ];
+
         const name = profile.name;
         const seed = name.replace(/\s/g, "");
+
         update({
           username: profile.handle.toLowerCase(),
           displayName: name,
           avatarSeed: seed,
         });
+
+        // celebrity avatar
         setAvatarUrl(dicebearAvatar(profile.handle, "avataaars"));
       } else {
         const pool = type === "male" ? maleProfiles : femaleProfiles;
-        const profile = pool[Math.floor(Math.random() * pool.length)];
+
+        const profile =
+          pool[Math.floor(Math.random() * pool.length)];
+
         const name = profile.name;
         const seed = name.replace(/\s/g, "");
+
         update({
           username: name.toLowerCase().replace(/\s/g, ""),
           displayName: name,
           avatarSeed: seed,
         });
-        setAvatarUrl(dicebearAvatar(seed, "avataaars"));
+
+        // RANDOM IMAGE
+        const images =
+          type === "male" ? maleImages : femaleImages;
+
+        const randomImage =
+          images[Math.floor(Math.random() * images.length)];
+
+        // SET IMAGE
+        setAvatarUrl(randomImage);
       }
+
       setShowRandomMenu(false);
     },
     [update],
