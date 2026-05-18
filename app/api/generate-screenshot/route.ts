@@ -300,21 +300,150 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: `Invalid 'commentType'. Must be one of: ${VALID_TYPES.join(", ")}` }, { status: 400 });
   }
 
-  const payload: Required<Payload> = {
-    platform:    body.platform,
-    message:     body.message,
-    commentType: body.commentType,
-    username:    body.username    ?? "username",
-    displayName: body.displayName ?? "Display Name",
-    likes:       body.likes       ?? "114",
-    replies:     body.replies     ?? "5",
-    retweets:    body.retweets    ?? "12",
-    views:       body.views       ?? "12K",
-    time:        body.time        ?? "2",
-    timeUnit:    body.timeUnit    ?? "wks",
-    isVerified:  body.isVerified  ?? false,
-    theme:       body.theme       ?? "light",
-  };
+  
+
+const RANDOM_USERNAMES = [
+  "alex",
+  "johnny",
+  "viralclips",
+  "mikee",
+  "its_sarah",
+  "noahh",
+  "emmax",
+  "trendytok",
+  "tayler_b",
+  "daniel_a",
+];
+
+const RANDOM_DISPLAY_NAMES = [
+  "Alex Carter",
+  "Sarah Lee",
+  "Noah Wilson",
+  "Emma Watson",
+  "Mike Tyson",
+  "Olivia",
+  "James Carter",
+  "Ava Smith",
+  "Tayler Brown",
+  "Daniel Anderson"
+];
+
+const RANDOM_LIKES = [
+  "12",
+  "48",
+  "114",
+  "892",
+  "1.2K",
+  "4.5K",
+  "12K",
+  "88K",
+  "1.1M"
+];
+
+const RANDOM_REPLIES = [
+  "322",
+  "1212",
+  "5023",
+  "142",
+  "88",
+  "120",
+  "1.2K",
+  "3.4K",
+  "12K"
+];
+
+const RANDOM_RETWEETS = [
+  "5631",
+  "823",
+  "441",
+  "120",
+  "1.1K",
+  "4.5K",
+  "12K",
+  "88K",
+  "1.1M"
+];
+
+const RANDOM_VIEWS = [
+  "900",
+  "5K",
+  "12K",
+  "88K",
+  "1.2M",
+  "23k",
+  "56K",
+  "890K",
+  "3.4M"
+];
+
+const RANDOM_TIMES = [
+  "1",
+  "2",
+  "5",
+  "8",
+  "12",
+  "20",
+  "32",
+  "56",
+  "120"
+];
+
+const RANDOM_TIME_UNITS: Payload["timeUnit"][] = [
+  "hrs",
+  "days",
+  "wks",
+  "months"
+];
+
+function randomFrom<T>(arr: T[]): T {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+const payload: Required<Payload> = {
+  platform: body.platform,
+  message: body.message,
+  commentType: body.commentType,
+
+  username:
+    body.username ??
+    randomFrom(RANDOM_USERNAMES),
+
+  displayName:
+    body.displayName ??
+    randomFrom(RANDOM_DISPLAY_NAMES),
+
+  likes:
+    body.likes ??
+    randomFrom(RANDOM_LIKES),
+
+  replies:
+    body.replies ??
+    randomFrom(RANDOM_REPLIES),
+
+  retweets:
+    body.retweets ??
+    randomFrom(RANDOM_RETWEETS),
+
+  views:
+    body.views ??
+    randomFrom(RANDOM_VIEWS),
+
+  time:
+    body.time ??
+    randomFrom(RANDOM_TIMES),
+
+  timeUnit:
+    body.timeUnit ??
+    randomFrom(RANDOM_TIME_UNITS),
+
+  isVerified:
+    body.isVerified ??
+    Math.random() > 0.7,
+
+  theme:
+    body.theme ??
+    randomFrom(["light", "dark"]),
+};
 
   let browser;
   try {

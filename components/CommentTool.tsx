@@ -1749,7 +1749,6 @@ const CommentTool = ({
               </div>
             </>
           </div>
-
           {/* Export bar */}
           <div className="p-4 pt-0">
             <div className="flex flex-col sm:flex-row gap-2 pt-3 border-t border-sidebar-border">
