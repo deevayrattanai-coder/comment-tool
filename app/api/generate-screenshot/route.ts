@@ -17,15 +17,25 @@ function timeLabel(time: string, unit: string): string {
   return `${time}${map[unit] ?? unit}`;
 }
 
-function avatarSvg(isDark: boolean, size: number): string {
-  const iconSize = size * 0.55;
-  const bg = isDark ? "hsl(0,0%,25%)" : "hsl(0,0%,88%)";
-  const ic = isDark ? "hsl(0,0%,45%)" : "hsl(0,0%,55%)";
-  return `<div style="width:${size}px;height:${size}px;border-radius:50%;background:${bg};display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;">
-    <svg width="${iconSize}" height="${iconSize}" fill="${ic}" viewBox="0 0 24 24">
-      <path d="M12 12c2.7 0 4.8-2.1 4.8-4.8S14.7 2.4 12 2.4 7.2 4.5 7.2 7.2 9.3 12 12 12zm0 2.4c-3.2 0-9.6 1.6-9.6 4.8v2.4h19.2v-2.4c0-3.2-6.4-4.8-9.6-4.8z"/>
-    </svg>
-  </div>`;
+function avatarImage(src: string, size: number): string {
+   const baseUrl =
+    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:5000";
+
+  return `
+    <img
+     src="${baseUrl}${src}"
+      width="${size}"
+      height="${size}"
+      style="
+        width:${size}px;
+        height:${size}px;
+        border-radius:50%;
+        object-fit:cover;
+        flex-shrink:0;
+        overflow:hidden;
+      "
+    />
+  `;
 }
 
 function verifiedBadge(color: string): string {
@@ -46,7 +56,7 @@ function buildInstagramPostComment(p: Required<Payload>): string {
 
   return `<div id="comment-card" style="display:inline-block;border-radius:16px;background:${bg};padding:16px 18px;max-width:420px;min-width:280px;box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <div style="display:flex;gap:12px;">
-    ${avatarSvg(isDark, 36)}
+   ${avatarImage(p.avatar, 36)}
     <div style="flex:1;min-width:0;">
       <div style="display:flex;align-items:center;gap:6px;margin-bottom:2px;">
         <span style="font-weight:600;font-size:13px;color:${textPrimary};">${escapeHtml(p.username)}</span>
@@ -73,7 +83,7 @@ function buildInstagramReelsComment(p: Required<Payload>): string {
 
   return `<div id="comment-card" style="display:inline-block;border-radius:16px;background:${bg};padding:16px 18px;max-width:320px;min-width:240px;box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <div style="display:flex;gap:12px;align-items:flex-start;">
-    ${avatarSvg(isDark, 36)}
+    ${avatarImage(p.avatar, 36)}
     <div style="flex:1;min-width:0;">
       <p style="font-weight:500;font-size:14px;color:${textPrimary};margin:0 0 4px 0;line-height:1.4;word-break:break-word;">${escapeHtml(p.message)}</p>
       <p style="font-size:13px;color:${textMuted};margin:0;">Replying to ${escapeHtml(p.username)}</p>
@@ -91,7 +101,7 @@ function buildTwitterPostComment(p: Required<Payload>): string {
 
   return `<div id="comment-card" style="display:inline-block;border-radius:16px;background:${bg};padding:12px 16px;max-width:480px;min-width:320px;box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <div style="display:flex;gap:10px;">
-    ${avatarSvg(isDark, 40)}
+    ${avatarImage(p.avatar, 40)}
     <div style="flex:1;min-width:0;">
       <div style="display:flex;align-items:center;gap:4px;flex-wrap:wrap;">
         <span style="font-weight:700;font-size:15px;color:${textPrimary};">${escapeHtml(p.displayName)}</span>
@@ -139,7 +149,7 @@ function buildTikTokVideoComment(p: Required<Payload>): string {
 
   return `<div id="comment-card" style="display:inline-block;border-radius:16px;background:${bg};padding:18px 20px;max-width:420px;min-width:280px;box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
   <div style="display:flex;gap:12px;">
-    ${avatarSvg(isDark, 40)}
+    ${avatarImage(p.avatar, 40)}
     <div style="flex:1;min-width:0;">
       <div style="display:flex;align-items:center;gap:4px;">
         <span style="font-weight:600;font-size:14px;color:${textPrimary};">${escapeHtml(p.username)}</span>
@@ -170,7 +180,7 @@ function buildTikTokCommentReply(p: Required<Payload>): string {
   <div style="border-radius:16px;padding:20px 24px;background:${bg};color:${textPrimary};box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};min-height:120px;">
     <p style="font-size:14px;color:${textMuted};margin:0 0 8px 0;">Reply to ${escapeHtml(p.username)}'s comment</p>
     <div style="display:flex;gap:12px;align-items:flex-start;">
-      ${avatarSvg(isDark, 44)}
+      ${avatarImage(p.avatar, 44)}
       <div style="flex:1;min-width:0;">
         <p style="font-weight:700;font-size:22px;margin:0;line-height:1.3;word-break:break-word;color:${textPrimary};">${escapeHtml(p.message)}</p>
       </div>
@@ -190,7 +200,7 @@ function buildYouTubeVideoComment(p: Required<Payload>): string {
 
   return `<div id="comment-card" style="display:inline-block;border-radius:16px;background:${bg};padding:16px 18px;max-width:480px;min-width:300px;box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};font-family:Roboto,'Noto Sans',Arial,sans-serif;">
   <div style="display:flex;gap:12px;">
-    ${avatarSvg(isDark, 36)}
+    ${avatarImage(p.avatar, 36)}
     <div style="flex:1;min-width:0;">
       <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px;">
         <span style="font-weight:500;font-size:13px;color:${textPrimary};">${escapeHtml(p.username)}</span>
@@ -222,7 +232,7 @@ function buildYouTubeShortsComment(p: Required<Payload>): string {
 
   return `<div id="comment-card" style="display:inline-block;border-radius:16px;background:${bg};padding:16px 18px;max-width:340px;min-width:240px;box-shadow:${isDark ? "0 8px 32px rgba(0,0,0,0.5)" : "0 4px 24px rgba(0,0,0,0.08)"};font-family:Roboto,'Noto Sans',Arial,sans-serif;">
   <div style="display:flex;gap:12px;align-items:flex-start;">
-    ${avatarSvg(isDark, 36)}
+    ${avatarImage(p.avatar, 36)}
     <div style="flex:1;min-width:0;">
       <p style="font-size:12px;color:${textMuted};margin:0 0 2px 0;">Comment from @${escapeHtml(p.username)}</p>
       <p style="font-weight:500;font-size:14px;color:${textPrimary};margin:0;line-height:1.45;word-break:break-word;">${escapeHtml(p.message)}</p>
@@ -249,9 +259,11 @@ interface Payload {
   retweets?: string;
   views?: string;
   time?: string;
+   avatar?: string;
   timeUnit?: "hrs" | "days" | "wks" | "months";
   isVerified?: boolean;
   theme?: "light" | "dark";
+  gender?: "male" | "female";
 }
 
 function buildHtml(p: Required<Payload>): string {
@@ -300,7 +312,112 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: `Invalid 'commentType'. Must be one of: ${VALID_TYPES.join(", ")}` }, { status: 400 });
   }
 
-  
+
+const MALE_PROFILES = [
+  {
+    username: "alex",
+    displayName: "Alex Carter",
+    avatar: "/avatars/male1.png",
+  },
+  {
+    username: "johnny",
+    displayName: "Johnny Walker",
+    avatar: "/avatars/male2.png",
+  },
+  {
+    username: "mikee",
+    displayName: "Mike Tyson",
+    avatar: "/avatars/male3.png",
+  },
+  {
+    username: "daniel_a",
+    displayName: "Daniel Anderson",
+    avatar: "/avatars/male4.png",
+  },
+  {
+    username: "noahh",
+    displayName: "Noah Wilson",
+    avatar: "/avatars/male5.png",
+  },
+  {
+    username: "jamesc",
+    displayName: "James Carter",
+    avatar: "/avatars/male6.png",
+  },
+  {
+    username: "ethanx",
+    displayName: "Ethan Brown",
+    avatar: "/avatars/male7.png",
+  },
+  {
+    username: "liamv",
+    displayName: "Liam Parker",
+    avatar: "/avatars/male8.png",
+  },
+  {
+    username: "ryanl",
+    displayName: "Ryan Lewis",
+    avatar: "/avatars/male9.png",
+  },
+  {
+    username: "lucas",
+    displayName: "Lucas Martin",
+    avatar: "/avatars/male10.png",
+  },
+];
+
+const FEMALE_PROFILES = [
+  {
+    username: "its_sarah",
+    displayName: "Sarah Lee",
+    avatar: "/avatars/female1.png",
+  },
+  {
+    username: "emmax",
+    displayName: "Emma Watson",
+    avatar: "/avatars/female2.png",
+  },
+  {
+    username: "oliviax",
+    displayName: "Olivia Smith",
+    avatar: "/avatars/female3.png",
+  },
+  {
+    username: "avajoy",
+    displayName: "Ava Johnson",
+    avatar: "/avatars/female4.png",
+  },
+  {
+    username: "miaworld",
+    displayName: "Mia Williams",
+    avatar: "/avatars/female5.png",
+  },
+  {
+    username: "sophiek",
+    displayName: "Sophie Kim",
+    avatar: "/avatars/female6.png",
+  },
+  {
+    username: "tayler_b",
+    displayName: "Taylor Brown",
+    avatar: "/avatars/female7.png",
+  },
+  {
+    username: "charlottex",
+    displayName: "Charlotte Davis",
+    avatar: "/avatars/female8.png",
+  },
+  {
+    username: "amelia",
+    displayName: "Amelia Clark",
+    avatar: "/avatars/female9.png",
+  },
+  {
+    username: "isabella",
+    displayName: "Isabella Moore",
+    avatar: "/avatars/female10.png",
+  },
+];  
 
 const RANDOM_USERNAMES = [
   "alex",
@@ -399,6 +516,15 @@ function randomFrom<T>(arr: T[]): T {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+const selectedProfiles =
+  body.gender === "female"
+    ? FEMALE_PROFILES
+    : body.gender === "male"
+    ? MALE_PROFILES
+    : [...MALE_PROFILES, ...FEMALE_PROFILES];
+
+const selectedProfile = randomFrom(selectedProfiles);
+
 const payload: Required<Payload> = {
   platform: body.platform,
   message: body.message,
@@ -406,11 +532,15 @@ const payload: Required<Payload> = {
 
   username:
     body.username ??
-    randomFrom(RANDOM_USERNAMES),
+     selectedProfile.username,
+
+      avatar:
+    body.avatar ??
+    selectedProfile.avatar,
 
   displayName:
     body.displayName ??
-    randomFrom(RANDOM_DISPLAY_NAMES),
+    selectedProfile.displayName,
 
   likes:
     body.likes ??
@@ -443,6 +573,12 @@ const payload: Required<Payload> = {
   theme:
     body.theme ??
     randomFrom(["light", "dark"]),
+
+    gender:
+    body.gender ??
+    Math.random() > 0.5
+      ? "male"
+      : "female",
 };
 
   let browser;
