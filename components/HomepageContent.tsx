@@ -60,51 +60,144 @@ const platforms = [
 const HomepageContent = () => {
   return (
     <div className="bg-background border-t border-border">
-      <section className="max-w-[1100px] mx-auto px-6 pt-10 pb-10">
-        <div className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-background to-primary/5 p-8 md:p-12 mb-6">
-          {/* Animated gradient background blur */}
-          <div className="absolute -top-20 -left-20 w-72 h-72 bg-primary/30 rounded-full blur-3xl animate-pulse" />
-          <div className="absolute -bottom-20 -right-20 w-72 h-72 bg-pink-500/20 rounded-full blur-3xl animate-pulse" />
-
-          {/* Content */}
-          <div className="relative z-10 text-center">
-            {/* Animated Heading */}
-            <h1 className="text-3xl md:text-5xl font-extrabold tracking-tight mb-4">
-              <span className="bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent animate-gradient-x">
-                Best Comment Generator Tools Online
+      <section className="relative overflow-hidden border-b border-white/5">
+        {/* Grid Background */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.025)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.025)_1px,transparent_1px)] bg-[size:90px_90px]" />
+        {/* Top Glow */}
+        <div className="absolute top-[-300px] left-1/2 -translate-x-1/2 w-[900px] h-[900px] bg-primary/20 blur-[180px] rounded-full" />
+        {/* Left Glow */}
+        <div className="absolute top-[20%] left-[-180px] w-[380px] h-[380px] bg-fuchsia-500/10 rounded-full blur-[120px]" />
+        {/* Right Glow */}
+        <div className="absolute bottom-[10%] right-[-180px] w-[320px] h-[320px] bg-primary/10 rounded-full blur-[120px]" />
+        <div className="relative z-10 max-w-[1100px] mx-auto px-6 pt-4 pb-10">
+          <h1 className="mt-7 text-[44px] sm:text-[54px] md:text-[64px] font-black tracking-[-0.045em] leading-[0.95] text-center lg:text-left">
+            <span className="group inline-flex flex-wrap justify-center lg:justify-start gap-x-4">
+              <span className="text-white transition-all duration-500 group-hover:text-white/80">
+                Create
               </span>
-            </h1>
+              <span className="bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-[length:200%_200%] bg-clip-text text-transparent transition-all duration-700 group-hover:brightness-125 group-hover:scale-[1.02] animate-gradient-x">
+                Viral-Looking
+              </span>
+              <span className="text-white transition-all duration-500 group-hover:text-white/80">
+                Social Proof
+              </span>
+              <span className="text-white/55 transition-all duration-500 group-hover:text-white/80">
+                in Seconds
+              </span>
+            </span>
+          </h1>
+          <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-16 lg:gap-10 items-center">
 
-            <h2 className="text-xl md:text-2xl font-bold text-foreground mb-4">
-              Create High-Converting Social Media Comment Screenshots in Seconds
-            </h2>
+            {/* ================= LEFT CONTENT ================= */}
+            <div className="relative text-center lg:text-left">
 
-            {/* Animated Subtext */}
-            <p className="text-base md:text-lg text-muted-foreground max-w-[600px] mx-auto leading-relaxed">
-              Generate realistic TikTok, Instagram, YouTube, and X (Twitter)
-              comment images for ads, content, and presentations — no design
-              skills required.
-            </p>
+              {/* Headline */}
 
-            {/* CTA Buttons */}
-            <div className="mt-6 flex flex-col sm:flex-row gap-3 justify-center">
-              <a
-                href="#platforms"
-                className="px-6 py-3 rounded-xl bg-primary text-white font-semibold hover:opacity-90 transition"
-              >
-                Start Creating for Free
-              </a>
 
-              <a
-                href="/pricing"
-                className="px-6 py-3 rounded-xl border border-border text-foreground font-semibold hover:bg-accent transition"
-              >
-                View Pricing
-              </a>
+              {/* Description */}
+              <p className="mt-8 text-lg md:text-xl leading-relaxed text-white/70 max-w-[620px] mx-auto lg:mx-0 animate-in fade-in duration-1000">
+                Generate ultra-realistic TikTok, Instagram, YouTube, and X comment screenshots designed for creators, marketers, agencies, and viral campaigns.
+              </p>
+
+              {/* Supporting Text */}
+              <p className="mt-5 text-base leading-relaxed text-white/45 max-w-[560px] mx-auto lg:mx-0 animate-in fade-in duration-1000">
+                No Photoshop. No design skills. Just choose a platform, customize the comments, and export stunning 4K mockups instantly.
+              </p>
+
+              {/* CTA Buttons */}
+              <div className="mt-10 flex flex-col sm:flex-row items-center lg:items-start gap-4 animate-in fade-in duration-1000">
+
+                {/* Primary Button */}
+                <a
+                  href="/tools"
+                  className="group relative inline-flex items-center justify-center overflow-hidden rounded-2xl bg-primary px-6 py-3  text-white  hover:opacity-90  font-semibold text-lg shadow-[0_10px_50px_rgba(168,85,247,0.35)] transition-all duration-500 hover:scale-[1.03] hover:shadow-[0_20px_80px_rgba(168,85,247,0.5)] active:scale-[0.98]"
+                >
+                  {/* Shine Effect */}
+                  <span className="absolute inset-0 overflow-hidden rounded-2xl">
+                    <span className="absolute left-[-120%] top-0 h-full w-[120%] rotate-12 bg-gradient-to-r from-transparent via-white/20 to-transparent transition-all duration-1000 group-hover:left-[120%]" />
+                  </span>
+
+                  <span className="relative z-10 flex items-center gap-2">
+                    Generate  First Comment
+                    <span className="transition-transform duration-300 group-hover:translate-x-1">
+                      →
+                    </span>
+                  </span>
+                </a>
+
+                {/* Secondary Button */}
+                <a
+                  href="/tools"
+                  className="group inline-flex items-center justify-center gap-2 rounded-2xl border border-white/10 bg-white/[0.03] backdrop-blur-xl px-7 py-4 text-white font-semibold text-lg transition-all duration-300 hover:border-primary/30 hover:bg-white/[0.06] hover:scale-[1.02]"
+                >
+                  Explore All Tools
+
+                  <span className="opacity-60 transition-transform duration-300 group-hover:translate-x-1">
+                    ↗
+                  </span>
+                </a>
+              </div>
+
+              {/* Trust Line */}
+              <div className="mt-10 flex flex-wrap items-center justify-center lg:justify-start gap-4 text-sm text-white/45 animate-in fade-in duration-1000">
+
+                <div className="flex items-center gap-1 text-primary text-base">
+                  ★★★★★
+                </div>
+
+                <div className="hidden sm:block h-4 w-px bg-white/10" />
+
+                <span>
+                  Used by creators, meme pages, agencies, and growth marketers worldwide.
+                </span>
+              </div>
+            </div>
+
+            {/* ================= RIGHT IMAGE ================= */}
+            <div className="relative flex items-center justify-center">
+
+              {/* Floating Blur Ring */}
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="h-[420px] w-[420px] md:h-[520px] md:w-[520px] rounded-full bg-gradient-to-r from-primary/20 via-fuchsia-500/10 to-pink-500/20 blur-3xl animate-pulse" />
+              </div>
+
+              {/* Glass Card */}
+              <div className="group relative w-full max-w-[520px] animate-in zoom-in-95 duration-1000">
+
+                {/* Glow */}
+                <div className="absolute inset-0 rounded-[34px] bg-gradient-to-r from-primary/20 via-fuchsia-500/20 to-pink-500/20 blur-2xl opacity-70 transition duration-500 group-hover:opacity-100" />
+
+                {/* Border */}
+                <div className="absolute inset-0 rounded-[34px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl" />
+
+                {/* Main Card */}
+                <div className="relative overflow-hidden rounded-[34px] border border-white/10 bg-black/40 backdrop-blur-3xl p-3 md:p-4 shadow-[0_30px_100px_rgba(0,0,0,0.45)] transition-all duration-700 group-hover:-translate-y-2 group-hover:scale-[1.01]">
+
+                  {/* Top Gradient Overlay */}
+                  <div className="absolute inset-x-0 top-0 h-32 bg-gradient-to-b from-white/10 to-transparent z-10" />
+
+                  {/* Image */}
+                  <img
+                    src="/assets/tiktook-screenshot.png"
+                    alt="Comment Generator Preview"
+                    className="relative z-0 w-full rounded-[24px] object-cover transition-transform duration-700 group-hover:scale-[1.02]"
+                  />
+
+                  {/* Floating Badge */}
+                  <div className="absolute top-5 right-5 z-20 rounded-full border border-white/10 bg-black/40 backdrop-blur-xl px-4 py-2 shadow-2xl">
+                    <span className="bg-gradient-to-r from-primary to-pink-500 bg-clip-text text-sm font-semibold text-transparent">
+                      Viral Ready 🚀
+                    </span>
+                  </div>
+
+                  {/* Bottom Glass Fade */}
+                  <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black/40 to-transparent z-10" />
+                </div>
+              </div>
             </div>
           </div>
         </div>
-      </section>
+      </section >
 
       <StatsCounter />
 
@@ -191,131 +284,289 @@ const HomepageContent = () => {
       </section>
 
       {/* FEATURES SECTION */}
-      <section className="max-w-[1100px] mx-auto px-6 pb-10">
-        <span className="text-xs font-semibold uppercase tracking-widest text-primary text-center block mb-3">
-          Features
-        </span>
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground my-5">
-            Everything You Need to Create High-Quality Comment Screenshots
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-[600px] mx-auto">
-            Built for creators, marketers, and agencies who need speed, quality,
-            and scale.
-          </p>
-        </div>
+      <section className="relative overflow-hidden max-w-[1100px] mx-auto px-6 py-20">
+        {/* ================= BACKGROUND ================= */}
 
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[
-            {
-              title: "Pixel-Perfect Platform UI",
-              desc: "Every comment layout matches real platform interfaces for maximum authenticity.",
-            },
-            {
-              title: "Full Customization",
-              desc: "Control usernames, profile images, timestamps, likes, replies, and more.",
-            },
-            {
-              title: "Bulk Comment Generation",
-              desc: "Upload CSV files and generate multiple comments instantly — ideal for agencies.",
-            },
-            {
-              title: "4K High-Resolution Export",
-              desc: "Export crystal-clear images optimized for ads, presentations, and content.",
-            },
-            {
-              title: "Saved Comment Library",
-              desc: "Store and reuse your best-performing comment formats anytime.",
-            },
-            {
-              title: "No Watermarks",
-              desc: "Maintain a clean, professional look across all your assets.",
-            },
-          ].map((feature, i) => (
-            <div
-              key={feature.title}
-              className="group relative rounded-2xl border border-border bg-card p-6 hover:border-primary transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              {/* subtle glow */}
-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition bg-gradient-to-br from-purple-500/10 to-primary/10" />
+        {/* Animated Noise Grid */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-[size:70px_70px]" />
 
-              <div className="relative z-10">
-                {/* number badge */}
-                <div className="w-9 h-9 flex items-center justify-center rounded-lg bg-primary/10 text-primary font-bold text-sm mb-4">
-                  {i + 1}
+        {/* Animated Aurora Glow */}
+        <div className="absolute top-[-20%] left-1/2 -translate-x-1/2 w-[800px] h-[500px] bg-primary/10 blur-[140px] rounded-full animate-pulse" />
+
+        <div className="absolute bottom-[-10%] right-[-10%] w-[350px] h-[350px] bg-fuchsia-500/10 blur-[120px] rounded-full animate-float-slow" />
+
+        <div className="relative z-10">
+
+          {/* ================= HEADER ================= */}
+
+          <div className="text-center mb-16">
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-black/20 backdrop-blur-xl px-4 py-2 shadow-[0_0_30px_rgba(168,85,247,0.12)]">
+
+              <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                Features
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h2 className="mt-7 text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-black tracking-[-0.05em] leading-[0.95] text-white">
+
+              <span className="block">
+                Everything You Need
+              </span>
+
+              <span className="block mt-2 bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                to Create High-Quality
+              </span>
+
+              <span className="block mt-2 text-white/90">
+                Comment Screenshots
+              </span>
+            </h2>
+
+            {/* Description */}
+            <p className="mt-6 text-base md:text-lg text-white/50 max-w-[720px] mx-auto leading-relaxed">
+              Built for creators, marketers, and agencies who need speed, realism, quality, and scale.
+            </p>
+          </div>
+
+          {/* ================= FEATURES GRID ================= */}
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
+
+            {[
+              {
+                title: "Pixel-Perfect Platform UI",
+                desc: "Every layout matches real social media interfaces for authentic-looking screenshots.",
+                icon: "🎯",
+              },
+              {
+                title: "Full Customization",
+                desc: "Control usernames, profile images, timestamps, likes, replies, and more.",
+                icon: "✨",
+              },
+              {
+                title: "Bulk Comment Generation",
+                desc: "Generate multiple comment screenshots instantly using CSV uploads.",
+                icon: "⚡",
+              },
+              {
+                title: "4K High-Resolution Export",
+                desc: "Export crystal-clear visuals optimized for ads, presentations, and content.",
+                icon: "🖼️",
+              },
+              {
+                title: "Saved Comment Library",
+                desc: "Store and reuse your best-performing templates anytime.",
+                icon: "📂",
+              },
+              {
+                title: "No Watermarks",
+                desc: "Keep your visuals clean, premium, and professional everywhere.",
+                icon: "🚀",
+              },
+            ].map((feature, i) => (
+              <div
+                key={feature.title}
+                className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-7 transition-all duration-700 hover:border-primary/40 hover:bg-white/[0.05] hover:shadow-[0_25px_100px_rgba(168,85,247,0.18)] hover:-translate-y-3"
+                style={{
+                  animationDelay: `${i * 120}ms`,
+                }}
+              >
+
+                {/* ================= HOVER AURORA ================= */}
+
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-fuchsia-500/5 to-pink-500/10" />
                 </div>
 
-                <h3 className="font-semibold text-foreground mb-2">
-                  {feature.title}
-                </h3>
+                {/* Moving Glow Orb */}
+                <div className="absolute -top-20 -right-20 w-44 h-44 rounded-full bg-primary/15 blur-3xl opacity-0 transition duration-700 group-hover:opacity-100 group-hover:scale-125" />
 
-                <p className="text-sm text-muted-foreground leading-relaxed">
-                  {feature.desc}
-                </p>
+                {/* Floating Border Glow */}
+                <div className="absolute inset-[1px] rounded-[28px] border border-white/5 pointer-events-none group-hover:border-primary/20 transition duration-500" />
+
+                {/* ================= CONTENT ================= */}
+
+                <div className="relative z-10">
+
+                  {/* Icon */}
+                  <div className="relative inline-flex">
+
+                    {/* Animated Ring */}
+                    <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-xl scale-125 opacity-0 group-hover:opacity-100 transition duration-700" />
+
+                    <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl border border-white/10 bg-black/30 backdrop-blur-xl text-3xl transition-all duration-500 group-hover:rotate-6 group-hover:scale-110">
+                      {feature.icon}
+                    </div>
+                  </div>
+
+                  {/* Number */}
+                  <div className="mt-2 flex items-center justify-between">
+
+                    <span className="text-sm font-semibold uppercase tracking-[0.18em] text-primary/80">
+                      Feature
+                    </span>
+
+                    <span className="text-2xl font-black tracking-[-0.08em] text-white/[0.06] transition duration-700 group-hover:text-primary/10 group-hover:translate-x-1">
+                      0{i + 1}
+                    </span>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mt-2 text-2xl font-bold tracking-[-0.03em] text-white transition duration-500 group-hover:text-primary">
+                    {feature.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-4 text-sm leading-relaxed text-white/50 transition duration-500 group-hover:text-white/70">
+                    {feature.desc}
+                  </p>
+
+                  {/* Bottom Hover Line */}
+                  <div className="mt-4 flex items-center gap-2">
+
+                    <div className="h-[2px] w-12 rounded-full bg-gradient-to-r from-primary via-pink-500 to-purple-500 transition-all duration-700 group-hover:w-28" />
+
+                    <div className="h-2 w-2 rounded-full bg-primary opacity-0 transition duration-500 group-hover:opacity-100 group-hover:scale-125" />
+                  </div>
+                </div>
+
+                {/* Mouse Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-[radial-gradient(circle_at_center,rgba(168,85,247,0.08),transparent_65%)]" />
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
-
       {/* HOW IT WORKS */}
-      <section className="max-w-[1100px] mx-auto px-6 pb-10">
-        <span className="text-xs font-semibold uppercase tracking-widest text-primary text-center block mb-3">
-          How It Works?
-        </span>
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
-            Create Professional Comment Screenshots in 4 Simple Steps
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-[600px] mx-auto">
-            Go from idea to ready-to-use visuals in seconds — no design skills
-            needed.
-          </p>
-        </div>
+      <section className="relative overflow-hidden max-w-[1100px] mx-auto px-6 py-20">
+        {/* ================= BACKGROUND ================= */}
+        {/* Glow Effects */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[700px] h-[700px] bg-primary/10 blur-[140px] rounded-full pointer-events-none" />
 
-        <div className="grid md:grid-cols-4 gap-6">
-          {[
-            {
-              step: "01",
-              title: "Choose a Platform",
-              desc: "Select TikTok, Instagram, YouTube, or X.",
-            },
-            {
-              step: "02",
-              title: "Enter Comment Details",
-              desc: "Add username, comment text, and engagement metrics.",
-            },
-            {
-              step: "03",
-              title: "Customize Appearance",
-              desc: "Adjust layout, replies, and visual elements.",
-            },
-            {
-              step: "04",
-              title: "Export Instantly",
-              desc: "Download high-quality images ready for use.",
-            },
-          ].map((item, i) => (
-            <div
-              key={item.step}
-              className="relative rounded-2xl border border-border bg-card p-6 text-center hover:border-primary transition-all hover:-translate-y-1 hover:shadow-lg"
-            >
-              {/* step number */}
-              <div className="w-12 h-12 mx-auto mb-4 flex items-center justify-center rounded-full bg-gradient-to-br from-purple-500/20 to-primary/20 text-primary font-bold">
-                {item.step}
+        <div className="absolute bottom-0 right-0 w-[280px] h-[280px] bg-fuchsia-500/10 blur-[120px] rounded-full pointer-events-none" />
+
+        {/* Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none" />
+
+        <div className="relative z-10">
+
+          {/* ================= HEADER ================= */}
+
+          <div className="text-center mb-16">
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-2xl px-4 py-2 shadow-[0_0_40px_rgba(168,85,247,0.08)] animate-in fade-in duration-700">
+
+              <div className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary"></span>
               </div>
 
-              <h3 className="font-semibold text-foreground mb-2">
-                {item.title}
-              </h3>
-
-              <p className="text-sm text-muted-foreground leading-relaxed">
-                {item.desc}
-              </p>
-
-              {/* connector line (desktop only) */}
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                How It Works
+              </span>
             </div>
-          ))}
+
+            {/* Heading */}
+            <h2 className="mt-7 text-3xl md:text-5xl font-black tracking-[-0.04em] leading-[1] text-white">
+              Create Professional
+              <span className="block bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Comment Screenshots
+              </span>
+              in 4 Simple Steps
+            </h2>
+
+            {/* Description */}
+            <p className="mt-6 text-base md:text-lg text-white/50 max-w-[680px] mx-auto leading-relaxed">
+              Go from idea to ready-to-use visuals in seconds — no design skills needed.
+            </p>
+          </div>
+
+          {/* ================= STEPS ================= */}
+
+          <div className="relative grid md:grid-cols-2 xl:grid-cols-4 gap-6">
+
+            {[
+              {
+                step: "01",
+                title: "Choose a Platform",
+                desc: "Select TikTok, Instagram, YouTube, or X.",
+                icon: "📱",
+              },
+              {
+                step: "02",
+                title: "Enter Comment Details",
+                desc: "Add username, comment text, and engagement metrics.",
+                icon: "💬",
+              },
+              {
+                step: "03",
+                title: "Customize Appearance",
+                desc: "Adjust layout, replies, and visual elements.",
+                icon: "✨",
+              },
+              {
+                step: "04",
+                title: "Export Instantly",
+                desc: "Download high-quality images ready for use.",
+                icon: "🚀",
+              },
+            ].map((item, i) => (
+              <div
+                key={item.step}
+                className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-7 transition-all duration-500 hover:-translate-y-2 hover:border-primary/30 hover:bg-white/[0.05] hover:shadow-[0_20px_80px_rgba(168,85,247,0.18)] animate-in fade-in slide-in-from-bottom-4"
+                style={{
+                  animationDelay: `${i * 120}ms`,
+                }}
+              >
+
+                {/* Card Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-500">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-fuchsia-500/5 to-pink-500/10" />
+                </div>
+
+                {/* Shine Hover Effect */}
+                <div className="absolute inset-0 overflow-hidden rounded-[28px]">
+                  <div className="absolute left-[-120%] top-0 h-full w-[120%] rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[120%]" />
+                </div>
+
+                {/* Floating Blur */}
+                <div className="absolute -top-16 right-[-30px] w-32 h-32 bg-primary/10 blur-3xl rounded-full opacity-0 group-hover:opacity-100 transition duration-700" />
+
+                {/* Step Number */}
+                <div className="relative z-10 flex items-center justify-between">
+
+                  <div className="flex items-center justify-center w-14 h-14 rounded-2xl border border-white/10 bg-white/[0.05] backdrop-blur-xl text-lg shadow-lg transition-all duration-500 group-hover:scale-110 group-hover:border-primary/30">
+                    {item.icon}
+                  </div>
+
+                  <span className="text-5xl font-black tracking-[-0.06em] text-white/10 transition duration-500 group-hover:text-primary/20">
+                    {item.step}
+                  </span>
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 mt-8">
+
+                  <h3 className="text-xl font-bold text-white transition duration-300 group-hover:text-primary">
+                    {item.title}
+                  </h3>
+
+                  <p className="mt-4 text-sm leading-relaxed text-white/50 transition duration-300 group-hover:text-white/70">
+                    {item.desc}
+                  </p>
+                </div>
+
+                {/* Bottom Line */}
+                <div className="relative z-10 mt-8 h-[2px] w-16 bg-gradient-to-r from-primary to-pink-500 rounded-full transition-all duration-500 group-hover:w-24" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -379,67 +630,192 @@ const HomepageContent = () => {
       </section>
 
       {/* PROBLEM VS SOLUTION */}
-      <section className="max-w-[1100px] mx-auto px-6 pb-10">
-        <div className="text-center mb-12">
-          <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
-            Why Not Just Screenshot Real Comments?
-          </h2>
-          <p className="text-sm md:text-base text-muted-foreground max-w-[620px] mx-auto">
-            Traditional methods are slow, risky, and limit your creativity.
-          </p>
-        </div>
+      <section className="relative overflow-hidden max-w-[1100px] mx-auto px-6 py-20">
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {/* PROBLEMS */}
-          <div className="rounded-2xl border border-red-500/20 bg-red-500/5 p-6">
-            <h3 className="text-lg font-semibold text-red-400 mb-4">
-              Problems with Screenshots
-            </h3>
+        {/* ================= BACKGROUND ================= */}
 
-            <ul className="space-y-3 text-sm text-muted-foreground">
-              {[
-                "No control over content",
-                "Privacy and compliance risks",
-                "Low resolution outputs",
-                "Not scalable for campaigns",
-              ].map((item) => (
-                <li key={item} className="flex items-start gap-2">
-                  <span className="text-red-400 mt-0.5">✕</span>
-                  {item}
-                </li>
-              ))}
-            </ul>
+        {/* Grid */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.02)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.02)_1px,transparent_1px)] bg-[size:80px_80px] pointer-events-none" />
+
+        {/* Glow */}
+        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[700px] h-[700px] rounded-full bg-primary/10 blur-[140px]" />
+
+        <div className="relative z-10">
+
+          {/* ================= HEADER ================= */}
+
+          <div className="text-center mb-14">
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-2xl px-4 py-2 shadow-[0_0_40px_rgba(168,85,247,0.08)] animate-in fade-in duration-700">
+
+              <div className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary"></span>
+              </div>
+
+              <span className="text-xs font-semibold uppercase tracking-[0.2em] text-white/70">
+                Why Creators Prefer This
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h2 className="mt-7 text-3xl md:text-5xl font-black tracking-[-0.04em] leading-[1] text-white">
+              Why Not Just Screenshot
+              <span className="block bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Real Comments?
+              </span>
+            </h2>
+
+            {/* Description */}
+            <p className="mt-6 text-base md:text-lg text-white/50 max-w-[620px] mx-auto leading-relaxed">
+              Traditional methods are slow, risky, and limit your creativity.
+            </p>
           </div>
 
-          {/* SOLUTION */}
-          <div className="relative rounded-2xl border border-primary/30 bg-gradient-to-br from-purple-500/10 to-primary/10 p-6 overflow-hidden">
-            {/* glow */}
-            <div className="absolute -top-10 -right-10 w-40 h-40 bg-primary/20 blur-2xl rounded-full" />
+          {/* ================= COMPARISON CARDS ================= */}
 
-            <div className="relative z-10">
-              <h3 className="text-lg font-semibold text-primary mb-4">
-                The Better Way
-              </h3>
+          <div className="grid md:grid-cols-2 gap-6">
 
-              <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-                With this tool, you get complete control, better quality, and
-                faster execution — without limitations.
-              </p>
+            {/* ================= LEFT CARD ================= */}
 
-              <ul className="mt-4 space-y-2 text-sm text-muted-foreground">
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">✔</span>
-                  Full control over every detail
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">✔</span>
-                  High-resolution, ad-ready exports
-                </li>
-                <li className="flex items-start gap-2">
-                  <span className="text-primary">✔</span>
-                  Safe, compliant, and scalable
-                </li>
-              </ul>
+            <div className="group relative overflow-hidden rounded-[30px] border border-red-500/10 bg-red-500/[0.03] backdrop-blur-2xl p-7 transition-all duration-500 hover:-translate-y-2 hover:border-red-500/30 hover:bg-red-500/[0.05] hover:shadow-[0_25px_90px_rgba(239,68,68,0.12)]">
+
+              {/* Glow */}
+              <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 via-transparent to-red-500/5" />
+              </div>
+
+              {/* Blur Orb */}
+              <div className="absolute -top-20 -right-16 w-40 h-40 rounded-full bg-red-500/10 blur-3xl opacity-0 transition duration-700 group-hover:opacity-100" />
+
+              {/* Top */}
+              <div className="relative z-10 flex items-center justify-between">
+
+                {/* Icon */}
+                <div className="flex items-center justify-center w-14 h-14 rounded-2xl border border-red-500/20 bg-red-500/10 backdrop-blur-xl text-2xl shadow-lg transition duration-500 group-hover:scale-110">
+                  ❌
+                </div>
+
+                {/* Label */}
+                <span className="text-5xl font-black tracking-[-0.06em] text-red-500/10 transition duration-500 group-hover:text-red-500/20">
+                  BAD
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 mt-8">
+
+                <h3 className="text-2xl font-bold text-red-400">
+                  Problems with Screenshots
+                </h3>
+
+                <p className="mt-3 text-sm leading-relaxed text-white/45">
+                  Manual screenshots create limitations, inconsistencies, and workflow problems.
+                </p>
+
+                {/* List */}
+                <div className="mt-8 space-y-4">
+
+                  {[
+                    "No control over content",
+                    "Privacy and compliance risks",
+                    "Low resolution outputs",
+                    "Not scalable for campaigns",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-3 transition duration-300 hover:bg-white/[0.04]"
+                    >
+                      <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-red-500/10 text-xs text-red-400">
+                        ✕
+                      </div>
+
+                      <span className="text-sm text-white/65 leading-relaxed">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* ================= RIGHT CARD ================= */}
+
+            <div className="group relative overflow-hidden rounded-[30px] border border-primary/20 bg-white/[0.03] backdrop-blur-2xl p-7 transition-all duration-500 hover:-translate-y-2 hover:border-primary/40 hover:bg-white/[0.05] hover:shadow-[0_25px_90px_rgba(168,85,247,0.16)]">
+
+              {/* Animated Glow */}
+              <div className="absolute inset-0 opacity-0 transition duration-500 group-hover:opacity-100">
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-fuchsia-500/5 to-pink-500/10" />
+              </div>
+
+              {/* Orb */}
+              <div className="absolute -top-24 -right-10 w-44 h-44 rounded-full bg-primary/10 blur-3xl opacity-0 transition duration-700 group-hover:opacity-100" />
+
+              {/* Shine */}
+              <div className="absolute inset-0 overflow-hidden rounded-[30px]">
+                <div className="absolute left-[-120%] top-0 h-full w-[120%] rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-1000 group-hover:left-[120%]" />
+              </div>
+
+              {/* Top */}
+              <div className="relative z-10 flex items-center justify-between">
+
+                {/* Icon */}
+                <div className="flex items-center justify-center w-14 h-14 rounded-2xl border border-primary/20 bg-primary/10 backdrop-blur-xl text-2xl shadow-lg transition duration-500 group-hover:scale-110">
+                  ✨
+                </div>
+
+                {/* Label */}
+                <span className="text-5xl font-black tracking-[-0.06em] text-primary/10 transition duration-500 group-hover:text-primary/20">
+                  GOOD
+                </span>
+              </div>
+
+              {/* Content */}
+              <div className="relative z-10 mt-8">
+
+                <h3 className="text-2xl font-bold text-white transition duration-300 group-hover:text-primary">
+                  The Better Way
+                </h3>
+
+                <p className="mt-3 text-sm md:text-base text-white/50 leading-relaxed">
+                  Get complete creative control, better quality, and faster execution — without limitations.
+                </p>
+
+                {/* List */}
+                <div className="mt-8 space-y-4">
+
+                  {[
+                    "Full control over every detail",
+                    "High-resolution, ad-ready exports",
+                    "Safe, compliant, and scalable",
+                    "Perfect for creators & marketers",
+                  ].map((item) => (
+                    <div
+                      key={item}
+                      className="flex items-start gap-3 rounded-2xl border border-white/5 bg-white/[0.02] px-4 py-3 transition duration-300 hover:bg-white/[0.04]"
+                    >
+                      <div className="mt-0.5 flex h-5 w-5 items-center justify-center rounded-full bg-primary/10 text-xs text-primary">
+                        ✓
+                      </div>
+
+                      <span className="text-sm text-white/70 leading-relaxed">
+                        {item}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+
+                {/* Bottom CTA */}
+                <div className="mt-8 flex items-center gap-3 text-primary font-medium">
+
+                  <span className="flex h-2 w-2 rounded-full bg-primary animate-pulse"></span>
+
+                  <span>
+                    Faster workflow. Better results.
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -525,7 +901,7 @@ const HomepageContent = () => {
             </p>
 
             <Link
-              href="/"
+              href="/tools"
               className="inline-block px-8 py-3 rounded-xl font-semibold text-sm md:text-base bg-primary text-white shadow-lg hover:opacity-90 transition-all active:scale-[0.97]"
             >
               Start for Free →
@@ -538,7 +914,7 @@ const HomepageContent = () => {
           </div>
         </div>
       </section>
-    </div>
+    </div >
   );
 };
 

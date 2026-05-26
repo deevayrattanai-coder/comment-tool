@@ -334,61 +334,171 @@ export default function AboutPage() {
       </section>
 
       {/* OUR VISION */}
-      <section className="max-w-[1000px] mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 gap-10 items-start">
-          {/* LEFT */}
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Our Vision
-            </span>
+      <section className="relative overflow-hidden max-w-[1100px] mx-auto px-6 py-24">
+        {/* Gradient Mesh */}
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top,rgba(168,85,247,0.14),transparent_35%),radial-gradient(circle_at_bottom_right,rgba(236,72,153,0.12),transparent_30%)]" />
 
-            <h2 className="text-2xl md:text-3xl font-bold text-foreground mt-3 leading-snug">
-              Becoming the Standard for Social Proof Creation
-            </h2>
-          </div>
+        {/* Animated Grid */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-[size:75px_75px]" />
 
-          {/* RIGHT */}
-          <div className="space-y-4 text-sm md:text-base text-muted-foreground leading-relaxed">
-            <p>
-              We aim to become the go-to platform for creating social proof
-              visuals across all major digital platforms.
-            </p>
+        {/* Floating Orbs */}
+        <div className="absolute top-[-120px] left-[-100px] w-[320px] h-[320px] rounded-full bg-primary/20 blur-[120px] animate-float-orb" />
 
-            <p>
-              As content continues to evolve, the tools behind it must evolve as
-              well. Our focus is on improving accuracy, expanding platform
-              support, and building features that help professionals move faster
-              without compromising quality.
-            </p>
-          </div>
-        </div>
+        <div className="absolute bottom-[-150px] right-[-120px] w-[360px] h-[360px] rounded-full bg-fuchsia-500/20 blur-[130px] animate-float-orb-delayed" />
 
-        {/* Supporting points */}
-        <div className="grid sm:grid-cols-3 gap-5 mt-12">
-          {[
-            {
-              title: "Continuous Innovation",
-              desc: "Regular updates to improve accuracy and usability.",
-            },
-            {
-              title: "Platform Expansion",
-              desc: "Support for emerging and evolving social platforms.",
-            },
-            {
-              title: "Performance Focused",
-              desc: "Built to help teams move faster without sacrificing quality.",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="rounded-xl border border-border bg-card p-5"
-            >
-              <h3 className="font-semibold text-foreground mb-1">
-                {item.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
+        {/* Moving Light Beam */}
+        <div className="absolute top-0 left-[-20%] w-[40%] h-full bg-gradient-to-r from-transparent via-white/[0.03] to-transparent rotate-12 blur-3xl animate-light-pass" />
+
+        <div className="relative z-10">
+
+          {/* ================= TOP SECTION ================= */}
+
+          <div className="grid lg:grid-cols-[0.9fr_1.1fr] gap-14 items-start">
+
+            {/* LEFT */}
+            <div className="relative">
+
+              {/* Floating Badge */}
+              <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.04] backdrop-blur-2xl px-4 py-2 shadow-[0_0_30px_rgba(168,85,247,0.12)]">
+
+                <div className="relative flex h-2.5 w-2.5">
+                  <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping"></span>
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary"></span>
+                </div>
+
+                <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                  Our Vision
+                </span>
+              </div>
+
+              {/* Heading */}
+              <h2 className="mt-7 text-4xl md:text-5xl font-black tracking-[-0.05em] leading-[0.95] text-white">
+
+                <span className="block">
+                  Becoming the
+                </span>
+
+                <span className="mt-2 block bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                  Standard for
+                </span>
+
+                <span className="mt-2 block text-white/90">
+                  Social Proof Creation
+                </span>
+              </h2>
+
+              {/* Decorative Floating Shape */}
+              <div className="absolute -left-8 top-[70%] hidden lg:block">
+              </div>
             </div>
-          ))}
+
+            {/* RIGHT */}
+            <div className="relative">
+
+              {/* Glass Content Card */}
+              <div className="group relative overflow-hidden rounded-[32px] border border-white/10 bg-white/[0.03] backdrop-blur-3xl p-8 md:p-10 transition-all duration-700 hover:border-primary/30 hover:bg-white/[0.05] hover:shadow-[0_30px_120px_rgba(168,85,247,0.14)]">
+
+                {/* Hover Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-fuchsia-500/5 to-pink-500/10" />
+                </div>
+
+                {/* Shine Effect */}
+                <div className="absolute inset-0 overflow-hidden rounded-[32px]">
+                  <div className="absolute left-[-130%] top-0 h-full w-[120%] rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-[1400ms] group-hover:left-[130%]" />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 space-y-6">
+
+                  <p className="text-lg leading-relaxed text-white/70">
+                    We aim to become the go-to platform for creating social proof visuals across all major digital platforms.
+                  </p>
+
+                  <p className="text-base leading-relaxed text-white/50">
+                    As content continues to evolve, the tools behind it must evolve as well. Our focus is on improving accuracy, expanding platform support, and building features that help professionals move faster without compromising quality.
+                  </p>
+
+                  {/* Animated Bottom Line */}
+                  <div className="flex items-center gap-3 pt-2">
+
+                    <div className="h-[2px] w-16 rounded-full bg-gradient-to-r from-primary via-pink-500 to-purple-500 transition-all duration-700 group-hover:w-28" />
+
+                    <div className="h-2 w-2 rounded-full bg-primary animate-pulse" />
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* ================= FEATURE CARDS ================= */}
+
+          <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-16">
+
+            {[
+              {
+                title: "Continuous Innovation",
+                desc: "Regular updates to improve accuracy, performance, and usability.",
+                icon: "⚡",
+              },
+              {
+                title: "Platform Expansion",
+                desc: "Support for emerging and evolving social media platforms.",
+                icon: "🌍",
+              },
+              {
+                title: "Performance Focused",
+                desc: "Built to help teams move faster without sacrificing quality.",
+                icon: "🚀",
+              },
+            ].map((item, i) => (
+              <div
+                key={item.title}
+                className="group relative overflow-hidden rounded-[30px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-7 transition-all duration-700 hover:-translate-y-3 hover:border-primary/30 hover:bg-white/[0.05] hover:shadow-[0_30px_120px_rgba(168,85,247,0.16)]"
+              >
+
+                {/* Background Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-fuchsia-500/5 to-pink-500/10" />
+                </div>
+
+                {/* Floating Orb */}
+                <div className="absolute -top-16 -right-16 w-36 h-36 rounded-full bg-primary/10 blur-3xl opacity-0 transition duration-700 group-hover:opacity-100 group-hover:scale-125" />
+
+                {/* Content */}
+                <div className="relative z-10">
+
+                  {/* Icon */}
+                  <div className="relative inline-flex">
+
+                    <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-xl scale-125 opacity-0 transition duration-700 group-hover:opacity-100" />
+
+                    <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl border border-white/10 bg-black/20 backdrop-blur-xl text-3xl transition-all duration-500 group-hover:rotate-6 group-hover:scale-110">
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mt-8 text-2xl font-bold tracking-[-0.03em] text-white transition duration-500 group-hover:text-primary">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-4 text-sm leading-relaxed text-white/50 transition duration-500 group-hover:text-white/70">
+                    {item.desc}
+                  </p>
+
+                  {/* Accent Line */}
+                  <div className="mt-8 flex items-center gap-2">
+
+                    <div className="h-[2px] w-12 rounded-full bg-gradient-to-r from-primary via-pink-500 to-purple-500 transition-all duration-700 group-hover:w-24" />
+
+                    <div className="h-2 w-2 rounded-full bg-primary opacity-0 transition duration-500 group-hover:opacity-100" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -491,54 +601,161 @@ export default function AboutPage() {
       </section>
 
       {/* TRUST & RELIABILITY */}
-      <section className="max-w-[1100px] mx-auto px-6 py-16">
-        <div className="grid md:grid-cols-2 gap-10 items-center">
-          {/* LEFT */}
-          <div>
-            <span className="text-xs font-semibold uppercase tracking-widest text-primary">
-              Trust & Reliability
-            </span>
+      <section className="relative overflow-hidden max-w-[1100px] mx-auto px-6 py-24">
 
-            <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mt-3 mb-4">
-              Built with Reliability in Mind
+        {/* ================= BACKGROUND ================= */}
+
+        {/* Animated Grid */}
+        <div className="absolute inset-0 opacity-[0.03] bg-[linear-gradient(to_right,white_1px,transparent_1px),linear-gradient(to_bottom,white_1px,transparent_1px)] bg-[size:80px_80px]" />
+
+        {/* Aurora Glow */}
+        <div className="absolute top-[-200px] left-1/2 -translate-x-1/2 w-[800px] h-[500px] rounded-full bg-primary/15 blur-[140px] animate-pulse" />
+
+        {/* Floating Orbs */}
+        <div className="absolute top-[10%] left-[-120px] w-[320px] h-[320px] rounded-full bg-fuchsia-500/15 blur-[120px] animate-float-slow" />
+
+        <div className="absolute bottom-[0%] right-[-140px] w-[360px] h-[360px] rounded-full bg-primary/15 blur-[120px] animate-float-delayed" />
+
+        {/* Light Beam */}
+        <div className="absolute top-0 left-[-20%] w-[40%] h-full rotate-12 bg-gradient-to-r from-transparent via-white/[0.03] to-transparent blur-3xl animate-light-pass" />
+
+        <div className="relative z-10 grid lg:grid-cols-[0.95fr_1.05fr] gap-16 items-center">
+
+          {/* ================= LEFT CONTENT ================= */}
+
+          <div className="relative">
+
+            {/* Badge */}
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.03] backdrop-blur-2xl px-4 py-2 shadow-[0_0_30px_rgba(168,85,247,0.08)]">
+
+              <div className="relative flex h-2.5 w-2.5">
+                <span className="absolute inline-flex h-full w-full rounded-full bg-primary opacity-75 animate-ping"></span>
+                <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-primary"></span>
+              </div>
+
+              <span className="text-xs font-semibold uppercase tracking-[0.22em] text-white/70">
+                Trust & Reliability
+              </span>
+            </div>
+
+            {/* Heading */}
+            <h2 className="mt-7 text-4xl md:text-5xl font-black tracking-[-0.05em] leading-[0.95] text-white">
+
+              <span className="block transition duration-500 hover:text-primary">
+                Built with
+              </span>
+
+              <span className="block mt-2 bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent">
+                Reliability
+              </span>
+
+              <span className="block mt-2 text-white/90 transition duration-500 hover:text-fuchsia-400">
+                in Mind
+              </span>
             </h2>
 
-            <p className="text-sm md:text-base text-muted-foreground leading-relaxed">
-              We prioritize performance, stability, and user experience. Whether
-              you're generating a single comment or managing large-scale
-              creative production, the platform is designed to handle your needs
-              efficiently.
+            {/* Description */}
+            <p className="mt-7 text-base md:text-lg leading-relaxed text-white/55 max-w-[560px]">
+              We prioritize performance, stability, and user experience. Whether you're generating a single comment or managing large-scale creative production, the platform is designed to handle your needs efficiently.
             </p>
+
+            {/* Decorative Floating Card */}
+            <div className="hidden lg:block absolute -left-10 bottom-[-60px] animate-float-card">
+
+              <div className="rounded-3xl border border-white/10 bg-white/[0.03] backdrop-blur-2xl px-5 py-4 shadow-[0_20px_60px_rgba(168,85,247,0.08)]">
+
+                <p className="text-xs uppercase tracking-[0.2em] text-white/40">
+                  Uptime
+                </p>
+
+                <h4 className="mt-1 text-3xl font-black text-white">
+                  99.9%
+                </h4>
+              </div>
+            </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="grid sm:grid-cols-2 gap-4">
+          {/* ================= RIGHT GRID ================= */}
+
+          <div className="grid sm:grid-cols-2 gap-5">
+
             {[
               {
                 title: "Fast Performance",
-                desc: "Optimized for quick generation and smooth workflows.",
+                desc: "Optimized for quick generation and smooth creative workflows.",
+                icon: "⚡",
               },
               {
                 title: "Stable & Reliable",
                 desc: "Built to handle consistent usage without interruptions.",
+                icon: "🛡️",
               },
               {
                 title: "Scalable System",
-                desc: "Supports both individual users and high-volume teams.",
+                desc: "Supports both individual creators and high-volume teams.",
+                icon: "🚀",
               },
               {
                 title: "User-Focused",
-                desc: "Designed with simplicity, clarity, and usability in mind.",
+                desc: "Designed with clarity, simplicity, and usability in mind.",
+                icon: "✨",
               },
-            ].map((item) => (
+            ].map((item, i) => (
               <div
                 key={item.title}
-                className="rounded-xl border border-border bg-card p-5 transition-all hover:border-primary hover:shadow-sm"
+                className="group relative overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] backdrop-blur-2xl p-6 transition-all duration-700 hover:-translate-y-3 hover:border-primary/30 hover:bg-white/[0.05] hover:shadow-[0_30px_120px_rgba(168,85,247,0.14)]"
+                style={{
+                  animationDelay: `${i * 100}ms`,
+                }}
               >
-                <h3 className="font-semibold text-foreground mb-1">
-                  {item.title}
-                </h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
+
+                {/* Hover Glow */}
+                <div className="absolute inset-0 opacity-0 transition duration-700 group-hover:opacity-100">
+                  <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-fuchsia-500/5 to-pink-500/10" />
+                </div>
+
+                {/* Floating Orb */}
+                <div className="absolute -top-20 -right-20 w-40 h-40 rounded-full bg-primary/10 blur-3xl opacity-0 transition duration-700 group-hover:opacity-100 group-hover:scale-125" />
+
+                {/* Shine */}
+                <div className="absolute inset-0 overflow-hidden rounded-[28px]">
+                  <div className="absolute left-[-120%] top-0 h-full w-[120%] rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent transition-all duration-[1400ms] group-hover:left-[120%]" />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10">
+
+                  {/* Icon */}
+                  <div className="relative inline-flex">
+
+                    <div className="absolute inset-0 rounded-2xl bg-primary/20 blur-xl scale-125 opacity-0 transition duration-700 group-hover:opacity-100" />
+
+                    <div className="relative flex items-center justify-center w-16 h-16 rounded-2xl border border-white/10 bg-black/20 backdrop-blur-xl text-3xl transition-all duration-500 group-hover:scale-110 group-hover:rotate-6">
+                      {item.icon}
+                    </div>
+                  </div>
+
+                  {/* Title */}
+                  <h3 className="mt-7 text-2xl font-bold tracking-[-0.03em] text-white transition duration-500 group-hover:text-primary">
+                    {item.title}
+                  </h3>
+
+                  {/* Description */}
+                  <p className="mt-4 text-sm leading-relaxed text-white/50 transition duration-500 group-hover:text-white/75">
+                    {item.desc}
+                  </p>
+
+                  {/* Bottom Accent */}
+                  <div className="mt-7 flex items-center gap-2">
+
+                    <div className="h-[2px] w-12 rounded-full bg-gradient-to-r from-primary via-pink-500 to-purple-500 transition-all duration-700 group-hover:w-24" />
+
+                    <div className="h-2 w-2 rounded-full bg-primary opacity-0 transition duration-500 group-hover:opacity-100 group-hover:scale-125" />
+                  </div>
+                </div>
+
+                {/* Border Overlay */}
+                <div className="absolute inset-[1px] rounded-[26px] border border-white/5 pointer-events-none group-hover:border-primary/20 transition duration-500" />
               </div>
             ))}
           </div>

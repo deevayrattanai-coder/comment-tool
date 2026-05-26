@@ -10,6 +10,8 @@ import {
   User as UserIcon,
   ArrowRight,
   CheckCircle2,
+  Eye,
+  EyeOff,
 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { toast } from "sonner";
@@ -46,9 +48,8 @@ function Rule({ valid, text }: { valid: boolean; text: string }) {
   return (
     <div className="flex items-center gap-2">
       <span
-        className={`w-2 h-2 rounded-full ${
-          valid ? "bg-green-500" : "bg-red-500"
-        }`}
+        className={`w-2 h-2 rounded-full ${valid ? "bg-green-500" : "bg-red-500"
+          }`}
       />
       <span className={valid ? "text-green-600" : "text-red-500"}>{text}</span>
     </div>
@@ -65,7 +66,7 @@ export default function LoginContent({ next }: { next: string }) {
   const { login, register, resendVerification } = useAuth();
   const router = useRouter();
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
-
+  const [showPassword, setShowPassword] = useState(false);
   const [verificationEmail, setVerificationEmail] = useState<string | null>(
     null,
   );
@@ -327,12 +328,14 @@ export default function LoginContent({ next }: { next: string }) {
                     size={15}
                     className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
                   />
+
                   <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     minLength={6}
                     placeholder="Password (min 6 characters)"
                     value={password}
                     onChange={(e) => {
+
                       setPassword(e.target.value);
                       setFieldErrors((prev) => ({
                         ...prev,
@@ -341,6 +344,19 @@ export default function LoginContent({ next }: { next: string }) {
                     }}
                     className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                   />
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => setShowPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors duration-200 z-10"
+                  >
+                    {showPassword ? (
+                      <EyeOff size={18} />
+                    ) : (
+                      <Eye size={18} />
+                    )}
+                  </button>
                 </div>
                 {isSignup && (
                   <div className="text-xs mt-2 space-y-1">
@@ -379,13 +395,12 @@ export default function LoginContent({ next }: { next: string }) {
               <button
                 type="submit"
                 disabled={(isSignup && !isPasswordValid) || busy}
-                className={`${
-                  isSignup
-                    ? isPasswordValid
-                      ? "gradient-primary"
-                      : "bg-gray-300"
-                    : "gradient-primary"
-                } w-full h-11 rounded-lg text-primary-foreground font-semibold text-sm shadow-md hover:opacity-90 transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60`}
+                className={`${isSignup
+                  ? isPasswordValid
+                    ? "gradient-primary"
+                    : "bg-gray-300"
+                  : "gradient-primary"
+                  } w-full h-11 rounded-lg text-primary-foreground font-semibold text-sm shadow-md hover:opacity-90 transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60`}
               >
                 {busy ? "Please wait…" : isSignup ? "Create account" : "Log in"}
                 {!busy && <ArrowRight size={15} />}
