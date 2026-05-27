@@ -15,23 +15,49 @@ const Body = z.object({
 export async function POST(req: Request) {
   try {
     const data = Body.parse(await req.json());
-    const existing = await db.select().from(users).where(eq(users.email, data.email)).limit(1);
+
+    const existing = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, data.email))
+      .limit(1);
 
     if (existing[0]) {
-      // If account exists but is not verified, resend the link instead of failing.
-      if (!existing[0].emailVerified) {
-        try {
-          await sendVerificationEmail(existing[0].id, existing[0].email, existing[0].name);
-        } catch (err) {
-          console.error('resend verification on register failed', err);
-        }
-        return NextResponse.json({
-          requiresVerification: true,
-          email: existing[0].email,
-          message: 'Account already exists but is unverified. We sent a new verification link.',
-        });
+      const user = existing[0];
+
+      // Account was created via Google (no password set, already verified).
+      // Trying to re-register with the same email should prompt Google login
+      // instead of silently failing or leaking state.
+      if (user.emailVerified && !user.passwordHash) {
+        return NextResponse.json(
+          {
+            error:
+              'This email is linked to a Google account. Please sign in with Google.',
+            hint: 'google',
+          },
+          { status: 409 }
+        );
       }
-      return NextResponse.json({ error: 'Email already registered' }, { status: 409 });
+
+      // Account exists and is verified — treat as duplicate.
+      if (user.emailVerified) {
+        return NextResponse.json(
+          { error: 'Email already registered' },
+          { status: 409 }
+        );
+      }
+
+      // Account exists but not yet verified — resend the verification email.
+      try {
+        await sendVerificationEmail(user.id, user.email, user.name);
+      } catch (err) {
+        console.error('resend verification on register failed', err);
+      }
+      return NextResponse.json({
+        requiresVerification: true,
+        email: user.email,
+        message: 'Account already exists but is unverified. We sent a new verification link.',
+      });
     }
 
     const hash = await hashPassword(data.password);
@@ -49,7 +75,7 @@ export async function POST(req: Request) {
 
     try {
       await sendVerificationEmail(newUser.id, newUser.email, newUser.name);
-    } catch (err) {
+    } catch {
       return NextResponse.json(
         {
           error:
@@ -67,7 +93,14 @@ export async function POST(req: Request) {
       message: 'Check your inbox for a verification link to activate your account.',
     });
   } catch (e: any) {
-    if (e?.issues) return NextResponse.json({ error: 'Invalid input', details: e.issues }, { status: 400 });
-    return NextResponse.json({ error: e?.message ?? 'Server error' }, { status: 500 });
+    if (e?.issues)
+      return NextResponse.json(
+        { error: 'Invalid input', details: e.issues },
+        { status: 400 }
+      );
+    return NextResponse.json(
+      { error: e?.message ?? 'Server error' },
+      { status: 500 }
+    );
   }
 }

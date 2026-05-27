@@ -14,6 +14,7 @@ import {
   Crown,
   AlertCircle,
   Clock,
+  Eye, EyeOff,
 } from "lucide-react";
 
 type ExportRow = {
@@ -76,6 +77,8 @@ export default function ProfilePage() {
     type: "ok" | "err";
     text: string;
   } | null>(null);
+  const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+  const [showNewPassword, setShowNewPassword] = useState(false);
 
   useEffect(() => {
     if (!loading && !user) router.push("/login?next=/profile");
@@ -257,11 +260,10 @@ export default function ProfilePage() {
 
           {billingMsg && (
             <div
-              className={`mb-4 text-xs rounded-md px-3 py-2 ${
-                billingMsg.type === "ok"
-                  ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
-                  : "bg-destructive/10 text-destructive border border-destructive/20"
-              }`}
+              className={`mb-4 text-xs rounded-md px-3 py-2 ${billingMsg.type === "ok"
+                ? "bg-emerald-500/10 text-emerald-600 border border-emerald-500/20"
+                : "bg-destructive/10 text-destructive border border-destructive/20"
+                }`}
             >
               {billingMsg.text}
             </div>
@@ -350,27 +352,76 @@ export default function ProfilePage() {
               </h2>
             </div>
             <form onSubmit={onChangePwd} className="space-y-3">
-              <input
-                type="password"
-                required
-                placeholder="Current password"
-                value={pwd.current}
-                onChange={(e) =>
-                  setPwd((p) => ({ ...p, current: e.target.value }))
-                }
-                className="w-full h-10 px-3 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
-              <input
-                type="password"
-                required
-                minLength={6}
-                placeholder="New password (min 6)"
-                value={pwd.next}
-                onChange={(e) =>
-                  setPwd((p) => ({ ...p, next: e.target.value }))
-                }
-                className="w-full h-10 px-3 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
-              />
+              <div className="space-y-3">
+                {/* CURRENT PASSWORD */}
+                <div className="relative">
+                  <Lock
+                    size={15}
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  />
+
+                  <input
+                    type={showCurrentPassword ? "text" : "password"}
+                    required
+                    placeholder="Current password"
+                    value={pwd.current}
+                    onChange={(e) =>
+                      setPwd((p) => ({ ...p, current: e.target.value }))
+                    }
+                    className="w-full h-10 pl-10 pr-12 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  />
+
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => setShowCurrentPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors duration-200 focus:outline-none"
+                    style={{ transform: "translateY(-50%)" }}
+                  >
+                    {showCurrentPassword ? (
+                      <EyeOff size={16} className="block" />
+                    ) : (
+                      <Eye size={16} className="block" />
+                    )}
+                  </button>
+                </div>
+
+                {/* NEW PASSWORD */}
+                <div className="relative">
+                  <Lock
+                    size={15}
+                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
+                  />
+
+                  <input
+                    type={showNewPassword ? "text" : "password"}
+                    required
+                    minLength={6}
+                    placeholder="New password (min 6)"
+                    value={pwd.next}
+                    onChange={(e) =>
+                      setPwd((p) => ({ ...p, next: e.target.value }))
+                    }
+                    className="w-full h-10 pl-10 pr-12 rounded-lg border border-border bg-background text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                  />
+
+                  <button
+                    type="button"
+                    tabIndex={-1}
+                    onMouseDown={(e) => e.preventDefault()}
+                    onClick={() => setShowNewPassword((prev) => !prev)}
+                    className="absolute right-3 top-1/2 h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors duration-200 focus:outline-none"
+                    style={{ transform: "translateY(-50%)" }}
+                  >
+                    {showNewPassword ? (
+                      <EyeOff size={16} className="block" />
+                    ) : (
+                      <Eye size={16} className="block" />
+                    )}
+                  </button>
+                </div>
+              </div>
               {pwd.err && <p className="text-xs text-destructive">{pwd.err}</p>}
               {pwd.msg && <p className="text-xs text-emerald-600">{pwd.msg}</p>}
               <button

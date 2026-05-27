@@ -227,7 +227,7 @@ export default function Contact() {
                     </label>
                     <input
                       type="email"
-                      value={form.email}
+                      value={form.email.toLowerCase().trim()}
                       name="email"
                       onChange={handleChange}
                       className={`input ${errors.email ? "border-red-500 w-full h-10 px-3.5 rounded-lg border  bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none" : "w-full h-10 px-3.5 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"}`}

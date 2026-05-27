@@ -14,11 +14,32 @@ const Body = z.object({
 export async function POST(req: Request) {
   try {
     const data = Body.parse(await req.json());
-    const result = await db.select().from(users).where(eq(users.email, data.email)).limit(1);
+
+    const result = await db
+      .select()
+      .from(users)
+      .where(eq(users.email, data.email))
+      .limit(1);
     const u = result[0];
 
-    if (!u || !u.passwordHash || !(await verifyPassword(data.password, u.passwordHash))) {
-      return NextResponse.json({ error: 'Invalid email or password' }, { status: 401 });
+    // Account was created via Google — no password is set.
+    // Return a clear message instead of a generic "invalid credentials".
+    if (u && !u.passwordHash) {
+      return NextResponse.json(
+        {
+          error:
+            'This account was created with Google. Please sign in with Google, or use "Forgot Password" to set a password.',
+          hint: 'google',
+        },
+        { status: 401 }
+      );
+    }
+
+    if (!u || !(await verifyPassword(data.password, u.passwordHash!))) {
+      return NextResponse.json(
+        { error: 'Invalid email or password' },
+        { status: 401 }
+      );
     }
 
     if (!u.emailVerified) {
@@ -45,7 +66,11 @@ export async function POST(req: Request) {
       },
     });
   } catch (e: any) {
-    if (e?.issues) return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
-    return NextResponse.json({ error: e?.message ?? 'Server error' }, { status: 500 });
+    if (e?.issues)
+      return NextResponse.json({ error: 'Invalid input' }, { status: 400 });
+    return NextResponse.json(
+      { error: e?.message ?? 'Server error' },
+      { status: 500 }
+    );
   }
 }

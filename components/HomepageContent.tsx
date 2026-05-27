@@ -828,8 +828,8 @@ const HomepageContent = () => {
       <section className="border-t border-border bg-card/40 pb-10">
         <div className="max-w-[800px] mx-auto px-6 py-16">
           <div className="text-center mb-10">
-            <h2 className="text-2xl md:text-4xl font-extrabold text-foreground mb-5">
-              Frequently Asked Questions
+            <h2 className="text-2xl md:text-4xl font-extrabold  mb-5 text-foreground flex gap-2 items-center justify-center">
+              Frequently Asked <span className=" block bg-gradient-to-r from-primary via-pink-500 to-purple-500 bg-clip-text text-transparent"> Questions </span>
             </h2>
             <p className="text-sm md:text-base text-muted-foreground">
               Everything you need to know before getting started.

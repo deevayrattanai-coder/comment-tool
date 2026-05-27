@@ -15,31 +15,16 @@ import {
 } from "lucide-react";
 import { useAuth } from "@/components/AuthProvider";
 import { toast } from "sonner";
-type FieldErrors = {
-  name?: string;
-  email?: string;
-  password?: string;
-};
+
+type FieldErrors = { name?: string; email?: string; password?: string };
 
 function GoogleIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 48 48" aria-hidden="true">
-      <path
-        fill="#FFC107"
-        d="M43.6 20.5H42V20H24v8h11.3C33.7 32.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z"
-      />
-      <path
-        fill="#FF3D00"
-        d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.4 4.4-17.7 10.7z"
-      />
-      <path
-        fill="#4CAF50"
-        d="M24 44c5.4 0 10.3-2.1 14-5.5l-6.5-5.3C29.4 34.7 26.9 36 24 36c-5.3 0-9.7-3.4-11.3-8L6 33.6C9.3 39.6 16 44 24 44z"
-      />
-      <path
-        fill="#1976D2"
-        d="M43.6 20.5H42V20H24v8h11.3c-.7 2-2 3.7-3.6 5l6.5 5.3C42 35.5 44 30.2 44 24c0-1.2-.1-2.4-.4-3.5z"
-      />
+      <path fill="#FFC107" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z" />
+      <path fill="#FF3D00" d="M6.3 14.7l6.6 4.8C14.7 16 19 13 24 13c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4c-7.7 0-14.4 4.4-17.7 10.7z" />
+      <path fill="#4CAF50" d="M24 44c5.4 0 10.3-2.1 14-5.5l-6.5-5.3C29.4 34.7 26.9 36 24 36c-5.3 0-9.7-3.4-11.3-8L6 33.6C9.3 39.6 16 44 24 44z" />
+      <path fill="#1976D2" d="M43.6 20.5H42V20H24v8h11.3c-.7 2-2 3.7-3.6 5l6.5 5.3C42 35.5 44 30.2 44 24c0-1.2-.1-2.4-.4-3.5z" />
     </svg>
   );
 }
@@ -47,12 +32,112 @@ function GoogleIcon() {
 function Rule({ valid, text }: { valid: boolean; text: string }) {
   return (
     <div className="flex items-center gap-2">
-      <span
-        className={`w-2 h-2 rounded-full ${valid ? "bg-green-500" : "bg-red-500"
-          }`}
-      />
+      <span className={`w-2 h-2 rounded-full ${valid ? "bg-green-500" : "bg-red-500"}`} />
       <span className={valid ? "text-green-600" : "text-red-500"}>{text}</span>
     </div>
+  );
+}
+
+/** Shown when API returns hint:'google' — account exists but was created via Google */
+function GoogleAccountHint({
+  email,
+  next,
+  onBack,
+}: {
+  email: string;
+  next: string;
+  onBack: () => void;
+}) {
+  const [sending, setSending] = useState(false);
+  const [sent, setSent] = useState(false);
+  const [sendError, setSendError] = useState<string | null>(null);
+
+  const onGoogle = () => {
+    window.location.href = `/api/auth/google?next=${encodeURIComponent(next)}`;
+  };
+
+  const onSetPassword = async () => {
+    setSending(true);
+    setSendError(null);
+    try {
+      const r = await fetch("/api/auth/forgot-password", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email }),
+      });
+      if (r.ok) {
+        setSent(true);
+        toast.success("Password-set link sent! Check your inbox.");
+      } else {
+        setSendError("Could not send the email. Please try again.");
+      }
+    } catch {
+      setSendError("Something went wrong. Please try again.");
+    } finally {
+      setSending(false);
+    }
+  };
+
+  return (
+    <SiteLayout>
+      <section className="flex items-center justify-center px-6 py-20">
+        <div className="w-full max-w-[440px] text-center">
+          <div className="w-14 h-14 rounded-full bg-blue-500/10 text-blue-500 flex items-center justify-center mx-auto mb-5">
+            <svg width="28" height="28" viewBox="0 0 48 48"><path fill="#4285F4" d="M43.6 20.5H42V20H24v8h11.3C33.7 32.6 29.3 36 24 36c-6.6 0-12-5.4-12-12s5.4-12 12-12c3.1 0 5.9 1.2 8 3.1l5.7-5.7C34.5 6.1 29.5 4 24 4 12.9 4 4 12.9 4 24s8.9 20 20 20 20-8.9 20-20c0-1.2-.1-2.4-.4-3.5z" /></svg>
+          </div>
+          <h1 className="text-2xl font-extrabold tracking-tight text-foreground mb-2">
+            Account exists with Google
+          </h1>
+          <p className="text-sm text-muted-foreground mb-1">
+            <span className="font-semibold text-foreground">{email}</span> was signed up using Google.
+          </p>
+          <p className="text-sm text-muted-foreground mb-8">
+            Continue with Google, or set a password to also enable email login.
+          </p>
+
+          {sent ? (
+            <div className="rounded-xl border border-emerald-200 bg-emerald-50 dark:bg-emerald-900/20 p-4 text-sm text-emerald-700 dark:text-emerald-300 mb-6">
+              <CheckCircle2 size={16} className="inline mr-1.5 mb-0.5" />
+              Password-set link sent to <strong>{email}</strong>. Check your inbox (and spam folder).
+            </div>
+          ) : (
+            <div className="flex flex-col gap-3">
+              <button
+                onClick={onGoogle}
+                className="w-full h-11 rounded-lg border border-border bg-background hover:bg-muted/40 transition flex items-center justify-center gap-2 text-sm font-semibold text-foreground"
+              >
+                <GoogleIcon />
+                Continue with Google
+              </button>
+
+              <div className="flex items-center gap-3">
+                <div className="h-px bg-border flex-1" />
+                <span className="text-[11px] uppercase tracking-wider text-muted-foreground">or</span>
+                <div className="h-px bg-border flex-1" />
+              </div>
+
+              <button
+                onClick={onSetPassword}
+                disabled={sending}
+                className="w-full h-11 rounded-lg gradient-primary text-primary-foreground font-semibold text-sm shadow-md hover:opacity-90 transition disabled:opacity-60"
+              >
+                {sending ? "Sending…" : "Set a password via email"}
+              </button>
+
+              {sendError && (
+                <p className="text-xs text-destructive">{sendError}</p>
+              )}
+            </div>
+          )}
+
+          <p className="text-sm text-muted-foreground mt-8">
+            <button onClick={onBack} className="text-primary font-medium hover:underline">
+              ← Back to login
+            </button>
+          </p>
+        </div>
+      </section>
+    </SiteLayout>
   );
 }
 
@@ -67,11 +152,12 @@ export default function LoginContent({ next }: { next: string }) {
   const router = useRouter();
   const [fieldErrors, setFieldErrors] = useState<FieldErrors>({});
   const [showPassword, setShowPassword] = useState(false);
-  const [verificationEmail, setVerificationEmail] = useState<string | null>(
-    null,
-  );
+  const [verificationEmail, setVerificationEmail] = useState<string | null>(null);
   const [resendBusy, setResendBusy] = useState(false);
   const [resentNotice, setResentNotice] = useState<string | null>(null);
+  // Google-account hint screen
+  const [googleHintEmail, setGoogleHintEmail] = useState<string | null>(null);
+
   const passwordRules = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
@@ -83,25 +169,12 @@ export default function LoginContent({ next }: { next: string }) {
   const validate = (): FieldErrors => {
     const errors: FieldErrors = {};
     const emailRegex = /^[\w-.]+@([\w-]+\.)+[\w-]{2,3}$/;
-    // Name (only for signup)
-    if (isSignup && !/^[A-Za-z\s]{2,30}$/.test(name.trim())) {
+    if (isSignup && !/^[A-Za-z\s]{2,30}$/.test(name.trim()))
       errors.name = "Enter a valid full name";
-    }
-
-    // Email
-    if (!emailRegex.test(email.trim())) {
+    if (!emailRegex.test(email.trim()))
       errors.email = "Enter a valid email address";
-    }
-    // Password
-    if (
-      !passwordRules.length ||
-      !passwordRules.uppercase ||
-      !passwordRules.lowercase ||
-      !passwordRules.number ||
-      !passwordRules.special
-    ) {
+    if (!passwordRules.length || !passwordRules.uppercase || !passwordRules.lowercase || !passwordRules.number || !passwordRules.special)
       errors.password = "Password does not meet requirements";
-    }
     return errors;
   };
 
@@ -119,19 +192,20 @@ export default function LoginContent({ next }: { next: string }) {
         : await login(email.trim(), password);
 
       if (res.ok) {
-        toast.success(
-          isSignup
-            ? "Account created! Logging you in..."
-            : "Logged in successfully!",
-        );
+        toast.success(isSignup ? "Account created! Logging you in..." : "Logged in successfully!");
         router.push(next);
         router.refresh();
         return;
       }
       // @ts-ignore
       if (res.requiresVerification) {
-        //@ts-ignore
+        // @ts-ignore
         setVerificationEmail(res.email || email.trim());
+        return;
+      }
+      // @ts-ignore
+      if (res.hint === "google") {
+        setGoogleHintEmail(email.trim());
         return;
       }
       // @ts-ignore
@@ -155,9 +229,7 @@ export default function LoginContent({ next }: { next: string }) {
           ? "Verification email sent. Check your inbox (and spam folder)."
           : "Could not resend right now. Please try again in a moment.",
       );
-      toast.success(
-        "Verification email sent. Check your inbox (and spam folder).",
-      );
+      toast.success("Verification email sent. Check your inbox (and spam folder).");
     } catch {
       toast.error("Could not resend right now. Please try again in a moment.");
     } finally {
@@ -166,8 +238,22 @@ export default function LoginContent({ next }: { next: string }) {
   };
 
   const onGoogle = () => {
-    window.location.href = `${process.env.NEXT_PUBLIC_APP_URL}/api/auth/google?next=${encodeURIComponent(next)}`;
+    window.location.href = `/api/auth/google?next=${encodeURIComponent(next)}`;
   };
+
+  // ---- Google account hint screen ----
+  if (googleHintEmail) {
+    return (
+      <GoogleAccountHint
+        email={googleHintEmail}
+        next={next}
+        onBack={() => {
+          setGoogleHintEmail(null);
+          setError(null);
+        }}
+      />
+    );
+  }
 
   // ---- Verification awaiting screen ----
   if (verificationEmail) {
@@ -181,17 +267,11 @@ export default function LoginContent({ next }: { next: string }) {
             <h1 className="text-2xl font-extrabold tracking-tight text-foreground mb-2">
               Verify your email
             </h1>
-            <p className="text-sm text-muted-foreground mb-1">
-              We sent a verification link to
-            </p>
-            <p className="text-sm font-semibold text-foreground mb-6">
-              {verificationEmail}
-            </p>
+            <p className="text-sm text-muted-foreground mb-1">We sent a verification link to</p>
+            <p className="text-sm font-semibold text-foreground mb-6">{verificationEmail}</p>
             <p className="text-sm text-muted-foreground mb-8">
-              Click the link in that email to activate your account. You will
-              not be able to log in until your email is verified.
+              Click the link in that email to activate your account. You will not be able to log in until your email is verified.
             </p>
-
             <button
               onClick={onResend}
               disabled={resendBusy}
@@ -199,20 +279,13 @@ export default function LoginContent({ next }: { next: string }) {
             >
               {resendBusy ? "Sending…" : "Resend verification email"}
             </button>
-
             {resentNotice && (
-              <p className="text-xs text-muted-foreground mt-4">
-                {resentNotice}
-              </p>
+              <p className="text-xs text-muted-foreground mt-4">{resentNotice}</p>
             )}
-
             <p className="text-sm text-muted-foreground mt-8">
               Wrong email?{" "}
               <button
-                onClick={() => {
-                  setVerificationEmail(null);
-                  setResentNotice(null);
-                }}
+                onClick={() => { setVerificationEmail(null); setResentNotice(null); }}
                 className="text-primary font-medium hover:underline"
               >
                 Go back
@@ -225,11 +298,8 @@ export default function LoginContent({ next }: { next: string }) {
   }
 
   const isPasswordValid =
-    passwordRules.length &&
-    passwordRules.uppercase &&
-    passwordRules.lowercase &&
-    passwordRules.number &&
-    passwordRules.special;
+    passwordRules.length && passwordRules.uppercase && passwordRules.lowercase &&
+    passwordRules.number && passwordRules.special;
 
   return (
     <SiteLayout>
@@ -237,19 +307,13 @@ export default function LoginContent({ next }: { next: string }) {
         <div className="w-full max-w-[400px]">
           <div className="text-center mb-8">
             <div className="flex items-center justify-center mx-auto mb-4 shadow-lg">
-              <img
-                src="/logo.jpeg"
-                alt="logo"
-                className="w-20 h-20 max-md:w-10 max-md:h-10 object-contain"
-              />
+              <img src="/logo.jpeg" alt="logo" className="w-20 h-20 max-md:w-10 max-md:h-10 object-contain" />
             </div>
             <h1 className="text-2xl font-extrabold text-foreground tracking-tight">
               {isSignup ? "Create your account" : "Welcome back"}
             </h1>
             <p className="text-sm text-muted-foreground mt-1.5">
-              {isSignup
-                ? "Sign up to export, save history, and unlock bulk mode"
-                : "Log in to your Comment tools account"}
+              {isSignup ? "Sign up to export, save history, and unlock bulk mode" : "Log in to your Comment tools account"}
             </p>
           </div>
 
@@ -264,9 +328,7 @@ export default function LoginContent({ next }: { next: string }) {
             </button>
             <div className="flex items-center gap-3 mb-4">
               <div className="h-px bg-border flex-1" />
-              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">
-                or
-              </span>
+              <span className="text-[11px] uppercase tracking-wider text-muted-foreground">or</span>
               <div className="h-px bg-border flex-1" />
             </div>
 
@@ -274,116 +336,65 @@ export default function LoginContent({ next }: { next: string }) {
               {isSignup && (
                 <div>
                   <div className="relative">
-                    <UserIcon
-                      size={15}
-                      className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
-                    />
+                    <UserIcon size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                     <input
                       type="text"
                       placeholder="Full name"
                       value={name}
-                      onChange={(e) => {
-                        setName(e.target.value);
-                        setFieldErrors((prev) => ({
-                          ...prev,
-                          name: undefined,
-                        }));
-                      }}
+                      onChange={(e) => { setName(e.target.value); setFieldErrors((p) => ({ ...p, name: undefined })); }}
                       className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                     />
                   </div>
-                  {fieldErrors.name && (
-                    <p className="text-xs text-red-500 mt-1 text-center">
-                      {fieldErrors.name}
-                    </p>
-                  )}
+                  {fieldErrors.name && <p className="text-xs text-red-500 mt-1 text-center">{fieldErrors.name}</p>}
                 </div>
               )}
               <div>
                 <div className="relative">
-                  <Mail
-                    size={15}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  />
+                  <Mail size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                   <input
                     type="email"
                     placeholder="Email address"
                     value={email}
-                    onChange={(e) => {
-                      setEmail(e.target.value);
-                      setFieldErrors((prev) => ({ ...prev, email: undefined }));
-                    }}
+                    onChange={(e) => { setEmail(e.target.value.toLowerCase().trim()); setFieldErrors((p) => ({ ...p, email: undefined })); }}
                     className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                   />
                 </div>
-                {fieldErrors.email && (
-                  <p className="text-xs text-red-500 mt-1 text-center">
-                    {fieldErrors.email}
-                  </p>
-                )}
+                {fieldErrors.email && <p className="text-xs text-red-500 mt-1 text-center">{fieldErrors.email}</p>}
               </div>
               <div>
-                <div className="relative">
-                  <Lock
-                    size={15}
-                    className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground"
-                  />
-
+                <div className="relative  flex items-center">
+                  <Lock size={15} className="absolute left-3.5 top-1/2 -translate-y-1/2 text-muted-foreground" />
                   <input
                     type={showPassword ? "text" : "password"}
                     minLength={6}
-                    placeholder="Password (min 6 characters)"
+                    placeholder="Password (min 8 characters)"
                     value={password}
-                    onChange={(e) => {
-                      setPassword(e.target.value);
-                      setFieldErrors((prev) => ({
-                        ...prev,
-                        password: undefined,
-                      }));
-                    }}
-                    className="w-full h-11 pl-10 pr-12 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    onChange={(e) => { setPassword(e.target.value); setFieldErrors((p) => ({ ...p, password: undefined })); }}
+                    className="w-full h-11 pl-10 pr-10 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                   />
                   <button
                     type="button"
-                    tabIndex={-1}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors duration-200"
-                    style={{ transform: "translateY(-50%)" }}
+                    className="absolute right-3 top-2 h-8 w-8 flex items-center justify-center rounded-md text-muted-foreground hover:text-primary transition-colors"
                   >
                     {showPassword ? (
-                      <EyeOff size={16} className="shrink-0" />
+                      <EyeOff size={16} />
                     ) : (
-                      <Eye size={16} className="shrink-0" />
+                      <Eye size={16} />
                     )}
                   </button>
                 </div>
                 {isSignup && (
                   <div className="text-xs mt-2 space-y-1">
-                    <Rule
-                      valid={passwordRules.length}
-                      text="At least 8 characters"
-                    />
-                    <Rule
-                      valid={passwordRules.uppercase}
-                      text="One uppercase letter"
-                    />
-                    <Rule
-                      valid={passwordRules.lowercase}
-                      text="One lowercase letter"
-                    />
+                    <Rule valid={passwordRules.length} text="At least 8 characters" />
+                    <Rule valid={passwordRules.uppercase} text="One uppercase letter" />
+                    <Rule valid={passwordRules.lowercase} text="One lowercase letter" />
                     <Rule valid={passwordRules.number} text="One number" />
-                    <Rule
-                      valid={passwordRules.special}
-                      text="One special character"
-                    />
+                    <Rule valid={passwordRules.special} text="One special character" />
                   </div>
                 )}
-                {fieldErrors.password && (
-                  <p className="text-xs text-red-500 mt-1 text-center">
-                    {fieldErrors.password}
-                  </p>
-                )}
+                {fieldErrors.password && <p className="text-xs text-red-500 mt-1 text-center">{fieldErrors.password}</p>}
               </div>
 
               {error && (
@@ -395,12 +406,7 @@ export default function LoginContent({ next }: { next: string }) {
               <button
                 type="submit"
                 disabled={(isSignup && !isPasswordValid) || busy}
-                className={`${isSignup
-                  ? isPasswordValid
-                    ? "gradient-primary"
-                    : "bg-gray-300"
-                  : "gradient-primary"
-                  } w-full h-11 rounded-lg text-primary-foreground font-semibold text-sm shadow-md hover:opacity-90 transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60`}
+                className={`${isSignup ? (isPasswordValid ? "gradient-primary" : "bg-gray-300") : "gradient-primary"} w-full h-11 rounded-lg text-primary-foreground font-semibold text-sm shadow-md hover:opacity-90 transition-all active:scale-[0.97] flex items-center justify-center gap-2 disabled:opacity-60`}
               >
                 {busy ? "Please wait…" : isSignup ? "Create account" : "Log in"}
                 {!busy && <ArrowRight size={15} />}
@@ -411,10 +417,7 @@ export default function LoginContent({ next }: { next: string }) {
           <p className="text-center text-sm text-muted-foreground mt-6">
             {isSignup ? "Already have an account?" : "Don't have an account?"}{" "}
             <button
-              onClick={() => {
-                setIsSignup(!isSignup);
-                setError(null);
-              }}
+              onClick={() => { setIsSignup(!isSignup); setError(null); }}
               className="text-primary font-medium hover:underline"
             >
               {isSignup ? "Log in" : "Sign up"}

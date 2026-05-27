@@ -22,22 +22,20 @@ export type AuthUser = {
 export type AuthResult =
   | { ok: true; user?: AuthUser }
   | {
-      ok: false;
-      error?: string;
-      requiresVerification?: boolean;
-      email?: string;
-    };
+    ok: false;
+    error?: string;
+    requiresVerification?: boolean;
+    email?: string;
+    /** 'google' = account exists but was created via Google sign-in */
+    hint?: "google";
+  };
 
 type AuthCtx = {
   user: AuthUser | null;
   loading: boolean;
   refresh: () => Promise<void>;
   login: (email: string, password: string) => Promise<AuthResult>;
-  register: (
-    name: string,
-    email: string,
-    password: string,
-  ) => Promise<AuthResult>;
+  register: (name: string, email: string, password: string) => Promise<AuthResult>;
   resendVerification: (email: string) => Promise<{ ok: boolean }>;
   logout: () => Promise<void>;
 };
@@ -78,6 +76,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           error: data.error ?? "Login failed",
           requiresVerification: !!data.requiresVerification,
           email: data.email,
+          hint: data.hint,
         };
       }
       setUser(data.user);
@@ -87,11 +86,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   );
 
   const register = useCallback(
-    async (
-      name: string,
-      email: string,
-      password: string,
-    ): Promise<AuthResult> => {
+    async (name: string, email: string, password: string): Promise<AuthResult> => {
       const r = await fetch("/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -104,9 +99,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           error: data.error ?? "Sign up failed",
           requiresVerification: !!data.requiresVerification,
           email: data.email,
+          hint: data.hint,
         };
       }
-      // Successful register no longer logs the user in — they must verify first.
       if (data.requiresVerification) {
         return { ok: false, requiresVerification: true, email: data.email };
       }
@@ -135,17 +130,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, []);
 
   return (
-    <Ctx.Provider
-      value={{
-        user,
-        loading,
-        refresh,
-        login,
-        register,
-        resendVerification,
-        logout,
-      }}
-    >
+    <Ctx.Provider value={{ user, loading, refresh, login, register, resendVerification, logout }}>
       {children}
     </Ctx.Provider>
   );

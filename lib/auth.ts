@@ -7,6 +7,7 @@ import { users } from './db/schema';
 import { eq } from 'drizzle-orm';
 
 const SESSION_COOKIE = 'cc_session';
+const SESSION_DAYS = 7;
 
 function getSecret() {
   const s = process.env.SESSION_SECRET || process.env.AUTH_SECRET;
@@ -15,7 +16,7 @@ function getSecret() {
 }
 
 export async function hashPassword(plain: string) {
-  return bcrypt.hash(plain, 10);
+  return bcrypt.hash(plain, 12);
 }
 export async function verifyPassword(plain: string, hash: string) {
   return bcrypt.compare(plain, hash);
@@ -25,14 +26,14 @@ export async function createSession(userId: number) {
   const token = await new SignJWT({ uid: userId })
     .setProtectedHeader({ alg: 'HS256' })
     .setIssuedAt()
-    .setExpirationTime('30d')
+    .setExpirationTime(`${SESSION_DAYS}d`)
     .sign(getSecret());
   const c = await cookies();
   c.set(SESSION_COOKIE, token, {
     httpOnly: true,
     sameSite: 'lax',
     path: '/',
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60 * 24 * SESSION_DAYS,
     secure: process.env.NODE_ENV === 'production',
   });
 }
