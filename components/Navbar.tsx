@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useAuth } from "./AuthProvider";
 
+
 const links = [
   { to: "/", label: "Home", end: true },
   { to: "/about", label: "About" },
@@ -34,11 +35,10 @@ const Navbar = () => {
               <Link
                 key={l.to}
                 href={l.to}
-                className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors ${
-                  isActive
+                className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors ${isActive
                     ? "text-foreground bg-accent"
                     : "text-foreground/70 hover:text-foreground hover:bg-accent"
-                }`}
+                  }`}
               >
                 {l.label}
               </Link>

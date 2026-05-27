@@ -143,40 +143,105 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <section className="max-w-[1040px] mx-auto px-6 py-16">
-        <h2 className="text-2xl md:text-3xl font-bold text-center text-foreground mb-10">
-          Why Upgrade?
-        </h2>
+      <section className="relative overflow-hidden py-20">
+        {/* BACKGROUND */}
+        <div className="absolute inset-0 -z-20 bg-background" />
 
-        <div className="grid md:grid-cols-2 gap-6">
-          {[
-            {
-              title: "Save Time",
-              desc: "Generate comments instantly instead of designing manually.",
-            },
-            {
-              title: "Improve Quality",
-              desc: "Create realistic, high-resolution visuals that look professional.",
-            },
-            {
-              title: "Scale Your Workflow",
-              desc: "Perfect for agencies and marketers handling multiple campaigns.",
-            },
-            {
-              title: "Increase Conversions",
-              desc: "Use social proof visuals in ads and content to improve performance.",
-            },
-          ].map((item) => (
-            <div
-              key={item.title}
-              className="rounded-xl border border-border bg-card p-6 hover:border-primary transition"
-            >
-              <h3 className="font-semibold text-foreground mb-2">
-                {item.title}
-              </h3>
-              <p className="text-sm text-muted-foreground">{item.desc}</p>
+        {/* Neon Blobs */}
+        <div className="absolute inset-0 -z-10 overflow-hidden">
+          <div className="absolute top-[-100px] left-[-80px] h-[320px] w-[320px] rounded-full bg-primary/20 blur-[120px] animate-pulse" />
+
+          <div className="absolute bottom-[-120px] right-[-80px] h-[360px] w-[360px] rounded-full bg-cyan-400/20 blur-[130px] animate-pulse-slow" />
+
+          <div className="absolute top-1/2 left-1/2 h-[260px] w-[260px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-pink-500/10 blur-[100px]" />
+        </div>
+
+        {/* Grid */}
+        <div className="absolute inset-0 -z-10 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:60px_60px]" />
+
+        <div className="max-w-[1000px] mx-auto px-6">
+          {/* Header */}
+          <div className="text-center mb-14">
+            <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/10 px-5 py-2 backdrop-blur-xl shadow-[0_8px_32px_rgba(0,0,0,0.25)]">
+              <span className="h-2 w-2 rounded-full bg-primary animate-ping" />
+
+              <span className="text-xs uppercase tracking-[0.3em] font-semibold text-primary">
+                Premium Benefits
+              </span>
             </div>
-          ))}
+
+            <h2 className="mt-6 text-4xl md:text-5xl font-black text-white">
+              Why{" "}
+              <span className="bg-gradient-to-r from-primary via-cyan-400 to-pink-500 bg-clip-text text-transparent animate-gradient">
+                Upgrade?
+              </span>
+            </h2>
+
+            <p className="mt-4 max-w-2xl mx-auto text-gray-400 text-base md:text-lg">
+              Unlock powerful features that help creators and teams move faster and
+              create professional-quality visuals effortlessly.
+            </p>
+          </div>
+
+          {/* LIST STYLE */}
+          <div className="space-y-5">
+            {[
+              {
+                title: "Save Time",
+                desc: "Generate comments instantly instead of designing manually.",
+              },
+              {
+                title: "Improve Quality",
+                desc: "Create realistic, high-resolution visuals that look professional.",
+              },
+              {
+                title: "Scale Your Workflow",
+                desc: "Perfect for agencies and marketers handling multiple campaigns.",
+              },
+              {
+                title: "Increase Conversions",
+                desc: "Use social proof visuals in ads and content to improve performance.",
+              },
+            ].map((item, i) => (
+              <div
+                key={item.title}
+                className="group relative overflow-hidden rounded-[26px] border border-white/10 bg-white/10 backdrop-blur-2xl p-6 transition-all duration-500 hover:border-primary/40 hover:shadow-[0_0_50px_rgba(99,102,241,0.25)] hover:-translate-y-1"
+              >
+                {/* Glow */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-700 bg-gradient-to-r from-primary/10 via-cyan-400/10 to-pink-500/10" />
+
+                {/* Neon Pulse */}
+                <div className="absolute left-0 top-0 h-full w-[4px] bg-gradient-to-b from-primary via-cyan-400 to-pink-500 shadow-[0_0_20px_rgba(99,102,241,0.8)] opacity-70 group-hover:opacity-100" />
+
+                {/* Shimmer */}
+                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-1000">
+                  <div className="absolute top-0 left-[-120%] h-full w-[120%] rotate-12 bg-gradient-to-r from-transparent via-white/10 to-transparent group-hover:left-[120%] transition-all duration-1000" />
+                </div>
+
+                {/* Content */}
+                <div className="relative z-10 flex items-start gap-5">
+                  {/* Number */}
+                  <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-2xl border border-white/10 bg-white/10 text-lg font-bold text-white shadow-[inset_0_1px_1px_rgba(255,255,255,0.08)] backdrop-blur-xl transition-all duration-500 group-hover:scale-110 group-hover:shadow-[0_0_25px_rgba(99,102,241,0.6)]">
+                    0{i + 1}
+                  </div>
+
+                  {/* Text */}
+                  <div className="flex-1">
+                    <h3 className="text-xl font-bold text-white mb-2 transition duration-300 group-hover:text-primary">
+                      {item.title}
+                    </h3>
+
+                    <p className="text-sm md:text-base text-gray-300 leading-relaxed">
+                      {item.desc}
+                    </p>
+
+                    {/* Underline */}
+                    <div className="mt-4 h-[3px] w-10 rounded-full bg-gradient-to-r from-primary to-cyan-400 transition-all duration-500 group-hover:w-28 group-hover:shadow-[0_0_20px_rgba(99,102,241,0.8)]" />
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
@@ -242,11 +307,10 @@ export default function PricingPage() {
           {plans.map((plan) => (
             <div
               key={plan.id}
-              className={`rounded-2xl border p-6 relative min-h-[447px] ${
-                plan.highlighted
-                  ? "border-primary bg-card shadow-xl md:scale-[1.02]"
-                  : "border-border bg-card"
-              }`}
+              className={`rounded-2xl border p-6 relative min-h-[447px] ${plan.highlighted
+                ? "border-primary bg-card shadow-xl md:scale-[1.02]"
+                : "border-border bg-card"
+                }`}
             >
               {plan.highlighted && (
                 <div className="absolute -top-3 left-1/2 -translate-x-1/2 px-3 py-0.5 rounded-full gradient-primary text-primary-foreground text-[10px] font-bold uppercase tracking-wider shadow-sm">
