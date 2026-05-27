@@ -335,26 +335,26 @@ export default function LoginContent({ next }: { next: string }) {
                     placeholder="Password (min 6 characters)"
                     value={password}
                     onChange={(e) => {
-
                       setPassword(e.target.value);
                       setFieldErrors((prev) => ({
                         ...prev,
                         password: undefined,
                       }));
                     }}
-                    className="w-full h-11 pl-10 pr-4 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
+                    className="w-full h-11 pl-10 pr-12 rounded-lg border border-border bg-background text-foreground text-sm placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-primary/30"
                   />
                   <button
                     type="button"
                     tabIndex={-1}
                     onMouseDown={(e) => e.preventDefault()}
                     onClick={() => setShowPassword((prev) => !prev)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-primary transition-colors duration-200 z-10"
+                    className="absolute right-3 top-1/2 -translate-y-1/2 h-8 w-8 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors duration-200"
+                    style={{ transform: "translateY(-50%)" }}
                   >
                     {showPassword ? (
-                      <EyeOff size={18} />
+                      <EyeOff size={16} className="shrink-0" />
                     ) : (
-                      <Eye size={18} />
+                      <Eye size={16} className="shrink-0" />
                     )}
                   </button>
                 </div>
