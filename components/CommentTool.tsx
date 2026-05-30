@@ -241,6 +241,7 @@ const CommentTool = ({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const csvImportRef = useRef<HTMLInputElement>(null);
   const bulkRenderRef = useRef<HTMLDivElement>(null);
+  const [isExportClick, setIsExportClick] = useState<boolean>(false);
   const [savedSelection, setSavedSelection] = useState<{
     start: number;
     end: number;
@@ -647,20 +648,31 @@ const CommentTool = ({
   }, [user, bulkComments, data.platform, data.subMode]);
 
   const exportImage = useCallback(async () => {
+    setIsExportClick(true);
     if (!previewRef.current) return;
     const ok = await checkAndLogExport();
     if (!ok) return;
+    await document.fonts.ready;
     const canvas = await html2canvas(previewRef.current, {
-      backgroundColor: null,
       scale: 2,
+      backgroundColor: null,
+      useCORS: true,
+      allowTaint: true,
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      width: previewRef.current.offsetWidth,
+      height: previewRef.current.offsetHeight,
     });
     const link = document.createElement("a");
     link.download = `comment-${data.platform}.png`;
     link.href = canvas.toDataURL();
     link.click();
+    setIsExportClick(false);
   }, [data.platform, checkAndLogExport]);
 
   const copyImage = useCallback(async () => {
+    setIsExportClick(true);
     if (!previewRef.current) return;
     const ok = await checkAndLogExport();
     if (!ok) return;
@@ -675,6 +687,7 @@ const CommentTool = ({
         ]);
       }
     });
+    setIsExportClick(false);
   }, [checkAndLogExport]);
 
   const handleTextSelect = useCallback(() => {
@@ -758,7 +771,7 @@ const CommentTool = ({
   const isTwitter = data.platform === "twitter";
 
   const renderPreview = () => {
-    const props = { data, avatarUrl };
+    const props = { data, avatarUrl, isExportClick };
     if (data.platform === "tiktok") {
       return data.subMode === "comment-reply" ? (
         <TikTokCommentReply {...props} />
@@ -796,7 +809,7 @@ const CommentTool = ({
       annotations: [],
     };
     const rowAvatarUrl = bc.avatarUrl;
-    const props = { data: rowData, avatarUrl: rowAvatarUrl };
+    const props = { data: rowData, avatarUrl: rowAvatarUrl, isExportClick };
     if (data.platform === "tiktok") {
       return data.subMode === "comment-reply" ? (
         <TikTokCommentReply {...props} />

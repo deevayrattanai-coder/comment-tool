@@ -5,9 +5,10 @@ import AnnotatedText from "./AnnotatedText";
 interface Props {
   data: CommentData;
   avatarUrl?: string | null;
+  isExportClick?: boolean;
 }
 
-const InstagramPostComment = ({ data, avatarUrl }: Props) => {
+const InstagramPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
   const isDark = data.previewTheme === "dark";
   const timeMap: Record<string, string> = {
     wks: "w",
@@ -78,7 +79,7 @@ const InstagramPostComment = ({ data, avatarUrl }: Props) => {
             >
               {data.username || "username"}
             </span>
-            {data.isVerified && (
+            {/* {data.isVerified && (
               <svg
                 style={{
                   width: 12,
@@ -93,7 +94,6 @@ const InstagramPostComment = ({ data, avatarUrl }: Props) => {
                 }}
                 viewBox="0 0 24 24"
                 fill="none"
-
               >
                 <circle cx="12" cy="12" r="10" fill="#3897F0" />
                 <path
@@ -104,6 +104,33 @@ const InstagramPostComment = ({ data, avatarUrl }: Props) => {
                   strokeLinejoin="round"
                 />
               </svg>
+            )} */}
+
+            {data.isVerified && (
+              <span
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  marginTop: isExportClick ? "12px" : "0px",
+                }}
+              >
+                <svg
+                  width="12"
+                  height="12"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  style={{ flexShrink: 0 }}
+                >
+                  <circle cx="12" cy="12" r="10" fill="#3897F0" />
+                  <path
+                    d="M9 12l2 2 4-4"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             )}
             <span
               style={{
