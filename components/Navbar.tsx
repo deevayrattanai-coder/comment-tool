@@ -36,8 +36,8 @@ const Navbar = () => {
                 key={l.to}
                 href={l.to}
                 className={`px-3.5 py-1.5 rounded-lg text-sm font-medium transition-colors ${isActive
-                    ? "text-foreground bg-accent"
-                    : "text-foreground/70 hover:text-foreground hover:bg-accent"
+                  ? "text-foreground bg-accent"
+                  : "text-foreground/70 hover:text-foreground hover:bg-accent"
                   }`}
               >
                 {l.label}
@@ -55,7 +55,7 @@ const Navbar = () => {
           </Link>
         ) : (
           <Link
-            href="/login"
+            href={`/login?next=${encodeURIComponent(pathname)}`}
             className="ml-2 px-4 py-1.5 rounded-lg gradient-primary text-primary-foreground text-sm font-semibold shadow-sm hover:opacity-90 transition-all active:scale-[0.97]"
           >
             Login

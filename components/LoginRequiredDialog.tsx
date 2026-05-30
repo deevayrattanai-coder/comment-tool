@@ -2,11 +2,13 @@
 
 import Link from 'next/link';
 import { X, Lock } from 'lucide-react';
-
+import { usePathname } from 'next/navigation';
 type Props = { open: boolean; onClose: () => void };
 
 export default function LoginRequiredDialog({ open, onClose }: Props) {
   if (!open) return null;
+  const pathname = usePathname();
+  const loginHref = `/login?next=${encodeURIComponent(pathname)}`;
   return (
     <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm">
       <div className="bg-card rounded-2xl border border-border shadow-2xl max-w-md w-full p-6 relative">
@@ -26,7 +28,7 @@ export default function LoginRequiredDialog({ open, onClose }: Props) {
         </p>
         <div className="flex gap-2">
           <Link
-            href="/login"
+            href={loginHref}
             className="flex-1 h-11 gradient-primary text-primary-foreground font-semibold text-sm rounded-lg shadow-md hover:opacity-90 transition-all flex items-center justify-center"
           >
             Login or Sign up

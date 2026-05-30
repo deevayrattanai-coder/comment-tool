@@ -16,7 +16,6 @@ import { toast } from "sonner";
 
 const inputClass =
   "w-full rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring transition-shadow";
-
 const labelClass = "block text-xs font-medium text-muted-foreground mb-1";
 
 function getInitials(name: string) {
@@ -257,21 +256,14 @@ function ThemeSelector({
 
 export default function SuspensionScreen() {
   const [data, setData] = useState<SuspensionData>(defaultSuspensionData);
-
   const previewRef = useRef<HTMLDivElement>(null);
-
   const [downloading, setDownloading] = useState(false);
   const [showVerifiedDropdown, setShowVerifiedDropdown] = useState(false);
-
   const avatarRef = useRef<HTMLInputElement>(null);
-
   const [active, setActive] = useState<number | null>(0);
-
   const bg =
     data.theme === "dark" ? "#000" : data.theme === "dim" ? "#15202b" : "#fff";
-
   const up = (patch: Partial<SuspensionData>) => setData({ ...data, ...patch });
-
   const handleDownload = useCallback(async () => {
     if (!previewRef.current) return;
 
@@ -327,7 +319,6 @@ export default function SuspensionScreen() {
       toast.error("Copy failed");
     }
   }, []);
-
   const handleAvatar = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
 
@@ -342,7 +333,6 @@ export default function SuspensionScreen() {
 
     r.readAsDataURL(file);
   };
-
   const faqs = [
     {
       q: "Can I customize the suspension message?",
@@ -369,14 +359,12 @@ export default function SuspensionScreen() {
   `,
     },
   ];
-
   const verifiedOptions: VerifiedBadge[] = [
     "none",
     "blue",
     "gold",
     "government",
   ];
-
   const VerifiedIcon = ({ type }: { type: string }) => {
     if (type === "none") return null;
     if (type === "gold") {
@@ -429,9 +417,6 @@ export default function SuspensionScreen() {
             </div>
             <div className="p-4 ">
               {/* Theme */}
-              <div className="py-2"> <ToolsSection /> </div>
-
-              <hr className="border-border" />
 
               {/* Profile */}
               <div>

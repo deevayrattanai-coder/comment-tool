@@ -9,7 +9,6 @@ type Props = { open: boolean; onClose: () => void };
 export default function LoginRequiredDialog({ open, onClose }: Props) {
     const pathname = usePathname();
     if (!open) return null;
-
     const loginHref = `/login?next=${encodeURIComponent(pathname)}`;
 
     return (

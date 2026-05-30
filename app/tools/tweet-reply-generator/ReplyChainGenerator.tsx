@@ -824,8 +824,6 @@ export default function ReplyChain() {
               </div>
 
               <div className="p-4">
-                <div className="py-2">
-                  <ToolsSection /> </div>
 
                 {data.tweets.map((tweet, idx) => (
                   <TweetEditor

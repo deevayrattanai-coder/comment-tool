@@ -102,7 +102,6 @@ export default function TweetForm({ tweetData, onChange }: TweetFormProps) {
         <div className="p-4">
           {/* PROFILE */}
 
-          <ToolsSection />
           <section>
             <div className="space-y-3">
               <div>

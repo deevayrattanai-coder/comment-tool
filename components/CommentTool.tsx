@@ -23,7 +23,6 @@ import {
   Trash2,
   ArrowUp,
   FileText,
-  Crown,
 } from "lucide-react";
 import {
   CommentData,
@@ -667,7 +666,7 @@ const CommentTool = ({
     if (!ok) return;
     const canvas = await html2canvas(previewRef.current, {
       backgroundColor: null,
-      scale: 2,
+      scale: window.devicePixelRatio,
     });
     canvas.toBlob(async (blob) => {
       if (blob) {
@@ -850,6 +849,7 @@ const CommentTool = ({
       <LoginRequiredDialog
         open={showLoginGate}
         onClose={() => setShowLoginGate(false)}
+
       />
       <UpgradeDialog
         open={showUpgrade}

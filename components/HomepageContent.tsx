@@ -70,7 +70,10 @@ const HomepageContent = () => {
         {/* Right Glow */}
         <div className="absolute bottom-[10%] right-[-180px] w-[320px] h-[320px] bg-primary/10 rounded-full blur-[120px]" />
         <div className="relative z-10 max-w-[1100px] mx-auto px-6 pt-4 pb-10">
-          <h1 className="mt-7 text-[44px] sm:text-[54px] md:text-[64px] font-black tracking-[-0.045em] leading-[0.95] text-center lg:text-left">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-[-0.045em] leading-[0.95] text-center lg:text-left">
+            Best Comment Generator Tools Online
+          </h1>
+          <h2 className="mt-7 text-[34px] sm:text-[44px] md:text-[34px] font-black tracking-[-0.045em] leading-[0.95] text-center lg:text-left">
             <span className="group inline-flex flex-wrap justify-center lg:justify-start gap-x-4">
               <span className="text-white transition-all duration-500 group-hover:text-white/80">
                 Create
@@ -85,7 +88,7 @@ const HomepageContent = () => {
                 in Seconds
               </span>
             </span>
-          </h1>
+          </h2>
           <div className="grid lg:grid-cols-[1.05fr_.95fr] gap-16 lg:gap-10 items-center">
 
             {/* ================= LEFT CONTENT ================= */}

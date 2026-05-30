@@ -19,7 +19,7 @@ const InstagramPostComment = ({ data, avatarUrl }: Props) => {
 
   return (
     <div
-      className="rounded-2xl"
+      className="rounded-2xl w-full"
       style={{
         width: "100%",
         maxWidth: 420,
@@ -65,7 +65,10 @@ const InstagramPostComment = ({ data, avatarUrl }: Props) => {
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-1.5 mb-0.5">
+          <div className="flex items-center gap-1.5 mb-0.5" style={{
+            lineHeight: 1,
+            alignItems: "center",
+          }}>
             <span
               className="font-semibold"
               style={{
@@ -77,15 +80,26 @@ const InstagramPostComment = ({ data, avatarUrl }: Props) => {
             </span>
             {data.isVerified && (
               <svg
-                style={{ width: 12, height: 12, flexShrink: 0 }}
+                style={{
+                  width: 12,
+                  height: 12,
+                  minWidth: 12,
+                  minHeight: 12,
+                  display: "block",
+                  verticalAlign: "middle",
+                  position: "relative",
+                  top: "0.5px",
+                  flexShrink: 0,
+                }}
                 viewBox="0 0 24 24"
                 fill="none"
+
               >
                 <circle cx="12" cy="12" r="10" fill="#3897F0" />
                 <path
                   d="M9 12l2 2 4-4"
                   stroke="white"
-                  strokeWidth="2.5"
+                  strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 />

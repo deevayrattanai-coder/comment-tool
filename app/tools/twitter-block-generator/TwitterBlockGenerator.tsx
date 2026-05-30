@@ -429,7 +429,6 @@ export default function BlockScreen() {
               <div className="px-4">
                 {/* Blocker profile */}
                 <div>
-                  <div className="py-2"> <ToolsSection /></div>
                   <div className="space-y-2">
                     <div>
                       <div className="flex my-2 justify-between items-center">
