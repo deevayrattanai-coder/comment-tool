@@ -8,7 +8,6 @@ interface Props {
 
 const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
   const isDark = data.previewTheme === "dark";
-
   return (
     <div
       className="rounded-2xl"
@@ -54,6 +53,15 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
           )}
         </div>
         <div className="flex-1 min-w-0">
+          <span
+            className="font-semibold"
+            style={{
+              fontSize: 13,
+              color: isDark ? "white" : "hsl(0, 0%, 7%)",
+            }}
+          >
+            {data.username || "username"}
+          </span>
           <p
             className="font-medium leading-snug break-words"
             style={{
@@ -68,15 +76,26 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
               annotations={data.annotations}
             />
           </p>
-          <p
-            style={{
+          <div style={{
+            display: "flex",
+            gap: "16px",
+            marginTop: 4,
+          }}>
+            <span
+              style={{
+                fontSize: 13,
+                color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,55%)",
+
+              }}
+            >
+              Reply
+            </span>
+            <span style={{
               fontSize: 13,
               color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,55%)",
-              marginTop: 4,
-            }}
-          >
-            Replying to {data.username || "username"}
-          </p>
+
+            }}>See translation</span>
+          </div>
         </div>
       </div>
     </div>
