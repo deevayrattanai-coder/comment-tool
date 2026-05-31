@@ -112,14 +112,14 @@ const InstagramReelsComment = ({ data, avatarUrl, isExportClick }: Props) => {
               className="flex flex-col items-center gap-0.5  flex-shrink-0"
               style={{ color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,60%)" }}
             >
-              <Heart size={14} />
+              <span style={{
+                transform: isExportClick
+                  ? "translateY(5px)"
+                  : "translateY(0)",
+              }}> <Heart size={14} /> </span>
               <span style={{ fontSize: 11 }}>{data.likes}</span>
             </div>
           </div>
-
-
-
-
         </div>
       </div>
     </div>

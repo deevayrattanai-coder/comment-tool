@@ -268,7 +268,8 @@ const CommentTool = ({
   const [showLoginGate, setShowLoginGate] = useState(false);
   const [showUpgrade, setShowUpgrade] = useState(false);
   const [upgradeMsg, setUpgradeMsg] = useState<string | undefined>(undefined);
-
+  const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [isCopying, setIsCopying] = useState<boolean>(false);
   const checkAndLogExport = useCallback(async (): Promise<boolean> => {
     if (!user) {
       setShowLoginGate(true);
@@ -649,44 +650,53 @@ const CommentTool = ({
   }, [user, bulkComments, data.platform, data.subMode]);
 
   const exportImage = useCallback(async () => {
-    if (!exportRef.current) return;
-    const ok = await checkAndLogExport();
-    if (!ok) return;
-    await document.fonts.ready;
-    const canvas = await html2canvas(exportRef.current, {
-      scale: 2,
-      backgroundColor: null,
-      useCORS: true,
-      allowTaint: true,
-      logging: false,
-      scrollX: 0,
-      scrollY: 0,
-      width: exportRef.current.offsetWidth,
-      height: exportRef.current.offsetHeight,
-    });
-    const link = document.createElement("a");
-    link.download = `comment-${data.platform}.png`;
-    link.href = canvas.toDataURL();
-    link.click();
-  }, [data.platform, checkAndLogExport]);
+    if (isExporting || !exportRef.current) return;
+    setIsExporting(true);
+    try {
+      const ok = await checkAndLogExport();
+      if (!ok) return;
+      await document.fonts.ready;
+      const canvas = await html2canvas(exportRef.current, {
+        scale: 2,
+        backgroundColor: null,
+        useCORS: true,
+        allowTaint: true,
+        logging: false,
+        scrollX: 0,
+        scrollY: 0,
+        width: exportRef.current.offsetWidth,
+        height: exportRef.current.offsetHeight,
+      });
+      const link = document.createElement("a");
+      link.download = `comment-${data.platform}.png`;
+      link.href = canvas.toDataURL();
+      link.click();
+    } finally {
+      setIsExporting(false);
+    }
+  }, [data.platform, checkAndLogExport, isExporting]);
 
   const copyImage = useCallback(async () => {
-    setIsExportClick(true);
-    if (!exportRef.current) return;
-    const ok = await checkAndLogExport();
-    if (!ok) return;
-    const canvas = await html2canvas(exportRef.current, {
-      backgroundColor: null,
-      scale: window.devicePixelRatio,
-    });
-    canvas.toBlob(async (blob) => {
-      if (blob) {
-        await navigator.clipboard.write([
-          new ClipboardItem({ "image/png": blob }),
-        ]);
-      }
-    });
-    setIsExportClick(false);
+    if (isCopying || !exportRef.current) return;
+    setIsCopying(true);
+    try {
+      const ok = await checkAndLogExport();
+      if (!ok) return;
+      const canvas = await html2canvas(exportRef.current, {
+        backgroundColor: null,
+        scale: window.devicePixelRatio,
+      });
+      canvas.toBlob(async (blob) => {
+        if (blob) {
+          await navigator.clipboard.write([
+            new ClipboardItem({ "image/png": blob }),
+          ]);
+        }
+      });
+    } finally {
+      setIsCopying(false);
+    }
+
   }, [checkAndLogExport]);
 
   const handleTextSelect = useCallback(() => {
@@ -1827,17 +1837,22 @@ const CommentTool = ({
             <div className="flex flex-col sm:flex-row gap-2 pt-3 border-t border-sidebar-border">
               <button
                 onClick={exportImage}
-                className="flex-1 h-9 max-lg:py-2.5  gradient-primary text-primary-foreground rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 shadow-lg hover:opacity-90 transition-all active:scale-[0.98]"
-              >
+                disabled={isExporting}
+                className={`flex-1 h-9 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5
+    ${isExporting ? "opacity-50 cursor-not-allowed" : "gradient-primary text-primary-foreground"}
+  `}  >
                 <Download size={13} />
-                Export Image
+                {isExporting ? "Processing..." : "Export Image"}
               </button>
               <button
                 onClick={copyImage}
-                className="flex-1 h-9 max-lg:py-2.5  glass-panel text-sidebar-text rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 hover:bg-sidebar-surface transition-all"
+                disabled={isCopying}
+                className={`flex-1 h-9 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5
+    ${isCopying ? "opacity-50 cursor-not-allowed" : "glass-panel text-sidebar-text"}
+  `}
               >
                 <Copy size={13} />
-                Copy
+                {isCopying ? "Processing..." : "Copy"}
               </button>
             </div>
           </div>
