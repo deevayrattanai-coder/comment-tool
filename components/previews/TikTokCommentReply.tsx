@@ -4,9 +4,10 @@ import AnnotatedText from './AnnotatedText';
 interface Props {
   data: CommentData;
   avatarUrl?: string | null;
+  isExportClick?: boolean;
 }
 
-const TikTokCommentReply = ({ data, avatarUrl }: Props) => {
+const TikTokCommentReply = ({ data, avatarUrl, isExportClick }: Props) => {
   const isDark = data.previewTheme === 'dark';
 
   return (
@@ -22,26 +23,40 @@ const TikTokCommentReply = ({ data, avatarUrl }: Props) => {
           minHeight: 120,
         }}
       >
-        <p
+        <div
           className="mb-2"
           style={{
+            display: "inline-flex",
+            alignItems: "center",
+            gap: 2,
             fontSize: 14,
             color: isDark ? 'hsl(0, 0%, 55%)' : 'hsl(0, 0%, 50%)',
           }}
+
         >
           Reply to {data.username || 'username'}'s{' '}
           {data.isVerified && (
-            <svg
-              style={{ width: 14, height: 14, display: 'inline-block', verticalAlign: 'middle', marginRight: 2 }}
-              viewBox="0 0 24 24"
-              fill="none"
-            >
-              <circle cx="12" cy="12" r="10" fill="#20D5EC" />
-              <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
-            </svg>
+            <span style={{
+              display: "inline-flex",
+              alignItems: "center",
+              transform: isExportClick
+                ? "translateY(8px)"
+                : "translateY(0)",
+            }}>
+              <svg
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                style={{ flexShrink: 0 }}
+              >
+                <circle cx="12" cy="12" r="10" fill="#20D5EC" />
+                <path d="M9 12l2 2 4-4" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </span>
           )}
           comment
-        </p>
+        </div>
 
         <div className="flex gap-3 items-start">
           <div

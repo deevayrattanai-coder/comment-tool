@@ -4,11 +4,11 @@ const grokLogo = "/assets/grok-logo.png";
 
 interface Props {
   data: CommentData;
-
   avatarUrl?: string | null;
+  isExportClick?: boolean;
 }
 
-const TwitterPostComment = ({ data, avatarUrl }: Props) => {
+const TwitterPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
   const isDark = data.previewTheme === "dark";
   const timeDisplay = `${data.time}${data.timeUnit === "hrs" ? "h" : data.timeUnit === "wks" ? "w" : data.timeUnit === "days" ? "d" : data.timeUnit === "months" ? "mo" : data.timeUnit}`;
 
@@ -75,38 +75,42 @@ const TwitterPostComment = ({ data, avatarUrl }: Props) => {
             <span
               style={{
                 fontWeight: 700,
-                fontSize: 15,
+                fontSize: 14,
                 color: textPrimary,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
               }}
             >
               {data.displayName || "Display Name"}
             </span>
             {data.isVerified && (
-              <svg
-                style={{ width: 16, height: 16, flexShrink: 0 }}
-                viewBox="0 0 22 22"
-                fill="none"
-              >
-                <circle cx="11" cy="11" r="11" fill="#1d9bf0" />
-                <path
-                  d="M7 11l3 3 5-5"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <span style={{
+                display: "inline-flex",
+                alignItems: "center",
+                transform: isExportClick
+                  ? "translateY(8px)"
+                  : "translateY(0)",
+              }}>
+                <svg
+                  width="12"
+                  height="12"
+                  style={{ flexShrink: 0 }}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle cx="11" cy="11" r="11" fill="#1d9bf0" />
+                  <path
+                    d="M7 11l3 3 5-5"
+                    stroke="white"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             )}
             <span
               style={{
                 fontSize: 15,
                 color: textSecondary,
-                whiteSpace: "nowrap",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
               }}
             >
               @{data.username}

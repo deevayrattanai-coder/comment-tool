@@ -111,7 +111,9 @@ const InstagramPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
                 style={{
                   display: "inline-flex",
                   alignItems: "center",
-                  marginTop: isExportClick ? "12px" : "0px",
+                  transform: isExportClick
+                    ? "translateY(8px)"
+                    : "translateY(0)",
                 }}
               >
                 <svg

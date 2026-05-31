@@ -5,9 +5,10 @@ import AnnotatedText from "./AnnotatedText";
 interface Props {
   data: CommentData;
   avatarUrl?: string | null;
+  isExportClick?: boolean;
 }
 
-const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
+const TikTokVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
   const isDark = data.previewTheme === "dark";
   const timeMap: Record<string, string> = {
     wks: "w",
@@ -75,20 +76,30 @@ const TikTokVideoComment = ({ data, avatarUrl }: Props) => {
               {data.username || "username"}
             </span>
             {data.isVerified && (
-              <svg
-                style={{ width: 14, height: 14, flexShrink: 0 }}
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <circle cx="12" cy="12" r="10" fill="#20D5EC" />
-                <path
-                  d="M9 12l2 2 4-4"
-                  stroke="white"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
+              <span style={{
+                display: "inline-flex",
+                alignItems: "center",
+                transform: isExportClick
+                  ? "translateY(8px)"
+                  : "translateY(0)",
+              }}>
+                <svg
+                  width="12"
+                  height="12"
+                  style={{ flexShrink: 0 }}
+                  viewBox="0 0 24 24"
+                  fill="none"
+                >
+                  <circle cx="12" cy="12" r="10" fill="#20D5EC" />
+                  <path
+                    d="M9 12l2 2 4-4"
+                    stroke="white"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </span>
             )}
           </div>
 

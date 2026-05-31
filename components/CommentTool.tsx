@@ -237,6 +237,7 @@ const CommentTool = ({
     defaultCommentData.message,
   ]);
   const previewRef = useRef<HTMLDivElement>(null);
+  const exportRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const csvImportRef = useRef<HTMLInputElement>(null);
@@ -648,12 +649,11 @@ const CommentTool = ({
   }, [user, bulkComments, data.platform, data.subMode]);
 
   const exportImage = useCallback(async () => {
-    setIsExportClick(true);
-    if (!previewRef.current) return;
+    if (!exportRef.current) return;
     const ok = await checkAndLogExport();
     if (!ok) return;
     await document.fonts.ready;
-    const canvas = await html2canvas(previewRef.current, {
+    const canvas = await html2canvas(exportRef.current, {
       scale: 2,
       backgroundColor: null,
       useCORS: true,
@@ -661,22 +661,21 @@ const CommentTool = ({
       logging: false,
       scrollX: 0,
       scrollY: 0,
-      width: previewRef.current.offsetWidth,
-      height: previewRef.current.offsetHeight,
+      width: exportRef.current.offsetWidth,
+      height: exportRef.current.offsetHeight,
     });
     const link = document.createElement("a");
     link.download = `comment-${data.platform}.png`;
     link.href = canvas.toDataURL();
     link.click();
-    setIsExportClick(false);
   }, [data.platform, checkAndLogExport]);
 
   const copyImage = useCallback(async () => {
     setIsExportClick(true);
-    if (!previewRef.current) return;
+    if (!exportRef.current) return;
     const ok = await checkAndLogExport();
     if (!ok) return;
-    const canvas = await html2canvas(previewRef.current, {
+    const canvas = await html2canvas(exportRef.current, {
       backgroundColor: null,
       scale: window.devicePixelRatio,
     });
@@ -770,8 +769,8 @@ const CommentTool = ({
     (data.platform === "tiktok" && data.subMode === "comment-reply");
   const isTwitter = data.platform === "twitter";
 
-  const renderPreview = () => {
-    const props = { data, avatarUrl, isExportClick };
+  const renderPreview = (isExport = false) => {
+    const props = { data, avatarUrl, isExportClick: isExport };
     if (data.platform === "tiktok") {
       return data.subMode === "comment-reply" ? (
         <TikTokCommentReply {...props} />
@@ -1872,7 +1871,20 @@ const CommentTool = ({
               ref={previewRef}
               className="w-full flex justify-center px-2 sm:px-4"
             >
-              {renderPreview()}
+              {renderPreview(false)}
+            </div>
+
+            <div
+              style={{
+                position: "fixed",
+                left: "-99999px",
+                top: 0,
+                pointerEvents: "none",
+              }}
+            >
+              <div ref={exportRef}>
+                {renderPreview(true)}
+              </div>
             </div>
           </div>
         </section>
