@@ -764,9 +764,19 @@ const CommentTool = ({
     (data.platform === "instagram" && data.subMode === "reels-comment") ||
     (data.platform === "youtube" && data.subMode === "shorts-comment")
   );
+
+  const isInstagramReels =
+    data.platform === "instagram" &&
+    data.subMode === "reels-comment";
+
+  const showTime = showMetrics || isInstagramReels;
+  const showLikes = showMetrics || isInstagramReels;
+  const showReplies = showMetrics;
+
   const showBadge =
     showMetrics ||
     (data.platform === "tiktok" && data.subMode === "comment-reply");
+
   const isTwitter = data.platform === "twitter";
 
   const renderPreview = (isExport = false) => {
@@ -1036,46 +1046,50 @@ const CommentTool = ({
                   </div>
                 </div>
 
-                {showMetrics && (
+                {(showMetrics || isInstagramReels) && (
                   <div className="flex gap-1.5 flex-wrap items-center">
-                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
-                      <Clock size={11} className="text-sidebar-text-muted" />
-                      <input
-                        type="text"
-                        value={data.time}
-                        onChange={(e) => {
-                          update({ time: e.target.value });
-                          syncActiveBulkRow({ time: e.target.value });
-                        }}
-                        className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
-                      />
-                      <select
-                        value={data.timeUnit}
-                        onChange={(e) => {
-                          update({ timeUnit: e.target.value });
-                          syncActiveBulkRow({ timeUnit: e.target.value });
-                        }}
-                        className="bg-transparent text-sidebar-text-muted text-[10px] cursor-pointer"
-                      >
-                        <option value="hrs">hrs</option>
-                        <option value="days">days</option>
-                        <option value="wks">wks</option>
-                        <option value="months">months</option>
-                      </select>
-                    </div>
-                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
-                      <Heart size={11} className="text-pink-400" />
-                      <input
-                        type="text"
-                        value={data.likes}
-                        onChange={(e) => {
-                          update({ likes: e.target.value });
-                          syncActiveBulkRow({ likes: e.target.value });
-                        }}
-                        className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
-                      />
-                    </div>
-                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                    {showTime && (
+                      <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                        <Clock size={11} className="text-sidebar-text-muted" />
+                        <input
+                          type="text"
+                          value={data.time}
+                          onChange={(e) => {
+                            update({ time: e.target.value });
+                            syncActiveBulkRow({ time: e.target.value });
+                          }}
+                          className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                        />
+                        <select
+                          value={data.timeUnit}
+                          onChange={(e) => {
+                            update({ timeUnit: e.target.value });
+                            syncActiveBulkRow({ timeUnit: e.target.value });
+                          }}
+                          className="bg-transparent text-sidebar-text-muted text-[10px] cursor-pointer"
+                        >
+                          <option value="hrs">hrs</option>
+                          <option value="days">days</option>
+                          <option value="wks">wks</option>
+                          <option value="months">months</option>
+                        </select>
+                      </div>)}
+
+                    {showLikes && (
+                      <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                        <Heart size={11} className="text-pink-400" />
+                        <input
+                          type="text"
+                          value={data.likes}
+                          onChange={(e) => {
+                            update({ likes: e.target.value });
+                            syncActiveBulkRow({ likes: e.target.value });
+                          }}
+                          className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
+                        />
+                      </div>
+                    )}
+                    {showReplies && (<div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
                       <MessageCircle
                         size={11}
                         className="text-sidebar-text-muted"
@@ -1086,7 +1100,7 @@ const CommentTool = ({
                         onChange={(e) => update({ replies: e.target.value })}
                         className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                       />
-                    </div>
+                    </div>)}
                     {isTwitter && (
                       <>
                         <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
@@ -1657,7 +1671,7 @@ const CommentTool = ({
                   </div>
                 </div>
 
-                {showMetrics && (
+                {(showMetrics || isInstagramReels) && (
                   <div className="flex gap-1.5 flex-wrap items-center">
                     <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
                       <Clock size={11} className="text-sidebar-text-muted" />
@@ -1678,7 +1692,7 @@ const CommentTool = ({
                         <option value="months">months</option>
                       </select>
                     </div>
-                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                    {showLikes && <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
                       <Heart size={11} className="text-pink-400" />
                       <input
                         type="text"
@@ -1686,8 +1700,8 @@ const CommentTool = ({
                         onChange={(e) => update({ likes: e.target.value })}
                         className="w-10 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                       />
-                    </div>
-                    <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
+                    </div>}
+                    {showReplies && (<div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
                       <MessageCircle
                         size={11}
                         className="text-sidebar-text-muted"
@@ -1698,7 +1712,7 @@ const CommentTool = ({
                         onChange={(e) => update({ replies: e.target.value })}
                         className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                       />
-                    </div>
+                    </div>)}
                     {isTwitter && (
                       <>
                         <div className="flex items-center gap-1 glass-panel rounded-lg px-2 h-7">
