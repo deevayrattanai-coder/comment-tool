@@ -183,6 +183,9 @@ const InstagramPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
                 style={{
                   width: 24,
                   backgroundColor: isDark ? "hsl(0,0%,30%)" : "hsl(0,0%,80%)",
+                  transform: isExportClick
+                    ? "translateY(6px)"
+                    : "translateY(0)",
                 }}
               />
               <span>View {data.replies} more replies</span>
@@ -196,7 +199,11 @@ const InstagramPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
           style={{ color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,60%)" }}
         >
           <Heart size={14} />
-          <span style={{ fontSize: 11 }}>{data.likes}</span>
+          <span style={{
+            fontSize: 11, transform: isExportClick
+              ? "translateY(-5px)"
+              : "translateY(0)",
+          }}>{data.likes}</span>
         </div>
       </div>
     </div>

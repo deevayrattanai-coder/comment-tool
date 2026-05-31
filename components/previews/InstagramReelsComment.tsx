@@ -5,9 +5,10 @@ import { Heart } from "lucide-react";
 interface Props {
   data: CommentData;
   avatarUrl?: string | null;
+  isExportClick?: boolean;
 }
 
-const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
+const InstagramReelsComment = ({ data, avatarUrl, isExportClick }: Props) => {
   const isDark = data.previewTheme === "dark";
   const timeMap: Record<string, string> = {
     wks: "w",
@@ -21,8 +22,7 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
     <div
       className="rounded-2xl"
       style={{
-        width: "100%",
-        maxWidth: 420,
+        width: 420,
         padding: "16px 18px",
         backgroundColor: isDark ? "hsl(0, 0%, 0%)" : "white",
         color: isDark ? "white" : "hsl(0, 0%, 7%)",
@@ -81,24 +81,35 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
               {timeDisplay}
             </span>
           </div>
-          <div className="flex gap-2">
-            <p
-              className="font-medium leading-snug break-words"
-              style={{
-                fontSize: 14,
-                color: isDark ? "white" : "hsl(0, 0%, 7%)",
-                overflowWrap: "break-word",
-                wordBreak: "break-word",
-              }}
-            >
-              <AnnotatedText
-                text={data.message || "Write any comment and see what happens 😊"}
-                annotations={data.annotations}
-              />
-            </p>
+
+
+          <div className="flex justify-between gap-2">
+            <div>
+              <p
+                className="font-medium leading-snug"
+                style={{
+                  fontSize: 14,
+                  color: isDark ? "white" : "hsl(0, 0%, 7%)",
+                }}
+              >
+                <AnnotatedText
+                  text={data.message || "Write any comment and see what happens 😊"}
+                  annotations={data.annotations}
+                />
+              </p>
+              <span
+                style={{
+                  fontSize: 13,
+                  color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,55%)",
+
+                }}
+              >
+                Reply
+              </span>
+            </div>
 
             <div
-              className="flex flex-col items-center gap-0.5 pt-2 flex-shrink-0"
+              className="flex flex-col items-center gap-0.5  flex-shrink-0"
               style={{ color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,60%)" }}
             >
               <Heart size={14} />
@@ -106,22 +117,9 @@ const InstagramReelsComment = ({ data, avatarUrl }: Props) => {
             </div>
           </div>
 
-          <div style={{
-            display: "flex",
-            gap: "16px",
-            marginTop: 4,
-          }}>
-            <span
-              style={{
-                fontSize: 13,
-                color: isDark ? "hsl(0,0%,50%)" : "hsl(0,0%,55%)",
 
-              }}
-            >
-              Reply
-            </span>
 
-          </div>
+
         </div>
       </div>
     </div>

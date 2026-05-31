@@ -21,8 +21,7 @@ const TwitterPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
     <div
       className="rounded-2xl relative"
       style={{
-        width: "100%",
-        maxWidth: 480,
+        width: 500,
         backgroundColor: cardBg,
         padding: "12px 16px",
         boxShadow: isDark
@@ -199,7 +198,11 @@ const TwitterPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
                   strokeLinejoin="round"
                 />
               </svg>
-              <span style={{ fontSize: 13 }}>{data.replies}</span>
+              <span style={{
+                fontSize: 13, transform: isExportClick
+                  ? "translateY(-6px)"
+                  : "translateY(0)",
+              }}>{data.replies}</span>
             </div>
             {/* 2. Repost / Reshare */}
             <div
@@ -225,7 +228,11 @@ const TwitterPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
                 <path d="M7 23l-4-4 4-4" />
                 <path d="M21 13v2a4 4 0 0 1-4 4H3" />
               </svg>
-              <span style={{ fontSize: 13 }}>{data.retweets}</span>
+              <span style={{
+                fontSize: 13, transform: isExportClick
+                  ? "translateY(-6px)"
+                  : "translateY(0)",
+              }}>{data.retweets}</span>
             </div>
             {/* 3. Like */}
             <div
@@ -248,7 +255,11 @@ const TwitterPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
               >
                 <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
               </svg>
-              <span style={{ fontSize: 13 }}>{data.likes}</span>
+              <span style={{
+                fontSize: 13, transform: isExportClick
+                  ? "translateY(-6px)"
+                  : "translateY(0)",
+              }}>{data.likes}</span>
             </div>
             {/* 4. Insights / Views */}
             <div style={{ display: "flex", alignItems: "center", gap: 4 }}>
@@ -266,7 +277,11 @@ const TwitterPostComment = ({ data, avatarUrl, isExportClick }: Props) => {
                 <rect x="10" y="7" width="4" height="14" rx="1" />
                 <rect x="17" y="3" width="4" height="18" rx="1" />
               </svg>
-              <span style={{ fontSize: 13 }}>{data.views}</span>
+              <span style={{
+                fontSize: 13, transform: isExportClick
+                  ? "translateY(-6px)"
+                  : "translateY(0)",
+              }}>{data.views}</span>
             </div>
             {/* 5. Bookmark + Share */}
             <div style={{ display: "flex", alignItems: "center", gap: 8 }}>

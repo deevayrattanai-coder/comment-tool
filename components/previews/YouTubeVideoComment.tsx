@@ -121,7 +121,7 @@ const YouTubeVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
                   color: isDark ? "hsl(0,0%,100%)" : "hsl(0,0%,7%)",
                 }}
               >
-                {data.username || "Username"}
+                @{data.username || "username"}  <span style={{ fontSize: 12, color: mutedColor }}>•</span>
               </span>
               {data.isVerified && (
                 <span style={{
@@ -150,7 +150,7 @@ const YouTubeVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
                 </span>
               )}
               <span style={{ fontSize: 12, color: mutedColor }}>
-                • {timeDisplay}
+                {timeDisplay}
               </span>
             </div>
             <svg
@@ -205,7 +205,11 @@ const YouTubeVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
                 <path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14z" />
                 <path d="M7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3" />
               </svg>
-              <span style={{ fontSize: 12, fontWeight: 500 }}>
+              <span style={{
+                fontSize: 12, fontWeight: 500, transform: isExportClick
+                  ? "translateY(-5px)"
+                  : "translateY(0)",
+              }}>
                 {data.likes}
               </span>
             </div>

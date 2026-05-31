@@ -129,10 +129,16 @@ const TikTokVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
             <span>{timeDisplay}</span>
             <span className="font-semibold">Reply</span>
             <div className="flex items-center gap-1 ml-auto">
-              <Heart size={15} />
-              <span>{data.likes}</span>
+              <div style={{
+                transform: isExportClick
+                  ? "translateY(5px)"
+                  : "translateY(0)",
+              }}> <Heart size={15} /> </div>
+              <span style={{
+
+              }}>{data.likes}</span>
             </div>
-            <ThumbsDown size={15} />
+
           </div>
 
           {parseInt(data.replies) > 0 && (
@@ -150,6 +156,9 @@ const TikTokVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
                   backgroundColor: isDark
                     ? "hsl(0, 0%, 30%)"
                     : "hsl(0, 0%, 80%)",
+                  transform: isExportClick
+                    ? "translateY(6px)"
+                    : "translateY(0)",
                 }}
               />
               <span>View {data.replies} replies ▾</span>

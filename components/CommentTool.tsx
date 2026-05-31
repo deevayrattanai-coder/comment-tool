@@ -761,8 +761,7 @@ const CommentTool = ({
   const subModes = platformSubModes[data.platform];
   const showMetrics = !(
     (data.platform === "tiktok" && data.subMode === "comment-reply") ||
-    (data.platform === "instagram" && data.subMode === "reels-comment") ||
-    (data.platform === "youtube" && data.subMode === "shorts-comment")
+    (data.platform === "instagram" && data.subMode === "reels-comment")
   );
 
   const isInstagramReels =
