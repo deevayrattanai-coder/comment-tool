@@ -138,6 +138,12 @@ const TikTokVideoComment = ({ data, avatarUrl, isExportClick }: Props) => {
 
               }}>{data.likes}</span>
             </div>
+            <span style={{
+              transform: isExportClick
+                ? "translateY(5px)"
+                : "translateY(0)",
+            }}>  <ThumbsDown size={15} /> </span>
+
 
           </div>
 

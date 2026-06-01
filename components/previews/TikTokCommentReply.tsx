@@ -99,7 +99,7 @@ const TikTokCommentReply = ({ data, avatarUrl, isExportClick }: Props) => {
       </div>
 
       <div
-        className="absolute -bottom-3 left-7"
+        className="absolute -bottom-3 left-0"
         style={{
           width: 22,
           height: 22,
