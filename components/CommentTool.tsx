@@ -172,6 +172,9 @@ interface BulkComment {
   message: string;
   likes: string;
   time: string;
+  replies: string;
+  views: string;
+  retweets: string;
   timeUnit: string;
   isVerified: boolean;
   avatarUrl: string | null;
@@ -215,6 +218,9 @@ const createBulkComment = (): BulkComment => ({
   message: "",
   likes: String(Math.floor(Math.random() * 5000) + 10),
   time: String(Math.floor(Math.random() * 12) + 1),
+  replies: String(Math.floor(Math.random() * 50) + 1),
+  views: String(Math.floor(Math.random() * 1000) + 1),
+  retweets: String(Math.floor(Math.random() * 100) + 1),
   timeUnit: ["hrs", "days", "wks", "months"][Math.floor(Math.random() * 4)],
   isVerified: false,
   avatarUrl: null,
@@ -453,12 +459,14 @@ const CommentTool = ({
   const handleAvatarUpload = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
       const file = e.target.files?.[0];
-      if (file) {
-        const url = URL.createObjectURL(file);
-        setAvatarUrl(url);
-      }
+
+      if (!file || !activeBulkId) return;
+
+      uploadBulkAvatar(activeBulkId, file);
+
+      e.target.value = "";
     },
-    [],
+    [activeBulkId],
   );
 
   const loadBulkRow = useCallback(
@@ -468,6 +476,9 @@ const CommentTool = ({
         username: bc.username || "username",
         message: bc.message || "Write any comment and see what happens 😊",
         likes: bc.likes,
+        replies: bc.replies,
+        retweets: bc.retweets,
+        views: bc.views,
         time: bc.time,
         timeUnit: bc.timeUnit,
         isVerified: bc.isVerified,
@@ -559,6 +570,9 @@ const CommentTool = ({
         ...createBulkComment(),
         username: r.username,
         message: r.message,
+        replies: r.replies || "0",
+        retweets: r.retweets || "0",
+        views: r.views || "0",
         likes: r.likes,
         time: r.time,
         isVerified: r.isVerified,
@@ -1106,7 +1120,10 @@ const CommentTool = ({
                       <input
                         type="text"
                         value={data.replies}
-                        onChange={(e) => update({ replies: e.target.value })}
+                        onChange={(e) => {
+                          update({ replies: e.target.value });
+                          syncActiveBulkRow({ replies: e.target.value });
+                        }}
                         className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                       />
                     </div>)}
@@ -1120,9 +1137,10 @@ const CommentTool = ({
                           <input
                             type="text"
                             value={data.retweets}
-                            onChange={(e) =>
+                            onChange={(e) => {
                               update({ retweets: e.target.value })
-                            }
+                              syncActiveBulkRow({ retweets: e.target.value });
+                            }}
                             className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                           />
                         </div>
@@ -1134,7 +1152,10 @@ const CommentTool = ({
                           <input
                             type="text"
                             value={data.views}
-                            onChange={(e) => update({ views: e.target.value })}
+                            onChange={(e) => {
+                              update({ views: e.target.value });
+                              syncActiveBulkRow({ views: e.target.value });
+                            }}
                             className="w-6 bg-transparent text-sidebar-text text-xs text-center tabular-nums"
                           />
                         </div>
@@ -1461,7 +1482,7 @@ const CommentTool = ({
                               className="w-7 h-7 rounded-md border border-border bg-background flex items-center justify-center text-muted-foreground hover:text-foreground cursor-pointer transition-colors"
                               title="Upload avatar"
                             >
-                              <ArrowUp size={11} />
+                              <ArrowUp size={12} />
                               <input
                                 type="file"
                                 accept="image/*"
