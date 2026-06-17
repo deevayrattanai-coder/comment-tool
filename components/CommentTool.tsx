@@ -971,6 +971,19 @@ const CommentTool = ({
                   )}
                 </label>
                 <div className="flex gap-1.5 items-center">
+                  {isTwitter && (
+                    <div className="relative flex-1">
+                      <input
+                        type="text"
+                        value={data.displayName}
+                        onChange={(e) =>
+                          update({ displayName: e.target.value })
+                        }
+                        placeholder="Display Name"
+                        className="w-full h-10 pl-2 pr-2 rounded-lg glass-input text-xs"
+                      />
+                    </div>
+                  )}
                   <div className="flex-1 relative">
                     <User
                       size={12}
@@ -999,22 +1012,7 @@ const CommentTool = ({
                       className="hidden"
                     />
                   </div>
-                  {isTwitter && (
-                    <div className="relative flex-1">
-                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted text-xs">
-                        @
-                      </span>
-                      <input
-                        type="text"
-                        value={data.displayName}
-                        onChange={(e) =>
-                          update({ displayName: e.target.value })
-                        }
-                        placeholder="Display Name"
-                        className="w-full h-10 pl-7 pr-2 rounded-lg glass-input text-xs"
-                      />
-                    </div>
-                  )}
+
                   {showBadge && (
                     <button
                       onClick={() => {
@@ -1609,6 +1607,19 @@ const CommentTool = ({
                   Comment Controls
                 </label>
                 <div className="flex flex-wrap gap-2 items-center">
+                  {isTwitter && (
+                    <div className="flex-1">
+                      <input
+                        type="text"
+                        value={data.displayName}
+                        onChange={(e) =>
+                          update({ displayName: e.target.value })
+                        }
+                        placeholder="Display Name"
+                        className="w-full h-10 pl-2 pr-2 rounded-lg glass-input text-xs"
+                      />
+                    </div>
+                  )}
                   <div className="flex-1 relative">
                     <User
                       size={12}
@@ -1634,22 +1645,7 @@ const CommentTool = ({
                       className="hidden"
                     />
                   </div>
-                  {isTwitter && (
-                    <div className="relative flex-1">
-                      <span className="absolute left-2.5 top-1/2 -translate-y-1/2 text-sidebar-text-muted text-xs">
-                        @
-                      </span>
-                      <input
-                        type="text"
-                        value={data.displayName}
-                        onChange={(e) =>
-                          update({ displayName: e.target.value })
-                        }
-                        placeholder="Display Name"
-                        className="w-full h-10 pl-7 pr-2 rounded-lg glass-input text-xs"
-                      />
-                    </div>
-                  )}
+
                   {showBadge && (
                     <button
                       onClick={() => update({ isVerified: !data.isVerified })}
